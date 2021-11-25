@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+
 import MyAppBar from "../../components/UI/MyAppBar";
 import AppContainer from "../../components/UI/AppContainer";
 
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { getSignerHandler } from "../../ethereum/web3";
-import { setGridData, drawSVG } from "../../helpers/drawGlyph";
-import DisplayGlyph from "../../components/Glyphs/DisplayGlyph";
-import GlyphContainer from "../../components/Glyphs/GlyphContainer";
+import { drawSVG, setGridData } from "../../helpers/drawGlyph";
 
 export default function NFTs() {
 
     const [svgs, setSvgs] = useState<string[]>([]);
+
 
     useEffect(() => {
         async function getNFTs() {
@@ -29,8 +30,11 @@ export default function NFTs() {
 
             for(let i = 0; i < nbOfNftsOwned; i++) {
                 const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
-                const tokenURI = await yeroglyphs.tokenURI(id);
-                getImages(tokenURI);
+                const tokenURI = await yeroglyphs.viewCurrentTokenURI(id);
+
+                const encodedSVG = getImages(tokenURI);
+                setSvgs(prevState => [...prevState, encodedSVG]);
+
             }
         }
 
@@ -40,8 +44,7 @@ export default function NFTs() {
 
             const gridData = setGridData(grid);
             const svg = drawSVG(gridData);
-            const encodedSVG = encodeSVG(svg);
-            setSvgs(prevState => [...prevState, encodedSVG]);
+            return encodeSVG(svg);
         }
 
         function encodeSVG(_svg: string) {
@@ -62,9 +65,7 @@ export default function NFTs() {
     <React.Fragment>
         <MyAppBar />
         <AppContainer>
-            <GlyphContainer>
-                {svgs.map(svg => <DisplayGlyph key={svg} src={svg} />)}
-            </GlyphContainer>
+            {svgs.map(svg => <Image key={svg} src={svg} width="320" height="320" />)}
         </AppContainer>
     </React.Fragment>
   );
