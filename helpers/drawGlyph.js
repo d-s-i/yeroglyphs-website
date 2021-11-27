@@ -1,13 +1,11 @@
 const chroma = require("chroma-js");
-import * as d3 from 'd3';
 
-const PREFIX = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000010de646174613a746578742f706c61696e3b636861727365743d7574662d382c";
 // VIZ PARAMS
-let grid;
 let gridDimension = 64;
 let cellSize = 5;
 let strokeWidth = 2;
-let colorScale = chroma.scale(['#fafa6e', '#2A4858']).mode('lch').colors(8);
+// let colorScale = chroma.scale(['#fafa6e', '#2A4858']).mode('lch').colors(8); // initial colors
+let colorScale = chroma.scale(['#c913c3', '#f8b9f6', ]).mode('lch').colors(8);
 
 export function setGridData(glyphData) {
     let data = new Array();
@@ -55,49 +53,6 @@ export function drawSVG(gridData) {
     const finalSVG = beginingSVG + cells.map(cell => `${beginingRows}${cell.join("")}${endingRows}`).join("") + endingSVG;
     return finalSVG;
 }
-
-// export function draw(gridData, id) {
-
-//     const gridElement = document.getElementById("grid");
-//     const container = document.createElement("div");
-//     const htmlId = `yeroglyphs-${id}`
-//     container.setAttribute("id", htmlId);
-//     gridElement.appendChild(container);
-
-//     var containerStyle = document.createElement('style');
-//     containerStyle.type = 'text/css';
-//     containerStyle.innerHTML = '.yeroglyphs-container { background-color: #0d0d0d; display: flex; flex-direction: column; width: 340px; padding: 7% 3% 3% 3%; margin: 3% 3% 3% 3%; border-radius: 1em;  }';
-//     container.appendChild(containerStyle);
-//     container.setAttribute("class", "yeroglyphs-container");
-
-//     let grid = d3.select(`#${htmlId}`)
-//         .append("svg")
-//         .attr("width", `${cellSize * gridDimension/* + strokeWidth*/}`)
-//         .attr("height", `${cellSize * gridDimension/* + strokeWidth*/}`);
-
-//     let row = grid.selectAll(".row")
-//         .data(gridData)
-//         .enter().append("g")
-//         .attr("class", "row");
-
-//     let cells = row.selectAll(".cell")
-//         .data(d => d)
-//         .enter().append("g")
-//         .attr("transform", d => `translate(${d.x},${d.y})`)
-//         .attr("class", d => setClass(d.character))
-//         .html(d => setGlyph(d.character, colorScale));
-
-//         const nameElement = `<p id="name-yeroglyphs-${id}" >Yeroglyphs #${id}</p>`
-//         container.insertAdjacentHTML("beforeend", nameElement);
-    
-//         const nameStyle = document.createElement("style");
-//         const nameElement2 = document.getElementById(`name-yeroglyphs-${id}`);
-//         nameStyle.type = 'text/css';
-//         nameStyle.innerHTML = '.name-yeroglyphs { color: #ffffff; }';
-//         nameElement2.appendChild(nameStyle);
-//         nameElement2.setAttribute("class", "name-yeroglyphs");
-    
-// }
 
 export function setGlyph(char, colorScale) {
     switch (char) {
@@ -155,6 +110,18 @@ function setClass(char) {
     }
 }
 
-// let gridGlyph = formatData();
-// let gridData = setGridData(gridGlyph);
-// draw(gridData);
+export function getImages(tokenURI) {
+    const rawTokenURI = tokenURI.slice(30);
+    const grid = rawTokenURI.split("%0A");
+
+    const gridData = setGridData(grid);
+    const svg = drawSVG(gridData);
+    return encodeSVG(svg);
+}
+
+function encodeSVG(_svg) {
+    var svg = unescape(encodeURIComponent(_svg));
+    var base64SVG = window.btoa(svg);
+    var imgSource = `data:image/svg+xml;base64,${base64SVG}`;
+    return imgSource;
+}

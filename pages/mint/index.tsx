@@ -23,13 +23,6 @@ export default function Minting() {
         setSeed(+enteredNumber);
     }
 
-    useEffect(() => {
-        async function connect() {
-            await getSignerHandler();
-        }
-        connect();
-    }, []);
-
   return (
     <React.Fragment>
         <MyAppBar />

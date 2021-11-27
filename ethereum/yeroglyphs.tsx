@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import yeroglyphsABI from "./abis/yeroglyphs.json";
 import { getSignerHandler } from "./web3";
 
-const yeroglyphsAddress = "0xfd64Fb65Ca965908AcE30CcB9bB44F62A7a18b1e"; 
+const yeroglyphsAddress = "0x7e995E7c4f295736821e9DF5BC7Ae27fC0a68069"; 
 
 async function getYeroglyphs() {
     const [signer,] = await getSignerHandler();

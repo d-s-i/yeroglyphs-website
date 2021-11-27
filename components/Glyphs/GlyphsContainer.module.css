@@ -4,3 +4,13 @@
     justify-content: space-between;
     width: 100%;
 }
+
+.border {
+    background-color: #0d0d0d;
+    border: 1px #333333 solid;
+    border-radius: 1em;
+    margin-bottom: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
