@@ -3,20 +3,13 @@ import MyAppBar from "../../components/UI/MyAppBar";
 import AppContainer from "../../components/UI/AppContainer";
 import DisplayGlyph from "../../components/Glyphs/DisplayGlyph";
 import GlyphContainer from "../../components/Glyphs/GlyphContainer";
-import { Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import LoadingDiv from "../../components/UI/LoadingState/LoadingDiv";
+
+import CustomizedTypography from "../../components/UI/CustomizedTypography";
 
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
-import { getSignerHandler } from "../../ethereum/web3";
 import { getImages } from "../../helpers/drawGlyph";
 import { useAuthContext } from "../../store/authContext";
-
-
-const CustomizedTypography = styled(Typography)`
-  margin-top: 3%;
-  margin-bottom: 3%;
-  font-weight: bold;
-`;
 
 interface ImageState {
     id: string;
@@ -69,8 +62,8 @@ export default function NFTs() {
     <React.Fragment>
         <MyAppBar />
         <AppContainer>
-            <CustomizedTypography variant="h4">My Yeroglyphs</CustomizedTypography>
-            {isLoading && <Typography component="h1">Loading...</Typography>}
+            <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
+            {isLoading && <LoadingDiv />}
             <GlyphContainer>
                 {images.length >= 1 && images.map(image => <DisplayGlyph key={image.id} src={image.svg} id={image.id} isDynamic={false} />)}
             </GlyphContainer>

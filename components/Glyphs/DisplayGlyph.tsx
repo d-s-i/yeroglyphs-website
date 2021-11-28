@@ -35,11 +35,10 @@ function DisplayGlyph(props: Props) {
         <div className={styles["glyph-image"]} >
           <Image src={props.src} width="320" height="320" />
         </div>
-        <Typography sx={{marginTop: "5%", marginBottom: "5%"}} variant="h6" component="p">{`Yeroglyphs #${props.id}`}</Typography>
-        {/* {props.isDynamic && <button onClick={() => onClicking(props.id)} >Save</button>} */}
+        <Typography sx={{marginTop: "5%", marginBottom: "5%", color: "#e6e6e6"}} variant="h6" component="p">{`Yeroglyphs #${props.id}`}</Typography>
         {props.isDynamic && (
             <LoadingButton
-                sx={{color: "#C913C3", borderColor: "#C913C3", "&:hover": {borderColor: "#C913C3", backgroundColor: "rgb(201, 19, 195, 0.04)"}}}
+                sx={{color: "#FFD700", borderColor: "#FFD700", "&:hover": {borderColor: "#FFD700", backgroundColor: "rgb(201, 19, 195, 0.04)"}}}
                 color="secondary"
                 onClick={() => onClicking(props.id)}
                 loading={isLoading}

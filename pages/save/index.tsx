@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-import MyAppBar from "../../components/UI/MyAppBar";
-import AppContainer from "../../components/UI/AppContainer";
-
-import { getYeroglyphs } from "../../ethereum/yeroglyphs";
-import { getSignerHandler } from "../../ethereum/web3";
-import { getImages } from "../../helpers/drawGlyph";
-import DisplayManyGlyphs from "../../components/Glyphs/DisplayManyGlyphs";
-import GlyphContainer from "../../components/Glyphs/GlyphContainer";
-import { Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import { useAuthContext } from "../../store/authContext";
 
-const CustomizedTypography = styled(Typography)`
-  margin-top: 3%;
-  margin-bottom: 3%;
-  font-weight: bold;
-`;
+import MyAppBar from "../../components/UI/MyAppBar";
+import AppContainer from "../../components/UI/AppContainer";
+import DisplayManyGlyphs from "../../components/Glyphs/DisplayManyGlyphs";
+import GlyphContainer from "../../components/Glyphs/GlyphContainer";
+
+import { getYeroglyphs } from "../../ethereum/yeroglyphs";
+import { getImages } from "../../helpers/drawGlyph";
+import LoadingDiv from "../../components/UI/LoadingState/LoadingDiv";
+import CustomizedTypography from "../../components/UI/CustomizedTypography";
 
 interface ImageState {
     tokenId: string;
@@ -32,6 +26,7 @@ export default function NFTs() {
 
     useEffect(() => {
         async function getNFTs() {
+            console.log("running")
             setIsLoading(true);
             const yeroglyphs = await getYeroglyphs();
             const signer = yeroglyphs.signer;
@@ -93,8 +88,8 @@ export default function NFTs() {
     <React.Fragment>
         <MyAppBar />
         <AppContainer>
-            <CustomizedTypography variant="h4">My Yeroglyphs</CustomizedTypography>
-            {isLoading && <Typography component="h1">Loading...</Typography>}
+            <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
+            {isLoading && <LoadingDiv />}
             {images.map(image => {
                 return(
                     <GlyphContainer key={image.tokenId} containMany={true} >

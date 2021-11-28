@@ -4,8 +4,11 @@ const chroma = require("chroma-js");
 let gridDimension = 64;
 let cellSize = 5;
 let strokeWidth = 2;
-// let colorScale = chroma.scale(['#fafa6e', '#2A4858']).mode('lch').colors(8); // initial colors
-let colorScale = chroma.scale(['#c913c3', '#f8b9f6', ]).mode('lch').colors(8);
+// let colorScale = chroma.scale(["#fafa6e", "#2A4858"]).mode("lch").colors(8); // initial colors
+// let colorScale = chroma.scale(["#996633", "#FFD700"]).mode("lch").colors(8); // initial colors
+let colorScale = chroma.scale(["#000000", "#FFD700"]).mode("lch").colors(8); // initial colors
+// let colorScale = chroma.scale(["#c913c3", "#f8b9f6", ]).mode("lch").colors(8);
+// let colorScale = chroma.scale(["#FFD700", "#808080", ]).mode("lch").colors(8);
 
 export function setGridData(glyphData) {
     let data = new Array();
@@ -37,7 +40,7 @@ export function drawSVG(gridData) {
     const endingSVG = "</svg>";
 
     const beginingRows = '<g class="row">';
-    const endingRows = '</g>';
+    const endingRows = "</g>";
 
     const cells = gridData.map((gridObj) => {
         const cells = gridObj.map(cellData => {

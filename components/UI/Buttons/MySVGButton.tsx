@@ -28,17 +28,17 @@ const CustomButtonRoot = styled(ButtonRoot)(
   overflow: visible;
   cursor: pointer;
   --main-color: ${
-    theme.palette.mode === 'light' ? 'rgb(255,255,255)' : 'rgb(255,255,255)'
+    theme.palette.mode === 'light' ? '#FFD700' : '#FFD700'
   };
   --hover-color: ${
     theme.palette.mode === 'light'
-      ? 'rgba(255,255,255,0.04)'
-      : 'rgba(255,255,255,0.08)'
+      ? 'rgba(255,215,0,0.04)'
+      : 'rgba(255,215,0,0.08)'
   };
   --active-color: ${
     theme.palette.mode === 'light'
-      ? 'rgba(255,255,255,0.12)'
-      : 'rgba(255,255,255,0.24)'
+      ? 'rgba(255,215,0,0.12)'
+      : 'rgba(255,215,0,0.24)'
   };
 
   & polygon {
@@ -118,5 +118,5 @@ interface Props {
 }
 
 export default function UnstyledButtonCustom(props: Props) {
-  return <SvgButton><Typography component="p" sx={{ fontSize: "1.1em" }} >{props.children}</Typography></SvgButton>;
+  return <SvgButton><Typography component="p" sx={{ fontSize: "1.1em", textTransform: "none" }} >{props.children}</Typography></SvgButton>;
 }

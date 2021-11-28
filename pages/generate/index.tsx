@@ -5,8 +5,10 @@ import AppContainer from "../../components/UI/AppContainer";
 import GlyphContainer from "../../components/Glyphs/GlyphContainer";
 import DisplayGlyph from "../../components/Glyphs/DisplayGlyph";
 import FixedButton from "../../components/UI/Buttons/FixedButton";
+import LoadingDiv from "../../components/UI/LoadingState/LoadingDiv";
+
 import { Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import CustomizedTypography from "../../components/UI/CustomizedTypography"
 
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { getSignerHandler } from "../../ethereum/web3";
@@ -17,12 +19,6 @@ interface ImageState {
     id: string;
     svg: string;
 }
-
-const CustomizedTypography = styled(Typography)`
-  margin-top: 3%;
-  margin-bottom: 3%;
-  font-weight: bold;
-`;
 
 export default function NFTs() {
 
@@ -81,9 +77,9 @@ export default function NFTs() {
     <React.Fragment>
         <MyAppBar />
         <AppContainer>
-            {isLoading && <Typography component="h6" variant="h6">Loading...</Typography>}
+            {isLoading && <LoadingDiv />}
             {!isLoading && <FixedButton onRefresh={getNFTs} />}
-            {!isLoading && <CustomizedTypography variant="h3">{`Current State Of My Nfts (as of block #${block})`}</CustomizedTypography>}
+            {(!isLoading || images.length >= 1) && <CustomizedTypography>{`Current State Of My Nfts (as of block #${block})`}</CustomizedTypography>}
             <GlyphContainer>
                 {images.length >= 1 && images.map(image => <DisplayGlyph 
                     key={image.id} 

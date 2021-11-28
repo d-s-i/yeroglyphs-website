@@ -1,0 +1,15 @@
+.mint-box {
+    display: flex;
+    justify-content: center;
+    border: 1px black solid;
+    background-color: #0d0d0d;
+    max-width: 500px;
+    width: 100%;
+}
+
+.mint-container {
+    display: flex;
+    justify-content: center;
+    border: 1px red solid;
+    width: 100%;
+}

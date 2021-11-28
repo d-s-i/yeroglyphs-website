@@ -1,4 +1,4 @@
 export default {
-    name: "Ethereum Mainnet",
+    name: "Rinkeby Boba",
     chainId: 28
 };

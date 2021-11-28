@@ -10,14 +10,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import UnstyledButtonCustom from "./Buttons/MySVGButton";
 import { styled } from "@mui/material/styles";
-import "@fontsource/eb-garamond";
 
 import styles from "./MyAppBar.module.css";
 
 import network from "../../ethereum/network";
  
 const CustomizedAppBar = styled(AppBar)`
-  background-color: #C913C3;
+  background-color: #000000;
 `;
 
 interface ErrorState {
@@ -65,15 +64,39 @@ function MyAppBar() {
     return(
         <React.Fragment>
             <Box sx={{ flexGrow: 1 }}>
-                <CustomizedAppBar position="static" sx={{padding: "0% 17.5% 0% 17.5%" }} >
+                <CustomizedAppBar position="static">
                     <Toolbar>
-                        <Typography variant="h2" component="div" sx={{ flexGrow: 1, fontFamily: "'EB Garamond'" }}>
+                        <Typography variant="h2" component="div" sx={{ flexGrow: 1, color: "#FFD700" }}>
                             <span className={styles["redirection-menu"]} >
                                 <Link href={"https://my.frog.tech/619d074031d46"} passHref>
-                                    Ᵹ Yero
+                                    𓁋 Yero
                                 </Link>   
                             </span>
                         </Typography>
+                        <Link href="/mint" passHref>
+                            <a href="/mint">
+                                <UnstyledButtonCustom>Mint</UnstyledButtonCustom>
+                            </a>
+                            {/* <button>test</button> */}
+                        </Link>
+                        <Link href="/view" passHref>
+                            <a href="/view">
+                                <UnstyledButtonCustom>View</UnstyledButtonCustom>
+                            </a>
+                            {/* <button>test</button> */}
+                        </Link>
+                        <Link href="/generate" passHref>
+                            <a href="/generate">
+                                <UnstyledButtonCustom>Generate</UnstyledButtonCustom>
+                            </a>
+                            {/* <button>test</button> */}
+                        </Link>
+                        <Link href="/save" passHref>
+                            <a href="/save">
+                                <UnstyledButtonCustom>Save</UnstyledButtonCustom>
+                            </a>
+                            {/* <button>test</button> */}
+                        </Link>
                     <UnstyledButtonCustom>{buttonText}</UnstyledButtonCustom>
                     </Toolbar>
                 </CustomizedAppBar>

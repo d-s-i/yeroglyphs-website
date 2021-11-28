@@ -10,7 +10,7 @@ function FixedButton(props: Props) {
         <Button 
             variant="contained" 
             endIcon={<RefreshIcon />} 
-            style={{textTransform: "none"}} 
+            style={{textTransform: "none", fontWeight: "bold"}} 
             sx={{
                 position: "fixed", 
                 right: "17.5%", 
