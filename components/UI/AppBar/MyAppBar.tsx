@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "../Modals/Modal";
 import AppBar from "@mui/material/AppBar";
 import MySVGButton from "../Buttons/MySVGButton";
-import ButtonLinks from "./ButtonLinks";
+import ButtonLinks from "../Buttons/ButtonLinks";
 import { styled } from "@mui/material/styles";
 
 import styles from "./MyAppBar.module.css";
@@ -22,6 +22,10 @@ const CustomizedAppBar = styled(AppBar)`
   background-color: #000000;
 `;
 
+interface Props {
+    isMintReleased: boolean;
+}
+
 interface ErrorState {
     isError: boolean;
     message: string;
@@ -29,9 +33,7 @@ interface ErrorState {
 
 const INITIAL_ERROR_STATE: ErrorState = { isError: false, message: ""};
 
-const isMintReleased = false;
-
-function MyAppBar() {
+function MyAppBar(props: Props) {
 
     const [buttonText, setButtonText] = useState<string>("Login");
     const [error, setError] = useState<ErrorState>(INITIAL_ERROR_STATE);
@@ -48,7 +50,7 @@ function MyAppBar() {
         async function connect() {
             getButtonText(authContext.signerAddress);
 
-            if(!authContext.isNetworkRight && isMintReleased) {
+            if(!authContext.isNetworkRight && props.isMintReleased) {
                 setError((prevState) => { 
                     let errorObject = Object.assign({}, prevState);  
                     errorObject = { isError: true, message: `Please connect to the ${network.name} network`};                
@@ -80,7 +82,7 @@ function MyAppBar() {
                                 </span>
                             </Typography>
                             <Typography component="p" variant="h6" sx={{marginRight: "10%"}} color="primary" >Collection #1 - Launching date TBD…</Typography>
-                            <ButtonLinks isReadyForProd={isMintReleased} />
+                            <ButtonLinks isReadyForProd={props.isMintReleased} />
                             <MySVGButton>{buttonText}</MySVGButton>
                         </Grid>
                     </Toolbar>

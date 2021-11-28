@@ -2,15 +2,19 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import ListItemFeature from "../UI/ListItemFeature";
 import Paper from '@mui/material/Paper';
 import Container from "@mui/material/Container";
 
+import MintingButton from "../UI/Buttons/MintingButton";
 import demoYero from "../../public/demo-yero.jpg";
 import bobaPic from "../../public/boba.png";
 
 import Image from "next/image";
+
+interface Props {
+    isMintReleased: boolean;
+}
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -19,10 +23,10 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-function FirstBlock() {
+function FirstBlock(props: Props) {
     return(
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container sx={{marginTop: "3%", marginBottom: "3%",  }}>
+            <Grid container sx={{paddingTop: "3%", marginBottom: "3%",  }}>
                 <Grid item xs={7} sx={{marginTop: "3%"}} >
                     <Item sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
                     <Typography align="left" component="h1" variant="h2" color="primary" sx={{fontWeight: "bold"}} >
@@ -65,20 +69,7 @@ function FirstBlock() {
                             <Typography sx={{margin: "2% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
                                 Total Supply: 512...
                             </Typography>
-                            <Button 
-                                variant="outlined" 
-                                sx={{
-                                    borderColor: "#FFD700", 
-                                    color: " #FFD700", 
-                                    padding: "1% 5% 1% 5%",
-                                    fontSize: "2em",
-                                    textTransform: "none",
-                                    "&:hover": {borderColor: "#fff099", color: "#fff099"},
-                                    margin: "5% 0% 0% 0%"
-                                }}
-                            >
-                                Minting Locked...
-                            </Button>
+                            <MintingButton isMintReleased={props.isMintReleased} />
                         </Grid>
                     </Item>
                 </Grid>

@@ -30,11 +30,13 @@ const theme = createTheme({
   },
 });
 
+const isMintReleased = false;
+
 function MyApp({ Component, pageProps }: AppProps) {
   return(
     <AuthContextProvider>
       <ThemeProvider theme={theme}>
-       <Component {...pageProps} />
+       <Component {...pageProps} isMintReleased={isMintReleased}/>
       </ThemeProvider>
     </AuthContextProvider>
   );

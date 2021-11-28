@@ -23,7 +23,7 @@ interface Props {
 
 export default function SimpleContainer(props: Props) {
   return (
-    <Container maxWidth="xl" sx={{ border: "1px red solid" }}>
+    <Container maxWidth="xl">
       {props.children}
     </Container>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import UnstyledButtonCustom from "../Buttons/MySVGButton";
+import UnstyledButtonCustom from "./MySVGButton";
 
 interface Props {
     isReadyForProd: boolean

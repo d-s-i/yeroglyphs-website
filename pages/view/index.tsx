@@ -16,7 +16,11 @@ interface ImageState {
     svg: string;
 }
 
-export default function NFTs() {
+interface Props {
+    isMintReleased: boolean;
+  }
+
+export default function View(props: Props) {
 
     const [images, setImages] = useState<ImageState[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -60,7 +64,7 @@ export default function NFTs() {
     
   return (
     <React.Fragment>
-        <MyAppBar />
+        <MyAppBar isMintReleased={props.isMintReleased} />
         <AppContainer>
             <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
             {isLoading && <LoadingDiv />}

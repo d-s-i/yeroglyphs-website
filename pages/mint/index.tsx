@@ -4,11 +4,15 @@ import AppContainer from '../../components/UI/AppContainer';
 import CustomizedTypography from "../../components/UI/CustomizedTypography";
 import Mint from "../../components/Mint/Mint";
 
-export default function Minting() {
+interface Props {
+  isMintReleased: boolean;
+}
+
+export default function Minting(props: Props) {
 
   return (
     <React.Fragment>
-        <MyAppBar />
+        <MyAppBar isMintReleased={props.isMintReleased} />
         <AppContainer>
           <CustomizedTypography>Mint</CustomizedTypography>
           <Mint />

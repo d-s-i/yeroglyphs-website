@@ -1,12 +1,18 @@
 import HotExperimentCard from "../UI/Cards/HotExperimentCard";
+import MintingButton from "../UI/Buttons/MintingButton";
 import yeroPlanet from "../../public/yeroPlanet.png";
 import yeroEye from "../../public/yeroEye.png";
 import yeroHeart from "../../public/yeroHeart.png";
 
 import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import styles from "./SecondBlock.module.css";
+
+interface Props {
+    isMintReleased: boolean;
+}
 
 const experiments = [
     {
@@ -27,44 +33,50 @@ const experiments = [
 
 ];
 
-function SecondBlock() {
+function SecondBlock(props: Props) {
     return(
         <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
+            sx={{paddingBottom: "3%"}}
         >
-            <Grid item>
-                <Typography align="center" component="h2" variant="h3" color="primary" sx={{border: "1px red solid", width: "100%"}}>
+            <Grid item sx={{paddingTop: "3%", paddingBottom: "1%"}}>
+                <Typography align="center" component="h2" color="primary" sx={{ fontWeight: "bold", fontSize: "5.5em", width: "100%" }}>
                     What is <span className="goldColor">Yero</span> ?
                 </Typography>
             </Grid>
-            <Grid item sx={{border: "1px red solid", width: "100%"}}>
-                <div style={{margin: "0% 20% 0% 20%"}}>
-                    <Typography component="p" variant="h6" color="primary">
+            <Grid item sx={{ width: "100%", marginBottom: "4%" }}>
+                <Container maxWidth="md">
+                    <Typography component="p" variant="h5" color="primary" >
                         Yeros are the first “on-chain”, “customizable” generative art on the boba network. 
                     </Typography>
-                    <Typography component="p" variant="h6" color="primary" sx={{marginTop: "1%"}}>
+                    <Typography component="p" variant="h5" color="primary" sx={{ marginTop: "1%" }}>
                         The contract follow a special algorithm, allowing its owners to create art on demand, and creating extra-rarity for their NFT.  We are exploring a new way of managing onchain art and may be forked along the way by speculators, but remember, this is all about the art.
                     </Typography>
-                </div>
+                </Container>
             </Grid>
-            <Grid item sx={{border: "1px red solid", width: "100%"}}>
-                <div style={{margin: "0% 20% 0% 20%"}}>
+            <Grid item sx={{ width: "100%" }}>
+                <Container maxWidth="md">
                     {experiments.map(experiment => {
+                        const index = experiments.indexOf(experiment);
+                        const isColorReversed = index === (experiments.length - 1);
                         return(
                             <HotExperimentCard 
                                 title={experiment.title} 
-                                index={experiments.indexOf(experiment) + 1} 
+                                key={index}
+                                index={index + 1} 
                                 image={experiment.imageSrc}  
                                 firstParagraph={experiment.firstParagraph} 
                                 secondParagraph={experiment.secondParagraph}
+                                colorReversed={isColorReversed}
                             />
                         );
                     })}
-                </div>
+                </Container>
             </Grid>
+            <MintingButton isMintReleased={props.isMintReleased} />
         </Grid>
     );
 }

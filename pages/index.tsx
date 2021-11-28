@@ -9,8 +9,16 @@ import AppContainer from "../components/UI/AppContainer";
 import BackgroundColor from "../components/UI/BackgroundColor";
 import Footer from "../components/LandingPage/Footer/Footer";
 import styles from "../styles/Home.module.css";
+import ThirdBlock from "../components/LandingPage/ThirdBlock";
 
-const Home: NextPage = () => {
+
+interface Props {
+  isMintReleased: boolean;
+}
+
+const FIRST_BACKGROUND = false;
+
+const Home = (props: Props) => {
   return (
     <React.Fragment>
       <div className={styles.container}>
@@ -20,15 +28,20 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </div>
-      <MyAppBar />
-      <BackgroundColor light={false}>
+      <MyAppBar isMintReleased={props.isMintReleased} />
+      <BackgroundColor light={FIRST_BACKGROUND}>
         <AppContainer isLandingPage>
-          <FirstBlock />
+          <FirstBlock isMintReleased={props.isMintReleased} />
         </AppContainer>
       </BackgroundColor>
-      <BackgroundColor light={true}>
+      <BackgroundColor light={!FIRST_BACKGROUND}>
         <AppContainer isLandingPage>
-            <SecondBlock />
+            <SecondBlock isMintReleased={props.isMintReleased} />
+        </AppContainer>
+      </BackgroundColor>
+      <BackgroundColor light={FIRST_BACKGROUND}>
+        <AppContainer isLandingPage>
+          <ThirdBlock isMintReleased={props.isMintReleased} />
         </AppContainer>
       </BackgroundColor>
       <Footer />

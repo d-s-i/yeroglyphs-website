@@ -20,7 +20,11 @@ interface ImageState {
     svg: string;
 }
 
-export default function NFTs() {
+interface Props {
+    isMintReleased: boolean;
+  }
+
+export default function Generate(props: Props) {
 
     const [images, setImages] = useState<ImageState[]>([]);
     const [block, setBlock] = useState<number>(0);
@@ -75,7 +79,7 @@ export default function NFTs() {
     
   return (
     <React.Fragment>
-        <MyAppBar />
+        <MyAppBar isMintReleased={props.isMintReleased} />
         <AppContainer>
             {isLoading && <LoadingDiv />}
             {!isLoading && <FixedButton onRefresh={getNFTs} />}

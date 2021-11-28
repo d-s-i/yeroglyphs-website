@@ -14,9 +14,25 @@ interface Props {
     image: StaticImageData;
     firstParagraph: string;
     secondParagraph?: string;
+    colorReversed: boolean;
 }
 
 function HotExperimentCard(props: Props) {
+
+    const normalColors = {
+        backgroundColor: "#000000",
+        titleAddedColor: "#FFD700",
+        mainColor: "#f3f4f6",
+    };
+
+    const reversedColors = {
+        backgroundColor: "#FFD700",
+        titleAddedColor: "#996633",
+        mainColor: "#1a1a1a"
+    }
+
+    const colors = props.colorReversed ? reversedColors: normalColors;
+    
     return(
         <Grid
             container
@@ -24,17 +40,17 @@ function HotExperimentCard(props: Props) {
             justifyContent="center"
             alignItems="center"
             sx={{
-                backgroundColor: "#000000",
+                backgroundColor: colors.backgroundColor,
                 borderRadius: "1em",
                 padding: "1% 2% 1% 3%",
-                margin: "3% 5% 3% 5%",
+                margin: "0% 5% 5% 5%",
                 width: "90%"
             }}
         >
             <Grid item width={1} sx={{margin: "2% 0% 3% 0%"}}>
-                <Typography component="p" variant="h4" color="primary" align="left" sx={{fontWeight: "bold"}} >
-                    <TextUnderlinedGold>{`Hot NFT Experiment #${props.index}`}</TextUnderlinedGold>
-                    {`- ${props.title}`}
+                <Typography component="p" variant="h4" align="left" sx={{fontWeight: "bold", color: colors.mainColor}} >
+                    <span style={{textDecoration: "underline", color: colors.titleAddedColor}} >{`Hot NFT Experiment #${props.index}`}</span>
+                    {` - ${props.title}`}
                 </Typography>
             </Grid>
             <Grid item spacing={2} >
@@ -49,10 +65,10 @@ function HotExperimentCard(props: Props) {
                         </Grid>
                     </Grid>
                     <Grid item xs={7} sx={{width: "100%"}}>
-                        <Typography component="p" variant="subtitle1" color="primary" align="left" sx={{width: "100%", fontSize: "1.2em"}}>
+                        <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", fontSize: "1.2em", color: colors.mainColor }}>
                             {props.firstParagraph}
                         </Typography>
-                        {props.secondParagraph && <Typography component="p" variant="subtitle1" color="primary" align="left" sx={{ width: "100%", marginTop: "5%", fontSize: "1.2em"}}>
+                        {props.secondParagraph && <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", marginTop: "5%", fontSize: "1.2em", color: colors.mainColor }}>
                             {props.secondParagraph}
                         </Typography>}
                     </Grid>
