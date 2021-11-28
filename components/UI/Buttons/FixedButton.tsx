@@ -10,12 +10,13 @@ function FixedButton(props: Props) {
         <Button 
             variant="contained" 
             endIcon={<RefreshIcon />} 
-            style={{textTransform: "none", fontWeight: "bold"}} 
             sx={{
                 position: "fixed", 
                 right: "17.5%", 
                 background: "linear-gradient(to bottom right, #ffff99 -12%, #c913c3 100%)",
-                color: "#333333"
+                color: "#333333",
+                textTransform: "none", 
+                fontWeight: "bold"
             }}
             onClick={props.onRefresh}
         >

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import MyAppBar from "../../components/UI/MyAppBar";
+import MyAppBar from "../../components/UI/AppBar/MyAppBar";
 import AppContainer from "../../components/UI/AppContainer";
 import GlyphContainer from "../../components/Glyphs/GlyphContainer";
 import DisplayGlyph from "../../components/Glyphs/DisplayGlyph";

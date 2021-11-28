@@ -117,6 +117,6 @@ interface Props {
     children: React.ReactNode;
 }
 
-export default function UnstyledButtonCustom(props: Props) {
+export default function MySVGButton(props: Props) {
   return <SvgButton><Typography component="p" sx={{ fontSize: "1.1em", textTransform: "none" }} >{props.children}</Typography></SvgButton>;
 }

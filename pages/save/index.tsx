@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../store/authContext";
 
-import MyAppBar from "../../components/UI/MyAppBar";
+import MyAppBar from "../../components/UI/AppBar/MyAppBar";
 import AppContainer from "../../components/UI/AppContainer";
 import DisplayManyGlyphs from "../../components/Glyphs/DisplayManyGlyphs";
 import GlyphContainer from "../../components/Glyphs/GlyphContainer";

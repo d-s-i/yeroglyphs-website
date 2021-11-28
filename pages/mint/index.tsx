@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MyAppBar from '../../components/UI/MyAppBar';
+import MyAppBar from '../../components/UI/AppBar/MyAppBar';
 import AppContainer from '../../components/UI/AppContainer';
 import CustomizedTypography from "../../components/UI/CustomizedTypography";
 import Mint from "../../components/Mint/Mint";

@@ -6,7 +6,7 @@ const MyTypography = styled(Typography)`
   margin-top: 3%;
   margin-bottom: 3%;
   font-weight: bold;
-  color: #e6e6e6;
+  color: #f3f4f6;
 `;
 
 interface Props {
