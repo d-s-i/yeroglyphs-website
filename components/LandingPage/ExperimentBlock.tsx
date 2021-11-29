@@ -14,19 +14,25 @@ interface Props {
 
 const experiments = [
     {
-        title: "Fully OnChain Art",
+        title: "Fully On Chain Art",
         imageSrc: sarco,
-        firstParagraph: "People often get excited with new NFTs, but please, do NOT FOMO. We made this to try something new and see how it goes. We will keep exploring the space and build upon it.",
-        secondParagraph: "If you are here for the art, you are at the right place. We created a new mechanism that that will probably generate some excitement about generative art."
+        paragraphs: [
+            "People get excited with new NFTs. We made this to try something new and see how it goes. We will keep exploring the space and build upon it.",
+            "If you are here for the art, you are at the right place. This is a new mechanism that that will probably generate some excitement about generative art."
+        ],
     }, {
         title: "User is the Main Actor",
         imageSrc: pharaoh,
-        firstParagraph: "The Core Principle of Yero is to put the user at the center of the Art.",
-        secondParagraph: "We provide the algorithm, your inputs make the final result."
+        paragraphs: [
+            "The Core Principle of Yero is to put the user at the center of the Art.",
+            "We provide the algorithm, your inputs make the final result."
+        ],
     }, {
         title: "25% Donated To Charity!",
         imageSrc: cat,
-        firstParagraph: "We care for the uptrend of the NFT but we also care about the ecosystem. That is why 25% of the profits made by Yero will be given back to several crypto communities via Gitcoin, a donation plateform on Ethereum based on quadratic funding."
+        paragraphs: [
+            "We care for the vain uptrend of the NFT but we also need the denials of the gods. That is why a part of the profits will be given back to several crypto communities."
+        ],
     }
 
 ];
@@ -45,16 +51,6 @@ function ExperimentBlock(props: Props) {
                     What is <span className="goldColor">Yero</span> ?
                 </Typography>
             </Grid>
-            {/* <Grid item sx={{ width: "100%", marginBottom: "4%" }}>
-                <Container maxWidth="md">
-                    <Typography component="p" variant="h5" color="primary" >
-                        Yeros are the first “on-chain”, “customizable” generative art on the boba network. 
-                    </Typography>
-                    <Typography component="p" variant="h5" color="primary" sx={{ marginTop: "1%" }}>
-                        The contract follow a special algorithm, allowing its owners to create art on demand, and creating extra-rarity for their NFT.  We are exploring a new way of managing onchain art and may be forked along the way by speculators, but remember, this is all about the art.
-                    </Typography>
-                </Container>
-            </Grid> */}
             <Grid item sx={{ width: "100%" }}>
                 <Container maxWidth="md">
                     {experiments.map(experiment => {
@@ -65,7 +61,8 @@ function ExperimentBlock(props: Props) {
                                 title={experiment.title} 
                                 key={index}
                                 index={index + 1} 
-                                image={experiment.imageSrc}  
+                                image={experiment.imageSrc} 
+                                paragraphs={experiment.paragraphs} 
                                 firstParagraph={experiment.firstParagraph} 
                                 secondParagraph={experiment.secondParagraph}
                                 colorReversed={isColorReversed}

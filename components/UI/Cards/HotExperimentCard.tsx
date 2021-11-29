@@ -7,6 +7,7 @@ interface Props {
     index: number
     title: string;
     image: StaticImageData;
+    paragraphs: string[];
     firstParagraph: string;
     secondParagraph?: string;
     colorReversed: boolean;
@@ -59,12 +60,7 @@ function HotExperimentCard(props: Props) {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} md={7} sx={{ width: "100%" }}>
-                    <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", fontSize: "1.2em", color: colors.mainColor }}>
-                        {props.firstParagraph}
-                    </Typography>
-                    {props.secondParagraph && <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", marginTop: "5%", fontSize: "1.2em", color: colors.mainColor }}>
-                        {props.secondParagraph}
-                    </Typography>}
+                    {props.paragraphs?.map((paragraph, key) => <Typography key={key} component="p" variant="subtitle1" align="left" sx={{ width: "100%", fontSize: "1.2em", color: colors.mainColor, marginTop: "5%" }}>{paragraph}</Typography>)}
                 </Grid>
                 </Grid>
         </Grid>
