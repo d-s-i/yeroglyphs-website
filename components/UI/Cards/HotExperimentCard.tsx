@@ -8,8 +8,6 @@ interface Props {
     title: string;
     image: StaticImageData;
     paragraphs: string[];
-    firstParagraph: string;
-    secondParagraph?: string;
     colorReversed: boolean;
 }
 
