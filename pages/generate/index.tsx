@@ -67,15 +67,12 @@ export default function Generate(props: Props) {
         const yeroglyphs = await getYeroglyphs();
         const signer = yeroglyphs.signer;
         if(!signer) return;
-        const save_tx = await yeroglyphs.saveTokenURI(id);
+        await yeroglyphs.saveTokenURI(id);
     }
 
     useEffect(() => {
         getNFTs();
     }, [authContext]);
-    
-
-
     
   return (
     <React.Fragment>

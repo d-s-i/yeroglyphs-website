@@ -73,7 +73,7 @@ function ExplanationBlock(props: Props) {
                                     On-Chain Algorithm
                                 </Typography>
                                 <Typography component="p" variant="h6" color="primary" align="center">
-                                    Smart contracts are immutable and can't change once published. Our smart contracts contain the generative algorithm for ever.
+                                    {`Smart contracts are immutable and can't change once published. Our smart contracts contain the generative algorithm for ever.`}
                                 </Typography>
                             </Grid>
                             <Grid container xs={4} >
@@ -101,7 +101,7 @@ function ExplanationBlock(props: Props) {
                                 Generate Your Own Yero Now
                             </Typography>
                             <Typography component="p" variant="h6" color="primary" align="center">
-                                Here is the actual code that will generate the art, but the magic is that you don't have to understand it to create your NFT ! This algorithm generates a sequence of characters, then interpreted to recreate a complex artistic piece, using a seed (determined in printing) and a dynamic pseudo-random variable. That's why anyone can create and recreate complex artistic pieces with Yero.
+                                {`Here is the actual code that will generate the art, but the magic is that you don't have to understand it to create your NFT ! This algorithm generates a sequence of characters, then interpreted to recreate a complex artistic piece, using a seed (determined in printing) and a dynamic pseudo-random variable. That's why anyone can create and recreate complex artistic pieces with Yero.`}
                             </Typography>
                             <CodeCard />
                         </Grid>
