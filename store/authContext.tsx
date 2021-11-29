@@ -59,13 +59,17 @@ export function AuthContextProvider({ children }: Props) {
     }
 
     useEffect(() => {
-        loginHandler();
-        window.ethereum.on('accountsChanged', function () {
+        try {
             loginHandler();
-        });
-        window.ethereum.on('chainChanged', function(networkId: number){
-            onNetworkChange(networkId);
-        });
+            window.ethereum.on('accountsChanged', function () {
+                loginHandler();
+            });
+            window.ethereum.on('chainChanged', function(networkId: number){
+                onNetworkChange(networkId);
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }, []);
 
     function onNetworkChange(networkId: number) {
