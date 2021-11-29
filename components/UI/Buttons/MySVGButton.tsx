@@ -115,8 +115,13 @@ const SvgButton = React.forwardRef(function SvgButton(
 
 interface Props {
     children: React.ReactNode;
+    onClick: () => void
 }
 
 export default function MySVGButton(props: Props) {
-  return <SvgButton><Typography component="p" sx={{ fontSize: "1.1em", textTransform: "none" }} >{props.children}</Typography></SvgButton>;
+  return (
+    <SvgButton onClick={props.onClick}>
+      <Typography component="p" sx={{ fontSize: "1.1em", textTransform: "none" }} >{props.children}</Typography>
+    </SvgButton>
+  );
 }

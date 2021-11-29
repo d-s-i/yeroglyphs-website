@@ -57,7 +57,7 @@ export default function View(props: Props) {
 
         getNFTs();
 
-    }, []);
+    }, [authContext]);
     
 
 

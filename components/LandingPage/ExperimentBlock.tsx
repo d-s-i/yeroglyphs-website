@@ -8,8 +8,6 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import styles from "./SecondBlock.module.css";
-
 interface Props {
     isMintReleased: boolean;
 }
@@ -33,7 +31,7 @@ const experiments = [
 
 ];
 
-function SecondBlock(props: Props) {
+function ExperimentBlock(props: Props) {
     return(
         <Grid
             container
@@ -81,4 +79,4 @@ function SecondBlock(props: Props) {
     );
 }
 
-export default SecondBlock;
+export default ExperimentBlock;

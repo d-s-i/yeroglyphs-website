@@ -53,7 +53,7 @@ function HotExperimentCard(props: Props) {
                     {` - ${props.title}`}
                 </Typography>
             </Grid>
-            <Grid item spacing={2} >
+            <Grid item >
                 <Grid container spacing={2}>
                     <Grid item xs={5} sx={{marginTop: "3%"}}>
                         <Grid 
@@ -61,7 +61,7 @@ function HotExperimentCard(props: Props) {
                             className="box bounce-2" 
                             sx={{display: "flex", justifyContent: "center"}}
                         >
-                            <Image src={props.image} width="150" height="150" />
+                            <Image src={props.image} alt="" width="150" height="150" />
                         </Grid>
                     </Grid>
                     <Grid item xs={7} sx={{width: "100%"}}>

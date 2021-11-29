@@ -40,33 +40,32 @@ function MyAppBar(props: Props) {
 
     const authContext = useAuthContext();
 
+    function getButtonText(_signerAddress: string) {
+        const shortenedAddress = `${_signerAddress.slice(0, 5)}...${_signerAddress.slice(38)}`;
+        setButtonText(shortenedAddress);
+    }
+
+    async function connect() {
+        getButtonText(authContext.signerAddress);
+
+        if(!authContext.isNetworkRight && props.isMintReleased) {
+            setError((prevState) => { 
+                let errorObject = Object.assign({}, prevState);  
+                errorObject = { isError: true, message: `Please connect to the ${network.name} network`};                
+                return errorObject;  
+             });
+        } else {
+            setError((prevState) => { 
+                let errorObject = Object.assign({}, prevState);  
+                errorObject = INITIAL_ERROR_STATE;                
+                return errorObject;  
+             });
+        }
+    }
+    
     useEffect(() => {
-
-        function getButtonText(_signerAddress: string) {
-            const shortenedAddress = `${_signerAddress.slice(0, 5)}...${_signerAddress.slice(38)}`;
-            setButtonText(shortenedAddress);
-        }
-
-        async function connect() {
-            getButtonText(authContext.signerAddress);
-
-            if(!authContext.isNetworkRight && props.isMintReleased) {
-                setError((prevState) => { 
-                    let errorObject = Object.assign({}, prevState);  
-                    errorObject = { isError: true, message: `Please connect to the ${network.name} network`};                
-                    return errorObject;  
-                 });
-            } else {
-                setError((prevState) => { 
-                    let errorObject = Object.assign({}, prevState);  
-                    errorObject = INITIAL_ERROR_STATE;                
-                    return errorObject;  
-                 });
-            }
-        }
-
         connect();
-    }, [authContext]);
+    }, [authContext, props.isMintReleased]);
 
     return(
         <React.Fragment>
@@ -74,7 +73,7 @@ function MyAppBar(props: Props) {
                 <CustomizedAppBar position="static">
                     <Toolbar>
                         <Grid container justifyContent="flex-end" alignItems="center">
-                            <Typography variant="h2" component="div" sx={{ flexGrow: 1, color: "#FFD700" }}>
+                            <Typography variant="h2" component="div" sx={{ flexGrow: 1, color: "#FFD700" }} className="noselect">
                                 <span className={styles["redirection-menu"]} >
                                     <Link href="/" passHref>
                                         𓁋 Yero
@@ -83,7 +82,7 @@ function MyAppBar(props: Props) {
                             </Typography>
                             <Typography component="p" variant="h6" sx={{marginRight: "10%"}} color="primary" >Collection #1 - Launching date TBD…</Typography>
                             <ButtonLinks isReadyForProd={props.isMintReleased} />
-                            <MySVGButton>{buttonText}</MySVGButton>
+                            <MySVGButton onClick={() => connect()} >{buttonText}</MySVGButton>
                         </Grid>
                     </Toolbar>
                 </CustomizedAppBar>

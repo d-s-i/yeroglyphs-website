@@ -25,7 +25,7 @@ function MintingButton(props: Props) {
     const buttonState = props.isMintReleased ? allowedState : disabledState;
     
     return(
-        <Link href={props.isMintReleased ? "/mint" : "/"}>
+        <Link href={props.isMintReleased ? "/mint" : "/"} passHref>
             <Button 
                 variant="outlined" 
                 sx={{

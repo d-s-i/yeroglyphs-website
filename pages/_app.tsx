@@ -30,7 +30,7 @@ const theme = createTheme({
   },
 });
 
-const isMintReleased = true;
+const isMintReleased = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return(

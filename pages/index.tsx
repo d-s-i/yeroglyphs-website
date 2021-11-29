@@ -2,21 +2,25 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
 
-import FirstBlock from "../components/LandingPage/FirstBlock";
-import SecondBlock from "../components/LandingPage/SecondBlock";
+import HookBlock from "../components/LandingPage/HookBlock";
+import ExperimentBlock from "../components/LandingPage/ExperimentBlock";
 import MyAppBar from "../components/UI/AppBar/MyAppBar";
 import AppContainer from "../components/UI/AppContainer";
 import BackgroundColor from "../components/UI/BackgroundColor";
 import Footer from "../components/LandingPage/Footer/Footer";
 import styles from "../styles/Home.module.css";
-import ThirdBlock from "../components/LandingPage/ThirdBlock";
+import ExplanationBlock from "../components/LandingPage/ExplanationBlock";
+import TokenomicsBlock from "../components/LandingPage/TokenomicsBlock";
+import TutoBlock from "../components/LandingPage/TutoBlock";
+import GroupPresentationBlock from "../components/LandingPage/GroupPresentationBlock";
 
+import moonImage from "../public/moon.jpg";
 
 interface Props {
   isMintReleased: boolean;
 }
 
-const FIRST_BACKGROUND = false;
+const FIRST_BACKGROUND_COLOR = false;
 
 const Home = (props: Props) => {
   return (
@@ -29,19 +33,34 @@ const Home = (props: Props) => {
         </Head>
       </div>
       <MyAppBar isMintReleased={props.isMintReleased} />
-      <BackgroundColor light={FIRST_BACKGROUND}>
+      <BackgroundColor light={FIRST_BACKGROUND_COLOR}>
         <AppContainer isLandingPage>
-          <FirstBlock isMintReleased={props.isMintReleased} />
+          <HookBlock isMintReleased={props.isMintReleased} />
         </AppContainer>
       </BackgroundColor>
-      <BackgroundColor light={!FIRST_BACKGROUND}>
+      <BackgroundColor light={!FIRST_BACKGROUND_COLOR}>
         <AppContainer isLandingPage>
-            <SecondBlock isMintReleased={props.isMintReleased} />
+            <ExperimentBlock isMintReleased={props.isMintReleased} />
         </AppContainer>
       </BackgroundColor>
-      <BackgroundColor light={FIRST_BACKGROUND}>
+      <BackgroundColor light={FIRST_BACKGROUND_COLOR}>
         <AppContainer isLandingPage>
-          <ThirdBlock isMintReleased={props.isMintReleased} />
+          <ExplanationBlock isMintReleased={props.isMintReleased} />
+        </AppContainer>
+      </BackgroundColor>
+      <BackgroundColor light={!FIRST_BACKGROUND_COLOR}>
+        <AppContainer isLandingPage>
+          <GroupPresentationBlock />
+        </AppContainer>
+      </BackgroundColor>
+      <BackgroundColor light={FIRST_BACKGROUND_COLOR}>
+        <AppContainer isLandingPage>
+          <TokenomicsBlock isMintReleased={props.isMintReleased} />
+        </AppContainer>
+      </BackgroundColor>
+      <BackgroundColor light={!FIRST_BACKGROUND_COLOR} image={moonImage}>
+        <AppContainer isLandingPage>
+          <TutoBlock isMintReleased={props.isMintReleased} />
         </AppContainer>
       </BackgroundColor>
       <Footer />

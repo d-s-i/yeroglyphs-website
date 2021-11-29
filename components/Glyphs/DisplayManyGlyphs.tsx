@@ -36,7 +36,7 @@ function DisplayManyGlyphs(props: Props) {
   return (
       <div className={styles["glyph-box"]}>
         <div className={styles["glyph-image"]} >
-          <Image src={props.src} width="320" height="320" />
+          <Image src={props.src} alt={`yero-${props.id}`} width="320" height="320" />
         </div>
         <Typography sx={{marginTop: "5%", marginBottom: "5%", color: "#e6e6e6"}} variant="h6" component="p">{`Yeroglyphs #${props.id}`}</Typography>
         {props.index && (

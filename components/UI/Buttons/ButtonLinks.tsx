@@ -1,45 +1,33 @@
 import React from "react";
 import Link from "next/link";
-import UnstyledButtonCustom from "./MySVGButton";
+import Router, { useRouter } from 'next/router';
+import MySVGButton from "./MySVGButton";
 
 interface Props {
     isReadyForProd: boolean
 }
 
 function ButtonLinks(props: Props) {
+
+    const router = useRouter();
+    
     if(props.isReadyForProd) {
         return(
             <React.Fragment>
-                <Link href="/mint" passHref>
-                    <a href="/mint">
-                        <UnstyledButtonCustom>Mint</UnstyledButtonCustom>
-                    </a>
-                </Link>
-                <Link href="/view" passHref>
-                    <a href="/view">
-                        <UnstyledButtonCustom>View</UnstyledButtonCustom>
-                    </a>
-                </Link>
-                <Link href="/generate" passHref>
-                    <a href="/generate">
-                        <UnstyledButtonCustom>Generate</UnstyledButtonCustom>
-                    </a>
-                </Link>
-                <Link href="/save" passHref>
-                    <a href="/save">
-                        <UnstyledButtonCustom>Save</UnstyledButtonCustom>
-                    </a>
-                </Link>
+                <MySVGButton onClick={() => router.push("/mint")}>Mint</MySVGButton>
+                <MySVGButton onClick={() => router.push("/view")}>View</MySVGButton>
+                <MySVGButton onClick={() => router.push('/generate')}>Generate</MySVGButton>
+                <MySVGButton onClick={() => router.push("/save")}>Save</MySVGButton>
             </React.Fragment>
         );
     } else {
         return(
             <React.Fragment>
-            <UnstyledButtonCustom>Comming Soon ...</UnstyledButtonCustom>
-            <UnstyledButtonCustom>Comming Soon ...</UnstyledButtonCustom>
-            <UnstyledButtonCustom>Comming Soon ...</UnstyledButtonCustom>
-            <UnstyledButtonCustom>Comming Soon ...</UnstyledButtonCustom>
-        </React.Fragment>
+                <MySVGButton onClick={() => {}}>Comming Soon ...</MySVGButton>
+                <MySVGButton onClick={() => {}}>Comming Soon ...</MySVGButton>
+                <MySVGButton onClick={() => {}}>Comming Soon ...</MySVGButton>
+                <MySVGButton onClick={() => {}}>Comming Soon ...</MySVGButton>
+            </React.Fragment>
         );
     }
 }

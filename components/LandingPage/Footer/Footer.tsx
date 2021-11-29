@@ -26,45 +26,49 @@ function Footer() {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                sx={{backgroundColor: "1px red solid"}}
             >
                 <Grid item sx={{width: "100%", display: "flex", justifyContent: "center", flexDirection: "column"}}>
-                    <Typography align="center" variant="h2" component="div" sx={{ flexGrow: 1, color: "#FFD700", marginTop: "2%", marginBottom: "2%" }}>
+                    <Typography align="center" variant="h2" component="div" sx={{ flexGrow: 1, color: "#FFD700", marginTop: "2%", marginBottom: "2%" }} className="noselect">
                         𓁋 Yero
                     </Typography>
                     <Typography align="center" variant="h6" component="p" className="goldColor">
                         Follow us on Twitter and join our Telegram :
                     </Typography>
                 </Grid>
-                <Grid item sx={{marginTop: "1%"}} >
-                    <Grid container spacing={2}>
+                <Grid item sx={{marginTop: "1%"}}  >
+                    <Grid container spacing={2} >
                         <Grid item xs={5}>
-                            <Item>
+                            <Item sx={{boxShadow: "none"}}>
                                 <Grid 
                                     container 
                                     spacing={2} 
                                     className="box bounce-2"
-                                    sx={{marginTop: "3%", display: "flex", justifyContent: "center"}}
+                                    direction="column" justifyContent="center"
+                                    sx={{marginTop: "3%"}}
                                 >
-                                    <Image src={telegramPic} width="80" height="80" />
+                                    <a href="https://t.me/yeroglyphs" target="_blank" rel="noopener noreferrer">
+                                        <Image src={telegramPic} alt="telegram-icon" width="75" height="75" />
+                                    </a>
                                 </Grid>
                             </Item>
                         </Grid>
                         <Grid item xs={5}>
-                            <Item>
+                            <Item sx={{boxShadow: "none"}}>
                                 <Grid 
                                     container 
                                     spacing={2} 
-                                    className="box bounce-2" 
-                                    sx={{marginTop: "3%", display: "flex", justifyContent: "center"}}
+                                    className="box bounce-2"
+                                    sx={{marginTop: "3%"}}
                                 >
-                                    <Image src={twitterPic} width="80" height="80" />
+                                    <a href="https://twitter.com/yeroglyphs" target="_blank" rel="noopener noreferrer">
+                                        <Image src={twitterPic} alt="twitter-icon" width="75" height="75" />
+                                    </a>
                                 </Grid>
                             </Item>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid item >
                     <Typography component="p" variant="subtitle1" color="primary" align="center">Talk to your financial advisor before taking any decision.</Typography>
                     <Typography component="p" variant="subtitle1" color="primary" align="center">Do Your Own Research.  </Typography>
                     <Typography component="p" variant="subtitle1" color="primary" align="center">Not Financial Advice.</Typography>

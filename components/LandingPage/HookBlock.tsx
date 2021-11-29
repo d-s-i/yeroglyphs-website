@@ -23,22 +23,22 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-function FirstBlock(props: Props) {
+function HookBlock(props: Props) {
     return(
         <Box sx={{ flexGrow: 1 }}>
             <Grid container sx={{paddingTop: "3%", marginBottom: "3%",  }}>
                 <Grid item xs={7} sx={{marginTop: "3%"}} >
                     <Item sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
                     <Typography align="left" component="h1" variant="h2" color="primary" sx={{fontWeight: "bold"}} >
-                        <span className="goldColor" >Yero</span> - NFTs Are Not Anymore What You Think It Is
+                        <span className="goldColor" >Yero</span> - NFTs Are Not What You Think It Is
                     </Typography>
                     <Typography align="left" component="h2" variant="h5" color="primary" sx={{paddingBottom: "5%", fontWeight: "bold"}}>
                         This New, Highly Experimental NFT Allow Its Holders To Create Magnificent Art On-Demand and Increase The Value Of Their NFT
                     </Typography>
-                    <ListItemFeature text="Make Unique Art Via an On-Chain Algorithm"/>
-                    <ListItemFeature text="Give Value To Your NFT By Creating New Randomized Art on Every Block "/>
-                    <ListItemFeature text="Change Back and Forth Between Your Favorite Artwork And Create New Artwork"/>
-                    <ListItemFeature text="Hot New NFT Experiment Unlike Other NFTs!"/>
+                    <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Make Unique Art Via an On-Chain Algorithm"/>
+                    <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Give Value To Your NFT By Creating New Randomized Art on Every Block "/>
+                    <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Change Back and Forth Between Your Favorite Artwork And Create New Artwork"/>
+                    <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Hot New NFT Experiment Unlike Other NFTs!"/>
                     <Typography align="left" component="p" variant= "h4" color="primary" sx={{marginTop: "5%"}}>
                         Contract Address: 
                     </Typography>
@@ -55,7 +55,7 @@ function FirstBlock(props: Props) {
                         className="box bounce-2" 
                         sx={{marginTop: "3%", display: "flex", justifyContent: "center"}}
                     >
-                        <Image src={demoYero} width="400" height="400" />
+                        <Image src={demoYero} alt="generative-art" width="400" height="400" />
                     </Grid>
                         <Grid
                             container
@@ -79,11 +79,11 @@ function FirstBlock(props: Props) {
                     Coming <span className="goldColor">Soon</span> On ...
                 </Typography>
                 <div style={{display: "flex", justifyContent: "center", marginTop: "3%"}}>
-                    <Image src={bobaPic} width="200" height="120" />
+                    <Image src={bobaPic} alt="boba-network" width="200" height="120" />
                 </div>
             </Container>
         </Box>
     );
 }
 
-export default FirstBlock;
+export default HookBlock;
