@@ -49,43 +49,35 @@ function ExplanationBlock(props: Props) {
                         alignItems="center"
                         sx={{padding: "3% 3% 3% 3%"}}
                     >
-                        <Grid container spacing={3}>
-                            <Grid item xs>
-                                <Item>
+                        <Grid container sx={{ marginBottom: "5%" }}>
+
+                            <Grid item xs={12} md={4} >
+                                <Item sx={{ marginBottom: "5%" }}>
                                     <Image src={parchment} alt="parchment" width="80" height="80" />
                                 </Item>
-                            </Grid>
-                            <Grid item xs>
-                                <Item>
-                                    <Image src={ring} alt="ring" width="80" height="80" />
-                                </Item>
-                            </Grid>
-                            <Grid item xs>
-                                <Item>
-                                    <Image src={crook} alt="crook" width="80" height="80" />
-                                </Item>
-                            </Grid>
-                        </Grid>
-                        <Grid container>
-
-                            <Grid item xs={4} >
-                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%"}} align="center">
+                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "5%"}} align="center">
                                     On-Chain Algorithm
                                 </Typography>
                                 <Typography component="p" variant="h6" color="primary" align="center">
                                     {`Smart contracts are immutable and can't change once published. Our smart contracts contain the generative algorithm for ever.`}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={4} >
-                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%"}} align="center">
+                            <Grid item xs={12} md={4} >
+                                <Item sx={{ marginBottom: "5%" }}>
+                                    <Image src={ring} alt="ring" width="80" height="80" />
+                                </Item>
+                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "5%"}} align="center">
                                     On-Chain Metadata
                                 </Typography>
                                 <Typography component="p" variant="h6" color="primary" align="center">
                                     Same logic for the Art. The art is contained in your copy of the smart contract and will be stored as long as Ethereum run, guaranteeing ownership for ever.
                                 </Typography>
                             </Grid>
-                            <Grid item xs={4} >
-                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%"}} align="center">
+                            <Grid item xs={12} md={4} >
+                                <Item sx={{ marginBottom: "5%" }}>
+                                    <Image src={crook} alt="crook" width="80" height="80" />
+                                </Item>
+                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "5%"}} align="center">
                                     Dynamic Artwork
                                 </Typography>
                                 <Typography component="p" variant="h6" color="primary" align="center">
@@ -94,13 +86,13 @@ function ExplanationBlock(props: Props) {
                             </Grid>
                         </Grid>
                         <Grid container>
-                            <Item sx={{width: "100%"}}>
+                            <Item sx={{width: "100%", marginBottom: "3%"}}>
                                 <Image src={ankh} alt="ankh" width="80" height="80" />
                             </Item>
-                            <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%"}} align="center">
+                            <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "3%"}} align="center">
                                 Generate Your Own Yero Now
                             </Typography>
-                            <Typography component="p" variant="h6" color="primary" align="center">
+                            <Typography component="p" variant="h6" color="primary" align="center" sx={{ marginBottom: "3%" }}>
                                 {`Here is the actual code that will generate the art, but the magic is that you don't have to understand it to create your NFT ! This algorithm generates a sequence of characters, then interpreted to recreate a complex artistic piece, using a seed (determined in printing) and a dynamic pseudo-random variable. That's why anyone can create and recreate complex artistic pieces with Yero.`}
                             </Typography>
                             <CodeCard />
