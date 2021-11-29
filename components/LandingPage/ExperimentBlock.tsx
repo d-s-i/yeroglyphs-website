@@ -63,8 +63,6 @@ function ExperimentBlock(props: Props) {
                                 index={index + 1} 
                                 image={experiment.imageSrc} 
                                 paragraphs={experiment.paragraphs} 
-                                firstParagraph={experiment.firstParagraph} 
-                                secondParagraph={experiment.secondParagraph}
                                 colorReversed={isColorReversed}
                             />
                         );
