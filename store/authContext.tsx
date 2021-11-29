@@ -58,19 +58,17 @@ export function AuthContextProvider({ children }: Props) {
         setProvider(walletObject[1]);
     }
 
-    useEffect(() => {
-        try {
-            loginHandler();
-            window.ethereum.on('accountsChanged', function () {
+    if (typeof(window) !== "undefined" && typeof(window.ethereum) !== "undefined") {
+        useEffect(() => {
                 loginHandler();
-            });
-            window.ethereum.on('chainChanged', function(networkId: number){
-                onNetworkChange(networkId);
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
+                window.ethereum.on('accountsChanged', function () {
+                    loginHandler();
+                });
+                window.ethereum.on('chainChanged', function(networkId: number){
+                    onNetworkChange(networkId);
+                });
+        }, []);
+    }
 
     function onNetworkChange(networkId: number) {
         if(+networkId === network.chainId) {
