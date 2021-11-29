@@ -74,7 +74,7 @@ function MyAppBar(props: Props) {
             <Box sx={{ flexGrow: 1 }}>
                 <CustomizedAppBar position="static">
                     <Toolbar>
-                        <Grid container justifyContent="space-between" alignItems="center" sx={{ display: "flex" }}>
+                        <Grid container justifyContent="space-between" alignItems="center" sx={{ display: "flex", padding: "0.5% 3% 0.5% 3%" }}>
                             <Typography variant="h2" component="div" sx={{ flexGrow: 1, color: "#FFD700" }} className="noselect">
                                 <span className={styles["redirection-menu"]} >
                                     <Link href="/" passHref>
@@ -82,8 +82,7 @@ function MyAppBar(props: Props) {
                                     </Link>   
                                 </span>
                             </Typography>
-                            <ButtonLinks isReadyForProd={props.isMintReleased} />
-                            {/* {!props.isLP && <ButtonLinks isReadyForProd={props.isMintReleased} />} */}
+                            {!props.isLP && <ButtonLinks isReadyForProd={props.isMintReleased} />}
                             <MySVGButton onClick={() => connect()} >{buttonText}</MySVGButton>
                         </Grid>
                     </Toolbar>
