@@ -68,7 +68,7 @@ function ExplanationBlock(props: Props) {
                         </Grid>
                         <Grid container>
 
-                            <Grid container xs={4} >
+                            <Grid item xs={4} >
                                 <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%"}} align="center">
                                     On-Chain Algorithm
                                 </Typography>
@@ -76,7 +76,7 @@ function ExplanationBlock(props: Props) {
                                     {`Smart contracts are immutable and can't change once published. Our smart contracts contain the generative algorithm for ever.`}
                                 </Typography>
                             </Grid>
-                            <Grid container xs={4} >
+                            <Grid item xs={4} >
                                 <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%"}} align="center">
                                     On-Chain Metadata
                                 </Typography>
@@ -84,7 +84,7 @@ function ExplanationBlock(props: Props) {
                                     Same logic for the Art. The art is contained in your copy of the smart contract and will be stored as long as Ethereum run, guaranteeing ownership for ever.
                                 </Typography>
                             </Grid>
-                            <Grid container xs={4} >
+                            <Grid item xs={4} >
                                 <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%"}} align="center">
                                     Dynamic Artwork
                                 </Typography>

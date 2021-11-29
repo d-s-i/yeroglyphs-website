@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuthContext } from "../../../store/authContext";
 
 import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -24,6 +25,7 @@ const CustomizedAppBar = styled(AppBar)`
 
 interface Props {
     isMintReleased: boolean;
+    isLP: boolean;
 }
 
 interface ErrorState {
@@ -72,16 +74,16 @@ function MyAppBar(props: Props) {
             <Box sx={{ flexGrow: 1 }}>
                 <CustomizedAppBar position="static">
                     <Toolbar>
-                        <Grid container justifyContent="flex-end" alignItems="center">
+                        <Grid container justifyContent="space-between" alignItems="center" sx={{ display: "flex" }}>
                             <Typography variant="h2" component="div" sx={{ flexGrow: 1, color: "#FFD700" }} className="noselect">
                                 <span className={styles["redirection-menu"]} >
                                     <Link href="/" passHref>
-                                        𓁋 Yero
+                                        {`𓁋 Yero`}
                                     </Link>   
                                 </span>
                             </Typography>
-                            <Typography component="p" variant="h6" sx={{marginRight: "10%"}} color="primary" >Collection #1 - Launching date TBD…</Typography>
                             <ButtonLinks isReadyForProd={props.isMintReleased} />
+                            {/* {!props.isLP && <ButtonLinks isReadyForProd={props.isMintReleased} />} */}
                             <MySVGButton onClick={() => connect()} >{buttonText}</MySVGButton>
                         </Grid>
                     </Toolbar>

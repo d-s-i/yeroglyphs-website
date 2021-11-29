@@ -53,27 +53,25 @@ function HotExperimentCard(props: Props) {
                     {` - ${props.title}`}
                 </Typography>
             </Grid>
-            <Grid item >
-                <Grid container spacing={2}>
-                    <Grid item xs={5} sx={{marginTop: "3%"}}>
-                        <Grid 
-                            container 
-                            className="box bounce-2" 
-                            sx={{display: "flex", justifyContent: "center"}}
-                        >
-                            <Image src={props.image} alt="" width="150" height="150" />
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={7} sx={{width: "100%"}}>
-                        <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", fontSize: "1.2em", color: colors.mainColor }}>
-                            {props.firstParagraph}
-                        </Typography>
-                        {props.secondParagraph && <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", marginTop: "5%", fontSize: "1.2em", color: colors.mainColor }}>
-                            {props.secondParagraph}
-                        </Typography>}
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={12} md={5} sx={{marginTop: "3%"}}>
+                    <Grid 
+                        container 
+                        className="box bounce-2" 
+                        sx={{display: "flex", justifyContent: "center"}}
+                    >
+                        <Image src={props.image} alt="" width="150" height="150" />
                     </Grid>
                 </Grid>
-            </Grid>
+                <Grid item xs={12} sm={12} md={7} sx={{width: "100%"}}>
+                    <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", fontSize: "1.2em", color: colors.mainColor }}>
+                        {props.firstParagraph}
+                    </Typography>
+                    {props.secondParagraph && <Typography component="p" variant="subtitle1" align="left" sx={{ width: "100%", marginTop: "5%", fontSize: "1.2em", color: colors.mainColor }}>
+                        {props.secondParagraph}
+                    </Typography>}
+                </Grid>
+                </Grid>
         </Grid>
     );
 }

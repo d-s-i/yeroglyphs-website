@@ -35,7 +35,7 @@ function Footer() {
                         Follow us on Twitter and join our Telegram :
                     </Typography>
                 </Grid>
-                <Grid item sx={{marginTop: "1%"}}  >
+                <Grid item sx={{marginTop: "1%", display: "flex", justifyContent: "center" }}>
                     <Grid container spacing={2} >
                         <Grid item xs={5}>
                             <Item sx={{boxShadow: "none"}}>

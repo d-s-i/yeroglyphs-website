@@ -32,7 +32,7 @@ const Home = (props: Props) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
       </div>
-      <MyAppBar isMintReleased={props.isMintReleased} />
+      <MyAppBar isLP={true} isMintReleased={props.isMintReleased} />
       <BackgroundColor light={FIRST_BACKGROUND_COLOR}>
         <AppContainer isLandingPage>
           <HookBlock isMintReleased={props.isMintReleased} />

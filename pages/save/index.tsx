@@ -90,7 +90,7 @@ export default function Save(props: Props) {
     
   return (
     <React.Fragment>
-        <MyAppBar isMintReleased={props.isMintReleased} />
+        <MyAppBar isLP={false} isMintReleased={props.isMintReleased} />
         <AppContainer>
             <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
             {isLoading && <LoadingDiv />}

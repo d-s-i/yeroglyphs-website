@@ -32,8 +32,8 @@ function TokenomicsBlock(props: Props) {
                 </Container>
                 <Container maxWidth="lg" sx={{ backgroundColor: "#000000", borderBottomLeftRadius: "1em", borderBottomRightRadius: "1em", padding: "1% 0% 1% 0%" }}>
                     <Box sx={{ flexGrow: 1 }}>
-                        <Grid container spacing={2} columns={16}>
-                            <Grid item xs={8}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={6}>
                                 <Item>
                                     <Typography component="p" variant="h5" color="primary" sx={{ fontWeight: "bold" }}>
                                         Fair Launched - Zero Bots, Zero VC, Zero Cronies Advantage, Here For The Long-Term
@@ -49,7 +49,7 @@ function TokenomicsBlock(props: Props) {
                                     <ListItemFeature bulletColor="#ff00ff" bullet="❌" textColor="#f3f4f6" text="Real Valuable Timeless Piece of Art Only (No More Useless Profile Picture)" />
                                 </Item>
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={12} md={6}>
                                 <Item>
                                     <Typography component="p" variant="h5" color="primary" sx={{ fontWeight: "bold" }}>
                                         Tokenomics serving the expriment

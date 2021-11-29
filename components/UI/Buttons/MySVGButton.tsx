@@ -13,7 +13,7 @@ const ButtonRoot = React.forwardRef(function ButtonRoot(
   const { children, ...other } = props;
 
   return (
-    <svg width="150" height="50" {...other} ref={ref}>
+    <svg width="140" height="50" {...other} ref={ref}>
       <polygon points="10,45 10,5 140,5 140,45" className="bg" />
       <polygon points="10,45 10,5 140,5 140,45" className="borderEffect" />
       <foreignObject x="0" y="0" width="150" height="50">
@@ -57,8 +57,8 @@ const CustomButtonRoot = styled(ButtonRoot)(
   & .borderEffect {
     stroke: var(--main-color);
     stroke-width: 2;
-    stroke-dasharray: 150 600;
-    stroke-dashoffset: 150;
+    stroke-dasharray: 140 600;
+    stroke-dashoffset: 140;
     fill: transparent;
   }
 
@@ -120,7 +120,7 @@ interface Props {
 
 export default function MySVGButton(props: Props) {
   return (
-    <SvgButton onClick={props.onClick}>
+    <SvgButton style={{marginRight: "0.5%"}} onClick={props.onClick}>
       <Typography component="p" sx={{ fontSize: "1.1em", textTransform: "none" }} >{props.children}</Typography>
     </SvgButton>
   );
