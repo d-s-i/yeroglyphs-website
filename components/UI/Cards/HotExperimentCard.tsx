@@ -36,7 +36,7 @@ function HotExperimentCard(props: Props) {
             sx={{
                 backgroundColor: colors.backgroundColor,
                 borderRadius: "1em",
-                padding: "1% 2% 1% 3%",
+                padding: "1% 2% 3% 3%",
                 margin: "0% 5% 5% 5%",
                 width: "90%"
             }}

@@ -1,10 +1,6 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 
 import StepCard from "../UI/Cards/StepCard";
 import MintingButton from "../UI/Buttons/MintingButton";
@@ -16,6 +12,15 @@ interface Props {
 
 const steps = [
     {
+        title: "Join the Community",
+        bullets: [
+            "Click on this link t.me/yeroglyphs and engage with your fellow historians",
+            "Follow us on twitter, many of the passwords will be hidden there https://twitter.com/yegorlyphs",
+            "Check the history of the messages, rewteet, like and comment our tweets",
+            "Be curious, our founder is quite sadistic when it comes to hiding clues.",
+            "Try your luck to find a hidden password and use it to mint a Genesis Yero"
+        ]
+    }, {
         title: "Mint Your Own Yero NFT",
         bullets: [
             "Click on any button on this page to go on the minting page",
@@ -71,9 +76,9 @@ function TutoBlock(props: Props) {
             {steps.map(step => {
                 const index = steps.indexOf(step);
                 if(!step.image) {
-                    return(<StepCard key={index} title={step.title} bullets={step.bullets} index={index + 1} />);
+                    return(<StepCard key={index} title={step.title} bullets={step.bullets} index={steps.indexOf(step)} />);
                 } else {
-                    return(<StepCard key={index} title={step.title} image={step.image} subtitle={step.subtitle} index={index + 1} />);
+                    return(<StepCard key={index} title={step.title} image={step.image} subtitle={step.subtitle} index={steps.indexOf(step)} />);
                 }
             })}
             <Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "3% 0% 1% 0%"}}>

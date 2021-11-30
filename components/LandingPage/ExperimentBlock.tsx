@@ -1,8 +1,8 @@
 import HotExperimentCard from "../UI/Cards/HotExperimentCard";
 import MintingButton from "../UI/Buttons/MintingButton";
-import sarco from "../../public/sarco.png";
-import pharaoh from "../../public/pharaoh.png";
-import cat from "../../public/cat.png";
+import sarco from "../../public/ra-eye.png";
+import pharaoh from "../../public/pharaoh2.png";
+import cat from "../../public/scarab.png";
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -14,24 +14,22 @@ interface Props {
 
 const experiments = [
     {
-        title: "Fully On Chain Art",
+        title: "Generative Art",
         imageSrc: sarco,
         paragraphs: [
-            "People get excited with new NFTs. We made this to try something new and see how it goes. We will keep exploring the space and build upon it.",
-            "If you are here for the art, you are at the right place. This is a new mechanism that that will probably generate some excitement about generative art."
+            "Generative art refers to any art made by an autonomous system. In our case, it is made by a cooperation between you AND an autonomous system: the blockchain.",
         ],
     }, {
-        title: "User is the Main Actor",
-        imageSrc: pharaoh,
-        paragraphs: [
-            "The Core Principle of Yero is to put the user at the center of the Art.",
-            "We provide the algorithm, your inputs make the final result."
-        ],
-    }, {
-        title: "25% Donated To Charity!",
+        title: "Dynamic Metadata",
         imageSrc: cat,
         paragraphs: [
-            "We care for the vain uptrend of the NFT but we also need the denials of the gods. That is why a part of the profits will be given back to several crypto communities."
+            "You NFT is dynamic and its art can change on every block. You will be able to collect many artwork from your NFT, navigate through them, and display your favorite to the world."
+        ],
+    }, {
+        title: "Only 50 Genesis NFTs",
+        imageSrc: pharaoh,
+        paragraphs: [
+            `Each pieces is though unique, but all are Yero NFTs not equal. There is 50 NFTs out of 512 that are called 'Pure' and represent perfect pieces of art. Everyone will have a chance to get a Genesis Yero at some point, follow us on Twitter to know how 👀`,
         ],
     }
 
@@ -55,7 +53,8 @@ function ExperimentBlock(props: Props) {
                 <Container maxWidth="md">
                     {experiments.map(experiment => {
                         const index = experiments.indexOf(experiment);
-                        const isColorReversed = index === (experiments.length - 1);
+                        // const isColorReversed = index === (experiments.length - 1);
+                        const isColorReversed = false;
                         return(
                             <HotExperimentCard 
                                 title={experiment.title} 

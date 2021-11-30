@@ -59,22 +59,25 @@ function TokenomicsBlock(props: Props) {
                                     <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="Extremely Low Supply - Only 512 Yero EVER" />
                                 </Item>
                                 <Item>
+                                    <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="Long-Term Building Blocks" />
+                                </Item>
+                                <Item>
+                                    <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="The State of Your NFT is Changing on EVERY Block (you can save it or disregard it forever)" />
+                                </Item>
+                                <Item>
                                     <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="First On Chain Dynamic Metadata NFTs EVER" />
                                 </Item>
                                 <Item>
                                     <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="Optimized Gas Cost Minting" />
                                 </Item>
                                 <Item>
-                                    <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="The State of Your NFT is Changing on EVERY Block (you can save it or disregard it forever)" />
-                                </Item>
-                                <Item>
-                                    <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="Exploring the Frontier To Create and Display NFTs" />
+                                    <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="People resolving enigmas get rewarded with a highly scarce Genesis Yero" />
                                 </Item>
                                 <Item>
                                     <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="Able to Bridge and Display Your NFT on Other Chains" />
                                 </Item>
                                 <Item>
-                                    <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="Long-Term Building Blocks" />
+                                    <ListItemFeature bulletColor={checkColor} bullet="✓" textColor="#f3f4f6" text="Exploring the Frontier To Create and Display NFTs" />
                                 </Item>
                             </Grid>
                         </Grid>

@@ -50,16 +50,26 @@ function ExplanationBlock(props: Props) {
                         sx={{padding: "3% 3% 3% 3%"}}
                     >
                         <Grid container sx={{ marginBottom: "5%" }}>
-
+                            <Grid item xs={12} md={4} >
+                                <Item sx={{ marginBottom: "5%" }}>
+                                    <Image src={crook} alt="crook" width="80" height="80" />
+                                </Item>
+                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "5%"}} align="center">
+                                    New Metadata Mechanism
+                                </Typography>
+                                <Typography component="p" variant="h6" color="primary" align="center">
+                                    We are not a simple NFT. We come with an innovation allowing people to screenshot the blockchain and collect this artwork on their NFTs. This is unheard of.
+                                </Typography>
+                            </Grid>
                             <Grid item xs={12} md={4} >
                                 <Item sx={{ marginBottom: "5%" }}>
                                     <Image src={parchment} alt="parchment" width="80" height="80" />
                                 </Item>
                                 <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "5%"}} align="center">
-                                    On-Chain Algorithm
+                                    Very Low Supply
                                 </Typography>
                                 <Typography component="p" variant="h6" color="primary" align="center">
-                                    {`Smart contracts are immutable and can't change once published. Our smart contracts contain the generative algorithm for ever.`}
+                                    {`Only 512 will ever get created making its access very elitist knowing that it's not a simple JPEG NFT.`}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} md={4} >
@@ -67,35 +77,31 @@ function ExplanationBlock(props: Props) {
                                     <Image src={ring} alt="ring" width="80" height="80" />
                                 </Item>
                                 <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "5%"}} align="center">
-                                    On-Chain Metadata
+                                    {`Yero's Proof Of Work`}
                                 </Typography>
                                 <Typography component="p" variant="h6" color="primary" align="center">
-                                    Same logic for the Art. The art is contained in your copy of the smart contract and will be stored as long as Ethereum run, guaranteeing ownership for ever.
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} md={4} >
-                                <Item sx={{ marginBottom: "5%" }}>
-                                    <Image src={crook} alt="crook" width="80" height="80" />
-                                </Item>
-                                <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "5%"}} align="center">
-                                    Dynamic Artwork
-                                </Typography>
-                                <Typography component="p" variant="h6" color="primary" align="center">
-                                    Unlike other NFTs, owning a Yero allow you to generate art on demand by using our algorithm and store as many art as  you want in your NFT. 
+                                    Anyone will be able to mint a Yero NFT. But proof of work is required in order to mint a rare one, aka. Genesis Yero.
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <Grid container>
+                        <Grid 
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                        >
                             <Item sx={{width: "100%", marginBottom: "3%"}}>
                                 <Image src={ankh} alt="ankh" width="80" height="80" />
                             </Item>
                             <Typography component="p" variant="h4" color="primary" sx={{fontWeight: "bold", color: "#FFD700", width: "100%", marginBottom: "3%"}} align="center">
-                                Generate Your Own Yero Now
+                                Get a chance to mint a Genesis Yero!
                             </Typography>
                             <Typography component="p" variant="h6" color="primary" align="center" sx={{ marginBottom: "3%" }}>
-                                {`Here is the actual code that will generate the art, but the magic is that you don't have to understand it to create your NFT ! This algorithm generates a sequence of characters, then interpreted to recreate a complex artistic piece, using a seed (determined in printing) and a dynamic pseudo-random variable. That's why anyone can create and recreate complex artistic pieces with Yero.`}
+                                Follow us on <a href="https://twitter.com/yeroglyphs" target="_blank" rel="noopener noreferrer">Twitter</a>, decode the passwords (they will be in the form of words, hidden anywhere), and use those word to mint your Yero NFT!
                             </Typography>
-                            <CodeCard />
+                            <Typography component="p" variant="h6" color="primary" align="center" sx={{ marginBottom: "3%" }}>
+                                You should also join our <a href="https://t/me/yeroglyphs" target="_blank" rel="noopener noreferrer">Telegram</a> to discuss with the community.
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Grid>

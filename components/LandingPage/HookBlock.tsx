@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import Container from "@mui/material/Container";
 
 import MintingButton from "../UI/Buttons/MintingButton";
-import demoYero from "../../public/demo-yero.jpg";
+import hiddenGenesis from "../../public/hiddenGenesis.jpg";
 import bobaPic from "../../public/boba.png";
 
 import Image from "next/image";
@@ -38,7 +38,7 @@ function HookBlock(props: Props) {
                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Make Unique Art Via an On-Chain Algorithm"/>
                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Give Value To Your NFT By Creating New Randomized Art on Every Block "/>
                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Change Back and Forth Between Your Favorite Artwork And Create New Artwork"/>
-                    <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Hot New NFT Experiment Unlike Other NFTs!"/>
+                    <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Resolve the enigma and get one of the 50 Genesis NFT"/>
                     <Typography align="left" component="p" variant= "h4" color="primary" sx={{marginTop: "5%"}}>
                         Contract Address: 
                     </Typography>
@@ -47,7 +47,7 @@ function HookBlock(props: Props) {
                     </Typography>
                     </Item>
                 </Grid>
-                <Grid item xs={12} xl={5} lg={5} sm={12} md={5}>
+                <Grid item xs={12} xl={5} lg={5} sm={12} md={5} >
                     <Item sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
                         <Grid 
                             container 
@@ -55,7 +55,7 @@ function HookBlock(props: Props) {
                             className="box bounce-2" 
                             sx={{marginTop: "3%", display: "flex", justifyContent: "center"}}
                         >
-                            <Image src={demoYero} alt="generative-art" width="400" height="400" />
+                            <Image src={hiddenGenesis} alt="generative-art" width="400" height="400" />
                         </Grid>
                         <Grid
                             container
