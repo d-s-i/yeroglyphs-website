@@ -15,7 +15,7 @@ const steps = [
         title: "Join the Community",
         bullets: [
             "Click on this link t.me/yeroglyphs and engage with your fellow historians",
-            "Follow us on twitter, many of the passwords will be hidden there https://twitter.com/yegorlyphs",
+            "Follow us on twitter, many of the passwords will be hidden there https://twitter.com/yeroglyphs",
             "Check the history of the messages, rewteet, like and comment our tweets",
             "Be curious, our founder is quite sadistic when it comes to hiding clues.",
             "Try your luck to find a hidden password and use it to mint a Genesis Yero"
