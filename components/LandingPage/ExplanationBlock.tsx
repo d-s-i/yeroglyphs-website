@@ -11,7 +11,6 @@ import parchment from "../../public/parchment.png";
 import ring from "../../public/ring.png";
 import crook from "../../public/crook.png";
 import ankh from "../../public/ankh.png";
-import CodeCard from "../UI/Cards/CodeCard";
 import MintingButton from "../UI/Buttons/MintingButton";
 
 interface Props {

@@ -1,8 +1,8 @@
 import HotExperimentCard from "../UI/Cards/HotExperimentCard";
 import MintingButton from "../UI/Buttons/MintingButton";
-import sarco from "../../public/ra-eye.png";
+import raEye from "../../public/ra-eye.png";
 import pharaoh from "../../public/pharaoh2.png";
-import cat from "../../public/scarab.png";
+import scarab from "../../public/scarab.png";
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -15,13 +15,13 @@ interface Props {
 const experiments = [
     {
         title: "Generative Art",
-        imageSrc: sarco,
+        imageSrc: raEye,
         paragraphs: [
             "Generative art refers to any art made by an autonomous system. In our case, it is made by a cooperation between you AND an autonomous system: the blockchain.",
         ],
     }, {
         title: "Dynamic Metadata",
-        imageSrc: cat,
+        imageSrc: scarab,
         paragraphs: [
             "You NFT is dynamic and its art can change on every block. You will be able to collect many artwork from your NFT, navigate through them, and display your favorite to the world."
         ],
