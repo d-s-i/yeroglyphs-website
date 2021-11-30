@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 interface Props {
     index: number;
     title: string;
-    bullets?: string[];
+    bullets?: JSX.Element[];
     image?: StaticImageData;
     subtitle?: string;
 }
@@ -34,7 +34,7 @@ function StepCard(props: Props) {
                         <Typography component="p" variant="h3" sx={{ color: "#ccad00", marginBottom: "3%", fontWeight: "bold" }} >&#9656;{`Step #${props.index} - ${props.title}`}</Typography>
                         {props.bullets && props.bullets.map(bullet => {
                             return(
-                                <Container maxWidth="md" sx={{ marginLeft: "5%" }} key={bullet}>
+                                <Container maxWidth="md" sx={{ marginLeft: "5%" }} key={Math.random()}>
                                     <ListItemFeature 
                                         key={props.bullets!.indexOf(bullet)} 
                                         bulletColor="#000000" 

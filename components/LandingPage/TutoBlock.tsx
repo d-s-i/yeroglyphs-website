@@ -14,46 +14,46 @@ const steps = [
     {
         title: "Join the Community",
         bullets: [
-            "Click on this link t.me/yeroglyphs and engage with your fellow historians",
-            "Follow us on twitter, many of the passwords will be hidden there https://twitter.com/yeroglyphs",
-            "Check the history of the messages, rewteet, like and comment our tweets",
-            "Be curious, our founder is quite sadistic when it comes to hiding clues.",
-            "Try your luck to find a hidden password and use it to mint a Genesis Yero"
+            <span>Join the <a href="https://t.me/yeroglyphs" style={{fontWeight: "bold"}} target="_blank" rel="noopener noreferrer">Telegram</a> and engage with your fellow historians</span>,
+            <span>Follow us on <a href="https://twitter.com/yeroglyphs" style={{fontWeight: "bold"}} target="_blank" rel="noopener noreferrer" >Twitter</a>, many of the passwords will be hidden there</span>,
+            <span>Check the history of the messages, rewteet, like and comment our tweets</span>,
+            <span>Be curious, our founder is quite sadistic when it comes to hiding clues.</span>,
+            <span>Try your luck to find a hidden password and use it to mint a Genesis Yero</span>
         ]
     }, {
         title: "Mint Your Own Yero NFT",
         bullets: [
-            "Click on any button on this page to go on the minting page",
-            "Connect your wallet",
-            "Make sure there are still Yero available",
-            "Click “Mint”",
-            "Congrats! You you created unique art and started your journey in generative art"
+            <span>Click on any button on this page to go on the minting page</span>,
+            <span>Connect your wallet</span>,
+            <span>Make sure there are still Yero available</span>,
+            <span>Click “Mint”</span>,
+            <span>Congrats! You you created unique art and started your journey in generative art</span>
         ]   
     }, {
         title: "Observe The Art Your Generated",
         bullets: [
-            "Nft plateform are not ready yet on Boba, so we created ours !",
-            "Go to NOT_AVAILABLE_YET",
-            "Connect your Metamask",
-            "Admire the art you created !"
+            <span>Nft plateform are not ready yet on Boba, so we created ours !</span>,
+            <span>Go to NOT_AVAILABLE_YET</span>,
+            <span>Connect your Metamask</span>,
+            <span>Admire the art you created!</span>
         ]
     }, {
         title: "Generate New Art On Your NFT",
         bullets: [
-            "Side note : You always keep previously generated art stored in your NFT contract !",
-            "Go on NOT_AVAILABLE_YET",
-            "Vizualize the current state of your NFT (it changes on every block)",
-            "If you want to save this state, click the button !",
-            "As simple as this!"
+            <span>Side note : You always keep previously generated art stored in your NFT contract !</span>,
+            <span>Go on NOT_AVAILABLE_YET</span>,
+            <span>Vizualize the current state of your NFT (it changes on every block)</span>,
+            <span>If you want to save this state, click the button !</span>,
+            <span>As simple as this!</span>
         ]
     }, {
         title: "Save This Art As Default",
         bullets: [
-            "If you want to put your newly generated art as default on your favorite plateform, you can!",
-            "Go on NOT_AVAILABLE_YET",
-            "Check all the artwork your created",
-            "Click 'Save' on the artwork you like",
-            "Congrats! You just changed the image of your NFT"
+            <span>If you want to put your newly generated art as default on your favorite plateform, you can!</span>,
+            <span>Go on NOT_AVAILABLE_YET</span>,
+            <span>Check all the artwork your created</span>,
+            <span>Click 'Save' on the artwork you like</span>,
+            <span>Congrats! You just changed the image of your NFT</span>
         ]
     }, 
     {

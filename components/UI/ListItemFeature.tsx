@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
 
 interface Props {
-    text: string;
+    text: JSX.Element | string;
     bullet: string;
     bulletColor: string;
     textColor: string;
@@ -21,7 +21,7 @@ function ListItemFeature(props: Props) {
                   <ListItemText
                     disableTypography 
                     sx={{padding: 0, margin: 0, fontSize: "1.5em", color: props.textColor}}
-                    primary={`${props.text}`}
+                    primary={props.text}
                   />
                 </ListItem>
             </List>
