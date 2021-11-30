@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 
 import MintingButton from "../UI/Buttons/MintingButton";
 import bobaPic from "../../public/boba.png";
-import hiddenGenesis from "../../public/hiddenGenesis.jpg";
+import hiddenGenesis from "../../public/Genesis.png";
 
 import Image from "next/image";
 
