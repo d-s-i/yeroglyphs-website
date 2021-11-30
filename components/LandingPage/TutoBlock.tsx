@@ -14,8 +14,8 @@ const steps = [
     {
         title: "Join the Community",
         bullets: [
-            <span>Join the <a href="https://t.me/yeroglyphs" style={{fontWeight: "bold"}} target="_blank" rel="noopener noreferrer">Telegram</a> and engage with your fellow historians</span>,
-            <span>Follow us on <a href="https://twitter.com/yeroglyphs" style={{fontWeight: "bold"}} target="_blank" rel="noopener noreferrer" >Twitter</a>, many of the passwords will be hidden there</span>,
+            <span>Join the <a href="https://t.me/yeroglyphs" style={{fontWeight: "bold", color: "#ccad00"}} target="_blank" rel="noopener noreferrer">Telegram</a> and engage with your fellow historians</span>,
+            <span>Follow us on <a href="https://twitter.com/yeroglyphs" style={{fontWeight: "bold", color: "#ccad00"}} target="_blank" rel="noopener noreferrer" >Twitter</a>, many of the passwords will be hidden there</span>,
             <span>Check the history of the messages, rewteet, like and comment our tweets</span>,
             <span>Be curious, our founder is quite sadistic when it comes to hiding clues.</span>,
             <span>Try your luck to find a hidden password and use it to mint a Genesis Yero</span>
