@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import MintingButton from "../UI/Buttons/MintingButton";
+import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 
 import ListItemFeature from "../UI/ListItemFeature";
 
@@ -85,7 +85,7 @@ function TokenomicsBlock(props: Props) {
                 </Container>
             </Container>
             <Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "3% 0% 1% 0%"}}>
-                <MintingButton isMintReleased={props.isMintReleased} />
+                <MintRedirectionButton isMintReleased={props.isMintReleased} />
             </Container>
         </Container>
     );

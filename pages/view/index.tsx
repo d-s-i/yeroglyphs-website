@@ -43,8 +43,10 @@ export default function View(props: Props) {
                 let currImages: ImageState[] = [];
                 for(let i = 0; i < nbOfNftsOwned; i++) {
                     const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
-                    const tokenURI = await yeroglyphs.tokenURI(id);
-                    const encodedSVG = getImages(tokenURI);
+                    const defaultIndex = await yeroglyphs.tokenIdDefaultIndex(id);
+                    const imageURI = await yeroglyphs.viewSpecificTokenURI(id, defaultIndex);
+                    // const tokenURI = await yeroglyphs.tokenURI(id);
+                    const encodedSVG = getImages(imageURI);
                     currImages.push({svg: encodedSVG, id: id});
                     setImages([...currImages]);
                 }

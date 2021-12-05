@@ -1,0 +1,48 @@
+.pending {
+    background-color: #0047b3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5% 1% 0.5% 3%;
+    margin: 3% 0% 0% 0%;
+    border-radius: 3px; 
+}
+
+.loading-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.confirmed {
+    background-color: #009900;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5% 1% 0.5% 3%;
+    margin: 3% 0% 0% 0%;
+    border-radius: 3px; 
+}
+
+.quit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+.quit-button:hover {
+    cursor: pointer;
+}
+
+.error {
+    background-color: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5% 1% 0.5% 3%;
+    margin: 3% 0% 0% 0%;
+    border-radius: 3px; 
+}

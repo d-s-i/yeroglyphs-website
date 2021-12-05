@@ -18,7 +18,6 @@ import Container from '@mui/material/Container';
 
 interface Props {
     children: React.ReactNode;
-    isLandingPage?: boolean;
 }
 
 export default function SimpleContainer(props: Props) {

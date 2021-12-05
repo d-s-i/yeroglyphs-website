@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
 import StepCard from "../UI/Cards/StepCard";
-import MintingButton from "../UI/Buttons/MintingButton";
+import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 import egyptGifGif from "../../public/egyptGif.gif";
 
 interface Props {
@@ -81,7 +81,7 @@ function TutoBlock(props: Props) {
                 }
             })}
             <Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "3% 0% 1% 0%"}}>
-                <MintingButton isMintReleased={props.isMintReleased} />
+                <MintRedirectionButton isMintReleased={props.isMintReleased} />
             </Container>
         </Container>
     );

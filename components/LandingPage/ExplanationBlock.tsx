@@ -11,7 +11,7 @@ import parchment from "../../public/parchment.png";
 import ring from "../../public/ring.png";
 import crook from "../../public/crook.png";
 import ankh from "../../public/ankh.png";
-import MintingButton from "../UI/Buttons/MintingButton";
+import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 
 interface Props {
     isMintReleased: boolean;
@@ -106,7 +106,7 @@ function ExplanationBlock(props: Props) {
                 </Grid>
             </Container>
             <Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "0% 0% 3% 0%"}}>
-                <MintingButton isMintReleased={props.isMintReleased} />
+                <MintRedirectionButton isMintReleased={props.isMintReleased} />
             </Container>
         </Grid>
     );

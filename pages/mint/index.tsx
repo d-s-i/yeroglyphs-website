@@ -15,7 +15,7 @@ export default function Minting(props: Props) {
         <MyAppBar isLP={false} isMintReleased={props.isMintReleased} />
         <AppContainer>
           <CustomizedTypography>Mint</CustomizedTypography>
-          <Mint />
+          <Mint isMintReleased={props.isMintReleased} />
         </AppContainer>
     </React.Fragment>
   );

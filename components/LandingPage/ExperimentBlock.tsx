@@ -1,5 +1,5 @@
 import HotExperimentCard from "../UI/Cards/HotExperimentCard";
-import MintingButton from "../UI/Buttons/MintingButton";
+import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 import raEye from "../../public/ra-eye.png";
 import pharaoh from "../../public/pharaoh2.png";
 import scarab from "../../public/scarab.png";
@@ -68,7 +68,7 @@ function ExperimentBlock(props: Props) {
                     })}
                 </Container>
             </Grid>
-            <MintingButton isMintReleased={props.isMintReleased} />
+            <MintRedirectionButton isMintReleased={props.isMintReleased} />
         </Grid>
     );
 }

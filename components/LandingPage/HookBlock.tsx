@@ -6,7 +6,7 @@ import ListItemFeature from "../UI/ListItemFeature";
 import Paper from '@mui/material/Paper';
 import Container from "@mui/material/Container";
 
-import MintingButton from "../UI/Buttons/MintingButton";
+import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 import bobaPic from "../../public/boba.png";
 import hiddenGenesis from "../../public/Genesis.png";
 
@@ -69,7 +69,7 @@ function HookBlock(props: Props) {
                             <Typography sx={{margin: "2% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
                                 Total Supply: 512...
                             </Typography>
-                            <MintingButton isMintReleased={props.isMintReleased} />
+                            <MintRedirectionButton isMintReleased={props.isMintReleased} />
                         </Grid>
                     </Item>
                 </Grid>
@@ -85,68 +85,5 @@ function HookBlock(props: Props) {
         </Box>
     );
 }
-
-// function HookBlock(props: Props) {
-//     return(
-//         <Box sx={{ flexGrow: 1 }}>
-//             <Container maxWidth="lg" sx={{ display: "flex" }}>
-//                 <Container maxWidth="md">
-//                     <Item sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
-//                     <Typography align="left" component="h1" variant="h2" color="primary" sx={{fontWeight: "bold"}} >
-//                         <span className="goldColor" >Yero</span> - NFTs Are Not What You Think It Is
-//                     </Typography>
-//                     <Typography align="left" component="h2" variant="h5" color="primary" sx={{paddingBottom: "5%", fontWeight: "bold"}}>
-//                         This New, Highly Experimental NFT Allow Its Holders To Create Magnificent Art On-Demand and Increase The Value Of Their NFT
-//                     </Typography>
-//                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Make Unique Art Via an On-Chain Algorithm"/>
-//                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Give Value To Your NFT By Creating New Randomized Art on Every Block "/>
-//                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Change Back and Forth Between Your Favorite Artwork And Create New Artwork"/>
-//                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Hot New NFT Experiment Unlike Other NFTs!"/>
-//                     <Typography align="left" component="p" variant= "h4" color="primary" sx={{marginTop: "5%"}}>
-//                         Contract Address: 
-//                     </Typography>
-//                     <Typography align="left" component="p" variant= "h4" color="primary" sx={{fontWeight: "bold"}}>
-//                         Will be revealed soon…
-//                     </Typography>
-//                     </Item>
-//                 </Container>
-//                 <Container maxWidth="sm">
-//                     <Item sx={{ backgroundColor: "transparent", boxShadow: "none" }}>
-//                         <Grid 
-//                             container 
-//                             spacing={2} 
-//                             className="box bounce-2" 
-//                             sx={{marginTop: "3%", display: "flex", justifyContent: "center"}}
-//                         >
-//                             <Image src={demoYero} alt="generative-art" width="400" height="400" />
-//                         </Grid>
-//                         <Grid
-//                             container
-//                             direction="column"
-//                             justifyContent="center"
-//                             alignItems="center"
-//                         >
-//                             <Typography sx={{margin: "5% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
-//                                 Mint Price: TBD...
-//                             </Typography>
-//                             <Typography sx={{margin: "2% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
-//                                 Total Supply: 512...
-//                             </Typography>
-//                             <MintingButton isMintReleased={props.isMintReleased} />
-//                         </Grid>
-//                     </Item>
-//                 </Container>
-//             </Container>
-//             <Container maxWidth="lg">
-//                 <Typography align="center" component="p" variant="h2" color="primary" sx={{fontWeight: "bold", marginTop: "2%"}}>
-//                     Coming <span className="goldColor">Soon</span> On ...
-//                 </Typography>
-//                 <div style={{display: "flex", justifyContent: "center", marginTop: "3%"}}>
-//                     <Image src={bobaPic} alt="boba-network" width="200" height="120" />
-//                 </div>
-//             </Container>
-//         </Box>
-//     );
-// }
 
 export default HookBlock;
