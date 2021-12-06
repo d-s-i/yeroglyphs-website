@@ -1,0 +1,16 @@
+.copy-label {
+    position: absolute;
+    border-radius: 4px;
+    padding: 5px 5px 5px 5px;
+    font-size: 0.8em;
+    color: #ffffff;
+    background: #000000;
+}
+
+.copy-container span {
+    display: none;
+}
+  
+.copy-container:hover span {
+    display: block;
+}

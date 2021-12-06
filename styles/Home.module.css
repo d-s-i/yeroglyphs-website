@@ -114,14 +114,3 @@
     flex-direction: column;
   }
 }
-
-.enigma-button {
-  padding: 5% 5% 5% 5%;
-  background-color: transparent;
-  border: none;
-}
-
-.enigma-button:hover {
-  cursor: pointer;
-}
-
