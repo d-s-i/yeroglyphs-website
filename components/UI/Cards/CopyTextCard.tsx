@@ -1,4 +1,4 @@
-import React, { useRef, useState }  from "react";
+import React, { useRef, useState, useEffect }  from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -13,11 +13,16 @@ interface Props {
     title: string;
     id: number; 
     isLast: boolean;
+    copiedId: number | undefined;
+    toogleCopy: () => void;
+    onCopy: (id: number) => number;
 }
 
 function CopyTextCard(props: Props) {
 
+    const [hasCopied, setHasCopied] = useState(false);
     const textAreaRef = useRef(null);
+    const firstUpdate = useRef(true);
 
     function copyToClipboard() {
         const range = document.createRange();
@@ -32,7 +37,22 @@ function CopyTextCard(props: Props) {
         }
     
         window?.getSelection()!.removeRange(range);
+        props.toogleCopy();
+        props.onCopy(props.id);
+        setHasCopied(true);
     };
+
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+          }
+        if(props.copiedId === props.id) {
+            setHasCopied(true);
+        } else {
+            setHasCopied(false);
+        }
+    }, [props.toogleCopy]);
     
     return(
         <Grid item sm={12} md={8} lg={6}>
@@ -56,7 +76,7 @@ function CopyTextCard(props: Props) {
                     >
                         <ContentCopyIcon />
                     </IconButton>
-                    <span className={styles["copy-label"]} >Copy</span>
+                    <span className={hasCopied ? styles["copied-label"] : styles["copy-label"]} >{hasCopied ? "Copied" : "Copy"}</span>
                 </div>
             </Grid>
             {!props.isLast && <div style={{ borderBottom: "1px #4d4d4d solid", marginTop: "8%" }} ></div>}

@@ -14,3 +14,12 @@
 .copy-container:hover span {
     display: block;
 }
+
+.copied-label {
+    position: absolute;
+    border-radius: 4px;
+    padding: 5px 5px 5px 5px;
+    font-size: 0.8em;
+    color: #ffffff;
+    background: #00b359;
+}

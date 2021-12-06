@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MyAppBar from '../../components/UI/AppBar/MyAppBar';
 import AppContainer from '../../components/UI/AppContainer';
 import CustomizedTypography from "../../components/UI/CustomizedTypography";
@@ -17,6 +17,18 @@ interface Props {
 
 export default function Marketing(props: Props) {
 
+  const [idCopeid, setIdCopied] = useState<number>();
+  const [toogleCopy, setToogleCopy] = useState<boolean>(false);
+
+  function startToogleCopy() {
+    setToogleCopy(!toogleCopy);
+  }
+  
+  function getCopiedId(id: number): number {
+    setIdCopied(id);
+    return id;
+  }
+
   return (
     <React.Fragment>
         <BackgroundColor light={true}>
@@ -31,7 +43,18 @@ export default function Marketing(props: Props) {
                 }}>
                     {marketingText.map(message => {
                         const id = marketingText.indexOf(message);
-                        return(<CopyTextCard key={id} text={message.text} title={message.title} id={id + 1} isLast={id === marketingText.length - 1} />);
+                        return(
+                          <CopyTextCard 
+                            key={id} 
+                            text={message.text} 
+                            title={message.title} 
+                            id={id + 1} 
+                            isLast={id === marketingText.length - 1} 
+                            copiedId={idCopeid}
+                            toogleCopy={startToogleCopy}
+                            onCopy={getCopiedId}
+                          />
+                        );
                     })}
                 </Grid>
             </AppContainer>
