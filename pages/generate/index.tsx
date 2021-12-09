@@ -89,7 +89,7 @@ export default function Generate(props: Props) {
                     isDynamic={true} 
                     onSaveNft={saveNFTHandler} 
                 />)}
-                {!isLoading && images.length === 0 && <Typography component="p" variant="subtitle1">{`You don't own any NFT`}</Typography>}
+                {!isLoading && images.length === 0 && <Typography component="p" variant="h5" color="primary">{`You don't own any NFT`}</Typography>}
             </GlyphContainer>
         </AppContainer>
     </React.Fragment>

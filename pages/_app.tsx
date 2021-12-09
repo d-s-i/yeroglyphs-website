@@ -31,7 +31,7 @@ let theme = createTheme(
 
 theme = responsiveFontSizes(theme);
 
-const isMintReleased = false;
+const isMintReleased = true;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return(

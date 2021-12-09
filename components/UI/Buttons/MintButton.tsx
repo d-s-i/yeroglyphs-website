@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getYeroglyphs } from "../../../ethereum/yeroglyphs";
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -24,8 +24,23 @@ function MintButton(props: Props) {
             const yeroglyphs = await getYeroglyphs();
     
             props.onSendingTx(true, "Waiting for your transaction to confirm ...", "pending");
-    
-            const mint_tx = await yeroglyphs.createGlyph(props.seed, props.password, { value: ethers.utils.parseEther("0.08") });
+
+            let numTokenMinted = await yeroglyphs.totalSupply();
+
+            let price = await yeroglyphs.FIFTH_PRICE();
+            if(numTokenMinted.lt(15)) {
+                price = BigNumber.from(0);
+            } else if(numTokenMinted.lt(30)) {
+                price = await yeroglyphs.FIRST_PRICE();
+            } else if(numTokenMinted.lt(80)) {
+                price = await yeroglyphs.SECOND_PRICE();
+            } else if(numTokenMinted.lt(432)) {
+                price = await yeroglyphs.THIRD_PRICE();
+            } else if(numTokenMinted.lt(482)) {
+                price = await yeroglyphs.FOURTH_PRICE();
+            } 
+
+            const mint_tx = await yeroglyphs.createGlyph(props.seed, props.password, { value: price });
     
             const provider = yeroglyphs.signer.provider;
     

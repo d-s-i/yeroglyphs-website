@@ -1,4 +1,4 @@
 export default {
-    name: "Rinkeby",
-    chainId: 4
+    name: "Boba",
+    chainId: 288
 };

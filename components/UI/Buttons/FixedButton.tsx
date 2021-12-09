@@ -12,7 +12,7 @@ function FixedButton(props: Props) {
             endIcon={<RefreshIcon />} 
             sx={{
                 position: "fixed", 
-                right: "17.5%", 
+                right: "5%", 
                 background: "linear-gradient(to bottom right, #ffff99 -12%, #c913c3 100%)",
                 color: "#333333",
                 textTransform: "none", 
