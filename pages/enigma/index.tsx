@@ -10,7 +10,7 @@ export default function Enigma() {
         <Container maxWidth="sm">
           <Typography component="p" variant="h4" sx={{ color: "red", marginBottom: "10%" }}>
             <WarningIcon />
-            The enigma has been resolved, I let it here for history. The secret password already have been claimed by @0xScissus and can't be claimed again
+            {`The enigma has been resolved, I let it here for history. The secret password already have been claimed by @0xScissus and can't be claimed again`}
           </Typography>
         </Container>
         <Typography component="p" variant="h6" color="primary">A traveler is on her way to Assouan when she comes to a fork in the road. She is wondering which way to go when two men appear. One cannot tell the truth, and the other cannot tell a lie.  The traveler doesn’t know which is which. What one question can she ask which will show her the right road to Assouan?</Typography>
