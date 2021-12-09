@@ -10,7 +10,6 @@ import CustomizedTypography from "../../components/UI/CustomizedTypography";
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { getImages } from "../../helpers/drawGlyph";
 import { useAuthContext } from "../../store/authContext";
-import network from "../../ethereum/network";
 
 interface ImageState {
     id: string;
@@ -34,12 +33,8 @@ export default function View(props: Props) {
             const yeroglyphs = await getYeroglyphs();
             const signer = yeroglyphs.signer;
 
-            if(!signer) {
-                // throw new Error(`Please connect to the ${network.name} network`)
-            } 
-            if(!authContext.isNetworkRight) {
-                // throw new Error(`Please connect to the ${network.name} network`)
-            } 
+            if(!signer) return;
+            if(!authContext.isNetworkRight) return;
             const signerAddress = authContext.signerAddress;
 
             let nbOfNftsOwned;
