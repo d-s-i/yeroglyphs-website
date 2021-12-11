@@ -20,7 +20,8 @@ export default function Leviathan() {
         <Typography component="p" variant="h6" color="primary" align="center">thrown into the sea at nightfall. </Typography>
         <Typography component="p" variant="h6" color="primary" align="center">And on land, no one can be born </Typography>
         <Typography component="p" variant="h6" color="primary" align="center">to become its master.&rdquo;</Typography>
-        <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "5%" }}>In order to be fair and transparent for everyone, only answer on the telegram will be accepted! Answer here: t.me/yeroglyphs</Typography>
+        <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "5%" }}>Will you find a way to defeat the enigmatic Leviathan? Tell us your strategy in the Telegram.</Typography>
+        <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "10%" }}>In order to be fair and transparent for everyone, only answer on the telegram will be accepted! Answer here: t.me/yeroglyphs</Typography>
     </Container>
   );
 }
