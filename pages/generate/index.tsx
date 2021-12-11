@@ -38,6 +38,7 @@ export default function Generate(props: Props) {
         const yeroglyphs = await getYeroglyphs();
         if(!signer) return;
         if(!authContext.isNetworkRight) return;
+        console.log(authContext.isNetworkRight);
 
         const signerAddress = await signer.getAddress();
 
@@ -50,9 +51,9 @@ export default function Generate(props: Props) {
             let currImages: ImageState[] = [];
             for(let i = 0; i < nbOfNftsOwned; i++) {
                 const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
-                const tokenURI = await yeroglyphs.viewCurrentTokenURI(id);
+                const imageURI = await yeroglyphs.viewCurrentTokenURI(id);
     
-                const encodedSVG = getImages(tokenURI);
+                const encodedSVG = getImages(imageURI);
                 currImages.push({svg: encodedSVG, id: id});
                 setImages([...currImages]);
             }

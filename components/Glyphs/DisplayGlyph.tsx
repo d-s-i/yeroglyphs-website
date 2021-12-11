@@ -7,10 +7,12 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 import styles from "./DisplayGlyph.module.css";
+import { goldColor } from "../../constant";
 
 interface Props {
   src: string;
   id: string;
+  isGenesis?: boolean;
   isDynamic: boolean;
   onSaveNft?: (id: any) => Promise<void>;
   index?: { isTrue: boolean, value: number };
@@ -30,24 +32,9 @@ function DisplayGlyph(props: Props) {
     }
     setIsLoading(false);
   }
-
-        // <Grid item sx={{
-      //     border: "1px rgb(51, 51, 51, 0.8) solid",
-      //     backgroundColor: "rgb(13, 13, 13, 0.5)",
-      //     // boxShadow: "6px 6px 2px 1px rgb(230, 230, 230, 0.1)",
-      //     padding: "5% 5% 2.5% 5%",
-      //     display: "flex",
-      //     minWidth: "300px",
-      //     flexDirection: "column",
-      //     justifyContent: "center",
-      //     alignItems: "center",
-      //     marginBottom: "3%",
-      //     boxShadow: "24%"
-      //   }}>
   
   return (
       <div className={styles["glyph-box"]}>
-
         <div className={styles["glyph-image"]} >
           <Image src={props.src} alt={`yero-${props.id}`} width="320" height="320" />
         </div>
@@ -65,6 +52,7 @@ function DisplayGlyph(props: Props) {
                 Save
             </LoadingButton>)
         }
+        {props.isGenesis && <Typography component="p" variant="h6" sx={{ color: goldColor }}>Genesis</Typography>}
         {props.index && props.index.isTrue && <Typography component="p" variant="subtitle1">{`Index: ${props.index.value}`}</Typography>}
 
     </div>

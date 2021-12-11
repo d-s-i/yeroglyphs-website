@@ -14,6 +14,7 @@ import { useAuthContext } from "../../store/authContext";
 interface ImageState {
     id: string;
     svg: string;
+    isGenesis: boolean;
 }
 
 interface Props {
@@ -45,9 +46,11 @@ export default function View(props: Props) {
                     const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
                     const defaultIndex = await yeroglyphs.tokenIdDefaultIndex(id);
                     const imageURI = await yeroglyphs.viewSpecificTokenURI(id, defaultIndex);
-                    // const tokenURI = await yeroglyphs.tokenURI(id);
+                    const tokenURI = await yeroglyphs.tokenURI(id);
+                    const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
+                    const isGenesis = rawTokenURI.includes("true") ? true: false;
                     const encodedSVG = getImages(imageURI);
-                    currImages.push({svg: encodedSVG, id: id});
+                    currImages.push({ svg: encodedSVG, id: id, isGenesis: isGenesis });
                     setImages([...currImages]);
                 }
             } catch (error) {
@@ -71,7 +74,9 @@ export default function View(props: Props) {
             <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
             {isLoading && <LoadingDiv />}
             <GlyphContainer>
-                {images.length >= 1 && images.map(image => <DisplayGlyph key={image.id} src={image.svg} id={image.id} isDynamic={false} />)}
+                {images.length >= 1 && images.map(image => {
+                    return <DisplayGlyph key={image.id} src={image.svg} id={image.id} isGenesis={image.isGenesis} isDynamic={false} />
+                })}
             </GlyphContainer>
         </AppContainer>
     </React.Fragment>
