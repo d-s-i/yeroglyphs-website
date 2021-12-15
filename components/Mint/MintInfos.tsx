@@ -11,7 +11,7 @@ const projectSentences = [
     <span key="sent-1">Yero is the first collection of its kind and innovate by giving the ability to create, save, and change the art on its nft, ON CHAIN</span>,
     <span key="sent-2">We are an innovative nft project on Boba Network. Our idea is similar to our brother Autoglyphs on Ethereum, except that we allow more fancy features on our NFTs.</span>,
     <span key="sent-3">We allow our nft holders to keep creating art without diluting the supply of Yero. It will always stay at 512 nft EVER. With our amazing partnership, we are at the right place at the right moment to become one of the OG nft collection of Boba Network.</span>,
-    <span key="sent-4">Once the collection is fully minted, only nft holders will benefit from the &ldquo;art creation&rdquo;. If you look at the autoglyphs collection on ethereum (<a style={{ color: goldColor, fontWeight: "bold" }} href="https://opensea.io/collection/autoglyphs" target="_blank" rel="noopener">see here</a>), the nfts have a ridiculous price. First, because it is an OG project, second, because they have an innovative art algorithm. But once they have been minted, they are fully static.</span>,
+    <span key="sent-4">Once the collection is fully minted, only nft holders will benefit from the &ldquo;art creation&rdquo;. If you look at the autoglyphs collection on ethereum (<a style={{ color: goldColor, fontWeight: "bold" }} href="https://opensea.io/collection/autoglyphs" target="_blank" rel="noreferrer">see here</a>), the nfts have a ridiculous price. First, because it is an OG project, second, because they have an innovative art algorithm. But once they have been minted, they are fully static.</span>,
 ];
 
 const seedSentences = [
