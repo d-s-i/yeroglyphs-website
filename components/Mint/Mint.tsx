@@ -5,7 +5,7 @@ import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 
 import MintButton from "../UI/Buttons/MintButton";
 import TxHandler from "../UI/Modals/TxHandler";
-import { goldColor } from "../../constant";
+import { goldColor } from "../../helpers/constant";
 
 import styles from "./Mint.module.css";
 import Typography from "@mui/material/Typography";

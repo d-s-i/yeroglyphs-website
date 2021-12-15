@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import CopyTextCard from '../../components/UI/Cards/CopyTextCard';
 
-import { marketingText } from "../../constant";
+import { marketingText } from "../../helpers/constant";
 
 interface Props {
   isMintReleased: boolean;

@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
 import MyAppBar from "../../components/UI/AppBar/MyAppBar";
 import AppContainer from "../../components/UI/AppContainer";
-import DisplayGlyph from "../../components/Glyphs/DisplayGlyph";
-import GlyphContainer from "../../components/Glyphs/GlyphContainer";
-import LoadingDiv from "../../components/UI/LoadingState/LoadingDiv";
-
 import CustomizedTypography from "../../components/UI/CustomizedTypography";
+import LoadingDiv from "../../components/UI/LoadingState/LoadingDiv";
+import MarketplaceGlyph from "../../components/Glyphs/MarketplaceGlyph";
+import GlyphContainer from "../../components/Glyphs/GlyphContainer";
 
+import { getMarketplace } from "../../ethereum/marketplace";
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
-import { getImages } from "../../helpers/drawGlyph";
 import { useAuthContext } from "../../store/authContext";
-import { ImageStateProps } from "../../helpers/types";
+import { ImageStateProps, PageProps } from "../../helpers/types";
+import { getImages } from "../../helpers/drawGlyph";
 
-interface Props {
-    isMintReleased: boolean;
-  }
-
-export default function View(props: Props) {
-
-    const [images, setImages] = useState<ImageStateProps[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+function Marketplace(pageProps: PageProps) {
 
     const authContext = useAuthContext();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [images, setImages] = useState<ImageStateProps[]>([]);
 
     useEffect(() => {
         async function getNFTs() {
@@ -29,10 +25,12 @@ export default function View(props: Props) {
             const yeroglyphs = await getYeroglyphs();
             const signer = yeroglyphs.signer;
 
+            console.log("Running the getNFTs function");
+            
             if(!signer) return;
             if(!authContext.isNetworkRight) return;
             const signerAddress = authContext.signerAddress;
-
+            
             let nbOfNftsOwned;
             try {
                 nbOfNftsOwned = await yeroglyphs.balanceOf(signerAddress);
@@ -43,7 +41,7 @@ export default function View(props: Props) {
                     const imageURI = await yeroglyphs.viewSpecificTokenURI(id, defaultIndex);
                     const tokenURI = await yeroglyphs.tokenURI(id);
                     const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
-                    const isGenesis = rawTokenURI.includes("true");
+                    const isGenesis = rawTokenURI.includes("true") ? true: false;
                     const encodedSVG = getImages(imageURI);
                     currImages.push({ svg: encodedSVG, id: id, isGenesis: isGenesis });
                     setImages([...currImages]);
@@ -59,21 +57,25 @@ export default function View(props: Props) {
 
     }, [authContext]);
     
-
-
-    
-  return (
-    <React.Fragment>
-        <MyAppBar isLP={false} isMintReleased={props.isMintReleased} />
-        <AppContainer>
-            <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
-            {isLoading && <LoadingDiv />}
-            <GlyphContainer>
-                {images.length >= 1 && images.map(image => {
-                    return <DisplayGlyph key={image.id} src={image.svg} id={image.id} isGenesis={image.isGenesis} isDynamic={false} />
-                })}
-            </GlyphContainer>
-        </AppContainer>
-    </React.Fragment>
-  );
+    return(
+        <React.Fragment>
+            <MyAppBar isLP={false} isMintReleased={pageProps.isMintReleased} />
+            <AppContainer>
+                {isLoading && <LoadingDiv />}
+                <GlyphContainer>
+                    {images.length >= 1 && images.map(image => {
+                        return (<MarketplaceGlyph 
+                            key={image.id} 
+                            src={image.svg} 
+                            id={image.id} 
+                            isGenesis={image.isGenesis} 
+                            isDynamic={false} 
+                        />);
+                    })}
+                </GlyphContainer>
+            </AppContainer>
+        </React.Fragment>
+    );
 }
+
+export default Marketplace;

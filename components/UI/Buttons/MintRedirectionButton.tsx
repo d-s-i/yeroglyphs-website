@@ -34,7 +34,7 @@ function MintRedirectionButton(props: Props) {
                     padding: "0% 5% 0% 5%",
                     fontSize: "2em",
                     textTransform: "none",
-                    "&:hover": {borderColor: buttonState.border, color: buttonState.font, cursor: buttonState.cursor},
+                    "&:hover": { borderColor: buttonState.border, color: buttonState.font, cursor: buttonState.cursor },
                     margin: "5% 0% 0% 0%"
                 }}
             >

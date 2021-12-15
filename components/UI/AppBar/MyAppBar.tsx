@@ -17,6 +17,7 @@ import { styled } from "@mui/material/styles";
 import styles from "./MyAppBar.module.css";
 
 import network from "../../../ethereum/network";
+import { shortenAddress } from "../../../helpers/functions";
  
 const CustomizedAppBar = styled(AppBar)`
   background-color: #000000;
@@ -42,14 +43,14 @@ function MyAppBar(props: Props) {
     const authContext = useAuthContext();
 
     function getButtonText(_signerAddress: string) {
-        const shortenedAddress = `${_signerAddress.slice(0, 5)}...${_signerAddress.slice(38)}`;
+        const shortenedAddress = shortenAddress(_signerAddress);;
         setButtonText(shortenedAddress);
     }
 
     async function connect() {
         getButtonText(authContext.signerAddress);
 
-        if(!authContext.isNetworkRight && props.isMintReleased) {
+        if(!authContext.isNetworkRight && props.isMintReleased && !props.isLP) {
             setError((prevState) => { 
                 let errorObject = Object.assign({}, prevState);  
                 errorObject = { isError: true, message: `Please connect to the ${network.name} network`};                

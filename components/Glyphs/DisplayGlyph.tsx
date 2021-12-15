@@ -2,12 +2,11 @@ import React from "react";
 
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 import styles from "./DisplayGlyph.module.css";
-import { goldColor } from "../../constant";
+import { goldColor } from "../../helpers/constant";
 
 interface Props {
   src: string;
@@ -38,7 +37,9 @@ function DisplayGlyph(props: Props) {
         <div className={styles["glyph-image"]} >
           <Image src={props.src} alt={`yero-${props.id}`} width="320" height="320" />
         </div>
-        <Typography sx={{ marginTop: "5%", marginBottom: "5%", color: "#e6e6e6" }} variant="h6" component="p">{`Yeroglyphs #${props.id}`}</Typography>
+        <Typography sx={{ marginTop: "5%", marginBottom: "5%", color: "#e6e6e6" }} variant="h6" component="p">
+          {props.isGenesis ? <span style={{ color: goldColor }}>{`Genesis Yero #${props.id}`}</span> :  `Yero #${props.id}`}
+        </Typography>
         {props.isDynamic && (
             <LoadingButton
                 sx={{color: "#FFD700", borderColor: "#FFD700", "&:hover": {borderColor: "#FFD700", backgroundColor: "rgb(201, 19, 195, 0.04)"}}}
@@ -52,7 +53,6 @@ function DisplayGlyph(props: Props) {
                 Save
             </LoadingButton>)
         }
-        {props.isGenesis && <Typography component="p" variant="h6" sx={{ color: goldColor }}>Genesis</Typography>}
         {props.index && props.index.isTrue && <Typography component="p" variant="subtitle1">{`Index: ${props.index.value}`}</Typography>}
 
     </div>

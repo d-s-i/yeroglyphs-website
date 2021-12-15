@@ -4,6 +4,6 @@
 // };
 
 export default {
-    name: "Boba Rinkeby",
-    chainId: 28
+    name: "Rinkeby",
+    chainId: 4
 };

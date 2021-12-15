@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IconButton from '@mui/material/IconButton';
 import Fingerprint from '@mui/icons-material/Fingerprint';
-import { goldColor } from "../../../constant";
+import { goldColor } from "../../../helpers/constant";
 
 import styles from "./CopyTextCard.module.css";
 
