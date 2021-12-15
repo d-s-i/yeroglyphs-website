@@ -22,7 +22,7 @@ const seedSentences = [
 
 const passwordSentences = [
     <span key="sent-8">Passwords are not required to mint and can be left empty. They will give you a Genesis Yero if right</span>,
-    <span key="sent-9">The Yero collection has 50 nfts that are called Genesis and have a &ldquo;perfect&rdquo; design. To mint a Genesis Yero, you need a password. Passwords have been given pre-mint and are not available anymore. If you have one, enter it in the &ldquo;Password&rdquo; input as it was given to you. Without any space before or after. Passwords are for single use, so I hope you didn't share them with anyone.</span>
+    <span key="sent-9">The Yero collection has 50 nfts that are called Genesis and have a &ldquo;perfect&rdquo; design. To mint a Genesis Yero, you need a password. Passwords have been given pre-mint and are not available anymore. If you have one, enter it in the &ldquo;Password&rdquo; input as it was given to you. Without any space before or after. Passwords are for single use, so I hope you didn&apos;t share them with anyone.</span>
 ];
 
 const cyberDaoSentences = [
