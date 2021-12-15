@@ -64,7 +64,7 @@ export default function CustomizedAccordions(accordionProps: ElementProps) {
                 <Typography component="p" variant="h6" color="primary">{accordionProps.main}</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ backgroundColor: "#0d0d0d" }}>
-                {accordionProps.details.map(sentence => <Typography component="p" variant="subtitle1" color="primary" sx={{ marginTop: "2%" }}>{sentence}</Typography>)}
+                {accordionProps.details.map(sentence => <Typography key={sentence} component="p" variant="subtitle1" color="primary" sx={{ marginTop: "2%" }}>{sentence}</Typography>)}
             </AccordionDetails>
         </Accordion>
     </div>
