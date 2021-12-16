@@ -30,7 +30,7 @@ export default function Leviathan() {
         <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "5%", marginBottom: "5%" }}>
           <span>We are waiting for your answer in the <a href="https://t.me/yeroglyphs" target="_blank" rel="noreferrer" style={{ color: goldColor }}>Telegram channel</a>!</span>
         </Typography>
-        <CustomizedAccordions main={<span>Click to see the answer</span>} details={[<Image key="enigma-19" src={diamondsolved} fill/>]}/>
+        <CustomizedAccordions main={<span>Click to see the answer</span>} details={[<Image key="enigma-19" src={diamondsolved} layout="responsive"/>]}/>
     </Container>
   );
 }
