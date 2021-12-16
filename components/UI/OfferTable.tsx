@@ -23,7 +23,7 @@ export default function BasicTable(tableProps: TableProps) {
       <Table aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
-            {tableProps.titles.map(row =>  <TableCell sx={{ color: "#f3f4f6" }}>{row}</TableCell>)}
+            {tableProps.titles.map(row =>  <TableCell key={row} sx={{ color: "#f3f4f6" }}>{row}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>

@@ -116,10 +116,6 @@ function ItemPage(pageProps: PageProps) {
         setIsLoading(false);
     }
 
-
-
-
-
     async function getOffers() {
         const marketplace = await getMarketplace();
 
@@ -217,7 +213,7 @@ function ItemPage(pageProps: PageProps) {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: "5%", backgroundColor: "black", borderTopLeftRadius: "0.5em", borderTopRightRadius: "0.5em" }}>
-                        <CustomizedAccordions main={<span>Offers</span>} details={[<Grid item xs={12}>{typeof(offers[0]) !== "undefined" && (<BasicTable titles={["Price", "Expiration", "From"]} rows={offers}/>)}</Grid>]} />
+                        <CustomizedAccordions main={<span>Offers</span>} details={[<Grid key="grid-1" item xs={12}>{typeof(offers[0]) !== "undefined" && (<BasicTable titles={["Price", "Expiration", "From"]} rows={offers}/>)}</Grid>]} />
                     </Grid>
                 </Grid>
             </Container>
