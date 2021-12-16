@@ -5,6 +5,7 @@ import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 
 import MintButton from "../UI/Buttons/MintButton";
 import TxHandler from "../UI/Modals/TxHandler";
+import Hourglass from "../UI/Hourglass";
 import { goldColor } from "../../helpers/constant";
 
 import styles from "./Mint.module.css";
@@ -146,10 +147,17 @@ function Mint(props: Props) {
         padding: "5% 3% 8% 3%", 
         borderRadius: "1em"
       }}>
-        <Typography component="p" variant="h3" color="primary" align="center" sx={{ margin: "0% 0% 5% 0%" }}>
-          {`Remaining Yero NFTs: ${parseFloat(nftState.totalSupply) - parseFloat(nftState.nbMinted)}/${nftState.totalSupply}`}
-        </Typography>
         <Grid container sx={{ padding: "0% 10% 0% 10%", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
+          <Grid container>
+            {/* <Grid item xs={2}>
+              <Hourglass />
+            </Grid> */}
+            <Grid item xs={12}>
+              <Typography component="p" variant="h3" color="primary" align="center" sx={{ margin: "0% 0% 5% 0%" }}>
+                {`Remaining Yero NFTs: ${parseFloat(nftState.totalSupply) - parseFloat(nftState.nbMinted)}/${nftState.totalSupply}`}
+              </Typography>
+            </Grid>
+          </Grid>
           <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "5%" }} >
             <LoadingButton 
               onClick={getRandomNumber} 

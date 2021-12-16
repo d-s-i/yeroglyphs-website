@@ -23,7 +23,7 @@ export default function Leviathan() {
         <Typography component="p" variant="h6" color="primary" sx={{ marginBottom: "5%" }}>2. is never equal to 3</Typography>
         <Image src={diamond} width="400" height="600" alt="enigma-image" />
         {/* <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "5%", marginBottom: "10%" }}>Tell us which and and the general steps to draw it/them</Typography> */}
-        <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "5%" }}>There are 4 possibles answers! Each one will lead to a password for a secret password, and tough, a Genesis Yero ... Good luck.</Typography>
+        <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "5%" }}>There are 4 possibles answers! Each one will lead to a secret password, and tough, a Genesis Yero ... Good luck.</Typography>
         <Typography component="p" variant="h6" color="primary" sx={{ marginTop: "5%", marginBottom: "5%" }}><span>We are waiting for your answer in the <a href="https://t.me/yeroglyphs" target="_blank" rel="noreferrer" style={{ color: goldColor }}>Telegram channel</a>!</span></Typography>
         {/* <CustomizedAccordions main={<span>Click to see the answer</span>} details={[<span>Only the third draw can be drawn without lifting the pen</span>]}/> */}
     </Container>
