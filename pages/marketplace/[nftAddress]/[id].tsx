@@ -16,7 +16,8 @@ import MyAppBar from "../../../components/UI/AppBar/MyAppBar";
 import AppContainer from "../../../components/UI/AppContainer";
 import GoldButton from "../../../components/UI/Buttons/GoldButton";
 import CircularIndeterminate from "../../../components/UI/LoadingState/LoadingSpinner";
-import BasicTable from "../../../components/UI/BasicTable";
+import BasicTable from "../../../components/UI/OfferTable";
+import CustomizedAccordions from "../../../components/UI/CollapseGroupItem";
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -24,6 +25,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import { Typography } from "@mui/material";
+import MakeOfferModal from "../../../components/Marketplace/MakeOfferModal";
 
 interface NFTType {
     owner: string;
@@ -34,6 +36,16 @@ interface NFTType {
     price: BigNumber;
     startingTime: BigNumber;
     onSale: boolean;
+}
+
+interface Offer {
+    creator: string;
+    nftAddress: string;
+    tokenId: string;
+    price: string;
+    deadline: string;
+    quantity: string;
+    payToken: string;
 }
 
 const INITIAL_NFT_STATE = {
@@ -59,8 +71,8 @@ function ItemPage(pageProps: PageProps) {
 
     const [nft, setNft] = React.useState<NFTType>(INITIAL_NFT_STATE);
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const [orderPrice, setPrice] = React.useState<string>("");
-    const [deadline, setDeadline] = React.useState<string>("");
+    const [offers, setOffers] = React.useState<(Offer | undefined)[]>([]);
+    const [isMakingOffer, setIsMakingOffer] = React.useState<boolean>(false);
 
     const router = useRouter();
     const { id, nftAddress } = router.query;
@@ -68,7 +80,6 @@ function ItemPage(pageProps: PageProps) {
     React.useEffect(() => {
         if(!router.isReady) return;
         getNFT();
-        setOffers();
         getOffers();
     }, [router.isReady]);
     
@@ -105,56 +116,62 @@ function ItemPage(pageProps: PageProps) {
         setIsLoading(false);
     }
 
-    async function setOffers() {
-        const marketplace = await getMarketplace();
 
-        const signerAddress = await marketplace.signer.getAddress();
-        
-        const offers = await marketplace.offers(nftAddress, id, signerAddress);
 
-    }
 
-    async function makeOffer() {
-        const marketplace = await getMarketplace();
-        const weth = await getWeth();
-
-        console.log(orderPrice);
-        console.log(deadline);
-        const quantity = 1;
-        const price = ethers.utils.parseEther(orderPrice);
-
-        await marketplace.createOffer(nftAddress, id, weth.address, quantity, price, deadline);
-    }
-
-    async function setPriceHandler(event: React.ChangeEvent<HTMLInputElement>) {
-        event.preventDefault();
-        let enteredNumber = event.currentTarget.value;
-  
-        setPrice(enteredNumber);
-    }
-
-    async function setDeadlineHandler(event: React.ChangeEvent<HTMLInputElement>) {
-        event.preventDefault();
-        let enteredNumber = event.currentTarget.value;
-        if(isNaN(+enteredNumber)) return;
-        if(+enteredNumber === 0 || enteredNumber === "") {
-            setDeadline("");
-            return;
-        };
-  
-        setDeadline(enteredNumber);
-    }
 
     async function getOffers() {
         const marketplace = await getMarketplace();
-        const offers = await marketplace.filters.OfferCreated(null, nftAddress);
-        console.log("nft address", nftAddress);
 
-        const iface =  new ethers.utils.Interface(marketplaceABI);
-        
-        // console.log(offers);
-        // const test = iface.parseLog(offers);
-        // console.log(test);
+        let eventFilter = marketplace.filters.OfferCreated(null, nftAddress);
+        let events = await marketplace.queryFilter(eventFilter);
+        const marketplaceInterface =  new ethers.utils.Interface(marketplaceABI);
+
+        const filteredEvents = events.map(event => {
+            const data = event.data;
+            const topics = event.topics;
+
+            const offer = marketplaceInterface.parseLog({ data, topics });
+
+            return offer;
+        });
+
+        const allOffers = filteredEvents.map(event => {
+            const {
+                creator,
+                nft,
+                tokenId,
+                quantity,
+                payToken,
+                pricePerItem,
+                deadline
+            } = event.args;
+            if(tokenId.toString() === id) {
+
+                const dateDeadline = new Intl.DateTimeFormat("en-US").format(deadline * 1000);
+                console.log(dateDeadline);
+                
+                return {
+                    creator: creator,
+                    nftAddress: nft,
+                    tokenId: tokenId.toString(),
+                    quantity: quantity.toString(),
+                    payToken: payToken,
+                    price: pricePerItem.toString(),
+                    deadline: deadline.toString(),
+                    dateDeadline: dateDeadline
+                };
+            }
+        });
+        setOffers(allOffers);
+    }
+
+    function closeOfferModal() {
+        setIsMakingOffer(false);
+    }
+    
+    function openOfferModal() {
+        setIsMakingOffer(true);
     }
     
     return(
@@ -195,19 +212,16 @@ function ItemPage(pageProps: PageProps) {
                                     alignItems: "center", 
                                 }}
                             >
-                                <input onChange={setPriceHandler} value={orderPrice} />
-                                <input onChange={setDeadlineHandler} />
-                                <GoldButton onClick={makeOffer}>Make Offer</GoldButton>
+                                <GoldButton onClick={openOfferModal}>Make Offer</GoldButton>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sx={{ marginTop: "5%", backgroundColor: "black" }}>
-                        <Grid item sx={{ border: "1px white solid", borderRadius: "0.5em" }}>
-                            <Typography component="p" variant="h6" color="primary">Offers</Typography>
-                        </Grid>
+                    <Grid item xs={12} sx={{ marginTop: "5%", backgroundColor: "black", borderTopLeftRadius: "0.5em", borderTopRightRadius: "0.5em" }}>
+                        <CustomizedAccordions main={<span>Offers</span>} details={[<Grid item xs={12}>{typeof(offers[0]) !== "undefined" && (<BasicTable titles={["Price", "Expiration", "From"]} rows={offers}/>)}</Grid>]} />
                     </Grid>
                 </Grid>
             </Container>
+            {isMakingOffer && <MakeOfferModal onCloseModal={closeOfferModal} message="You want to buy right?" />}
         </React.Fragment>
     );
 }

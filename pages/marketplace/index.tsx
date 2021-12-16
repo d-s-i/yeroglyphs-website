@@ -25,8 +25,6 @@ function Marketplace(pageProps: PageProps) {
             const yeroglyphs = await getYeroglyphs();
             const signer = yeroglyphs.signer;
 
-            console.log("Running the getNFTs function");
-            
             if(!signer) return;
             if(!authContext.isNetworkRight) return;
             const signerAddress = authContext.signerAddress;
