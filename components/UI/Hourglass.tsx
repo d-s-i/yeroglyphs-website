@@ -15,14 +15,14 @@ function Hourglass() {
                     <clipPath id="top-clip-path" fill="white">
                         <rect x="0" y="0" width="38" height="21"></rect>
                     </clipPath>
-                    <path fill="#F5A623" clip-path="url(#top-clip-path)" d="M38,0 C36.218769,7.51704545 24.818769,21 19,21 C13.418769,21 1.9,7.63636364 0,0 L38,0 Z"></path>
+                    <path fill="#F5A623" clipPath="url(#top-clip-path)" d="M38,0 C36.218769,7.51704545 24.818769,21 19,21 C13.418769,21 1.9,7.63636364 0,0 L38,0 Z"></path>
                 </g>
 
                 <g id="bottom-sand" transform="translate(18, 55)">
                     <clipPath id="bottom-clip-path" fill="white">
                         <rect x="0" y="0" width="38" height="21"></rect>
                     </clipPath>
-                    <g clip-path="url(#bottom-clip-path)">
+                    <g clipPath="url(#bottom-clip-path)">
                     <path fill="#F5A623" d="M0,21 L38,21 C36.1,13.3636364 24.581231,0 19,0 C13.181231,0 1.781231,13.4829545 0,21 Z"></path>
                     </g>
                 </g>
