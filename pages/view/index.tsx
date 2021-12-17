@@ -69,7 +69,7 @@ export default function View(props: Props) {
             <GlyphContainer>
                 {images.length ? images.map(image => {
                     return <DisplayGlyph key={image.id} src={image.svg} id={image.id} isGenesis={image.isGenesis} isDynamic={false} />
-                }) : <Typography component="p" variant="h6" color="primary">You don't own any Yero</Typography>}
+                }) : <Typography component="p" variant="h6" color="primary">You don&apos;t own any Yero</Typography>}
             </GlyphContainer>
         </AppContainer>
     </React.Fragment>

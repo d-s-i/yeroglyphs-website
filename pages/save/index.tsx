@@ -111,7 +111,7 @@ export default function Save(props: Props) {
                         })}
                     </GlyphContainer>
                 );
-            }) : <Typography component="p" variant="h6" color="primary" align="center">You don't own any Yero</Typography>}
+            }) : <Typography component="p" variant="h6" color="primary" align="center">You don&apos;t own any Yero</Typography>}
         </AppContainer>
     </React.Fragment>
   );
