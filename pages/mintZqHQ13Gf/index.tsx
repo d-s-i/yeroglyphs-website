@@ -5,6 +5,7 @@ import CustomizedTypography from "../../components/UI/CustomizedTypography";
 import Mint from "../../components/Mint/Mint";
 import MintInfos from "../../components/Mint/MintInfos";
 import BackgroundColor from "../../components/UI/BackgroundColor";
+import Footer from '../../components/LandingPage/Footer/Footer';
 
 interface Props {
   isMintReleased: boolean;
@@ -24,6 +25,7 @@ export default function Minting(props: Props) {
         <BackgroundColor light={false}>
           <MintInfos />
         </BackgroundColor>
+        <Footer />
     </React.Fragment>
   );
 }

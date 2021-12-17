@@ -85,7 +85,7 @@ function Mint(props: Props) {
         return;
       };
 
-      setSeed(+enteredNumber);
+      setSeed(enteredNumber);
       setisValid(true);
   }
 
@@ -149,9 +149,6 @@ function Mint(props: Props) {
       }}>
         <Grid container sx={{ padding: "0% 10% 0% 10%", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
           <Grid container>
-            {/* <Grid item xs={2}>
-              <Hourglass />
-            </Grid> */}
             <Grid item xs={12}>
               <Typography component="p" variant="h3" color="primary" align="center" sx={{ margin: "0% 0% 5% 0%" }}>
                 {`Remaining Yero NFTs: ${parseFloat(nftState.totalSupply) - parseFloat(nftState.nbMinted)}/${nftState.totalSupply}`}
@@ -190,13 +187,13 @@ function Mint(props: Props) {
             </Grid>
             <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "5%" }}>
               <CssTextField
-                  helperText="Not required"
-                  id="demo-helper-text-aligned"
-                  label="Password (optional)"
-                  FormHelperTextProps={{ style: { color: "#806c00", fontSize: "0.9em" } }}
-                  InputProps={{ style: { color: goldColor } }}
-                  value={password}
-                  onChange={setPasswordHandler}
+                helperText="Can be left empty"
+                id="demo-helper-text-aligned"
+                label="Password (optional)"
+                FormHelperTextProps={{ style: { color: "#806c00", fontSize: "0.9em" } }}
+                InputProps={{ style: { color: goldColor } }}
+                value={password}
+                onChange={setPasswordHandler}
               />
             </Grid>
             <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center" }}>

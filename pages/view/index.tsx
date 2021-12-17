@@ -11,6 +11,7 @@ import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { getImages } from "../../helpers/drawGlyph";
 import { useAuthContext } from "../../store/authContext";
 import { ImageStateProps } from "../../helpers/types";
+import Typography from "@mui/material/Typography";
 
 interface Props {
     isMintReleased: boolean;
@@ -59,9 +60,6 @@ export default function View(props: Props) {
 
     }, [authContext]);
     
-
-
-    
   return (
     <React.Fragment>
         <MyAppBar isLP={false} isMintReleased={props.isMintReleased} />
@@ -69,9 +67,9 @@ export default function View(props: Props) {
             <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
             {isLoading && <LoadingDiv />}
             <GlyphContainer>
-                {images.length >= 1 && images.map(image => {
+                {images.length ? images.map(image => {
                     return <DisplayGlyph key={image.id} src={image.svg} id={image.id} isGenesis={image.isGenesis} isDynamic={false} />
-                })}
+                }) : <Typography component="p" variant="h6" color="primary">You don't own any Yero</Typography>}
             </GlyphContainer>
         </AppContainer>
     </React.Fragment>

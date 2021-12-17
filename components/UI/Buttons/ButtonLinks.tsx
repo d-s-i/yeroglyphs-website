@@ -14,7 +14,7 @@ function ButtonLinks(props: Props) {
         return(
             <React.Fragment>
                 <MySVGButton onClick={() => router.push("/mint")}>Mint</MySVGButton>
-                <MySVGButton onClick={() => router.push("/marketplace")}>Marketplace</MySVGButton>
+                {/* <MySVGButton onClick={() => router.push("/marketplace")}>Marketplace</MySVGButton> */}
                 <MySVGButton onClick={() => router.push("/view")}>View</MySVGButton>
                 <MySVGButton onClick={() => router.push('/generate')}>Generate</MySVGButton>
                 <MySVGButton onClick={() => router.push("/save")}>Save</MySVGButton>

@@ -10,6 +10,8 @@ import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { getImages } from "../../helpers/drawGlyph";
 import LoadingDiv from "../../components/UI/LoadingState/LoadingDiv";
 import CustomizedTypography from "../../components/UI/CustomizedTypography";
+import Typography from "@mui/material/Typography";
+
 
 interface ImageState {
     tokenId: string;
@@ -94,7 +96,7 @@ export default function Save(props: Props) {
         <AppContainer>
             <CustomizedTypography>My Yeroglyphs</CustomizedTypography>
             {isLoading && <LoadingDiv />}
-            {images.map(image => {
+            {images.length >= 1 ? images.map(image => {
                 return(
                     <GlyphContainer key={image.tokenId} containMany={true} >
                         {image.svgs.map(svg => {
@@ -109,7 +111,7 @@ export default function Save(props: Props) {
                         })}
                     </GlyphContainer>
                 );
-            })}
+            }) : <Typography component="p" variant="h6" color="primary" align="center">You don't own any Yero</Typography>}
         </AppContainer>
     </React.Fragment>
   );
