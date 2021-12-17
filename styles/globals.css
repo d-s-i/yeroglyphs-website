@@ -98,3 +98,7 @@ svg {
 .hourglass-svg {
   animation-name: hourglass-rotation;
 }
+
+.Mui-focused {
+  border-color:  #FFD700;
+}

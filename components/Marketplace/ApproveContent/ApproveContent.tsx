@@ -40,7 +40,7 @@ function ApproveContent(approveProps: ApproveProps) {
     return(
         <Grid container>
             <Grid item xs={12}>
-                <Typography component="p" variant="h6">Before making an offer, tou need to approve wETH</Typography>
+                <Typography component="p" variant="h6" color="primary">Before making an offer, you need to approve wETH</Typography>
             </Grid>
             <Grid item xs={12}  sx={{ display: "flex", justifyContent: "center", padding: "3% 0% 3% 0%" }}>
                 <LoadingButton 

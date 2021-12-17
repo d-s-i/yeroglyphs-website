@@ -14,7 +14,7 @@ import marketplaceABI from "../../../ethereum/abis/marketplaceABI.json";
 
 import MyAppBar from "../../../components/UI/AppBar/MyAppBar";
 import AppContainer from "../../../components/UI/AppContainer";
-import GoldButton from "../../../components/UI/Buttons/GoldButton";
+import GoldButton from "../../../components/UI/Buttons/GoldButtonContained";
 import CircularIndeterminate from "../../../components/UI/LoadingState/LoadingSpinner";
 import BasicTable from "../../../components/UI/OfferTable";
 import CustomizedAccordions from "../../../components/UI/CollapseGroupItem";
@@ -59,6 +59,16 @@ const INITIAL_NFT_STATE = {
     onSale: false
 };
 
+const INITIAL_OFFER_STATE = [{
+    creator: "",
+    nftAddress: "",
+    tokenId: "",
+    quantity: "",
+    payToken: "",
+    price: "",
+    deadline: ""
+}];
+
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(2),
@@ -71,11 +81,11 @@ function ItemPage(pageProps: PageProps) {
 
     const [nft, setNft] = React.useState<NFTType>(INITIAL_NFT_STATE);
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const [offers, setOffers] = React.useState<(Offer | undefined)[]>([]);
+    const [offers, setOffers] = React.useState<(Offer | undefined)[]>(INITIAL_OFFER_STATE);
     const [isMakingOffer, setIsMakingOffer] = React.useState<boolean>(false);
 
     const router = useRouter();
-    const { id, nftAddress } = router.query;
+    const { tokenId, nftAddress } = router.query;
 
     React.useEffect(() => {
         if(!router.isReady) return;
@@ -89,17 +99,17 @@ function ItemPage(pageProps: PageProps) {
         const yero = await getYeroglyphs();
         const marketplace = await getMarketplace();
 
-        const owner = await yero.ownerOf(id);
+        const owner = await yero.ownerOf(tokenId);
 
-        const defaultIndex = await yero.tokenIdDefaultIndex(id);
-        const imageURI = await yero.viewSpecificTokenURI(id, defaultIndex);
+        const defaultIndex = await yero.tokenIdDefaultIndex(tokenId);
+        const imageURI = await yero.viewSpecificTokenURI(tokenId, defaultIndex);
 
-        const tokenURI = await yero.tokenURI(id);
+        const tokenURI = await yero.tokenURI(tokenId);
         const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
         const isGenesis = rawTokenURI.includes("true");
         const decodedSVG = getImages(imageURI);
 
-        const listing = await marketplace.listings(nftAddress, id, owner);
+        const listing = await marketplace.listings(nftAddress, tokenId, owner);
 
         const listingObject = {
             image: decodedSVG,
@@ -118,12 +128,15 @@ function ItemPage(pageProps: PageProps) {
 
     async function getOffers() {
         const marketplace = await getMarketplace();
+        const signer = marketplace.signer;
 
-        let eventFilter = marketplace.filters.OfferCreated(null, nftAddress);
-        let events = await marketplace.queryFilter(eventFilter);
+        let eventFilterCreation = marketplace.filters.OfferCreated(null, nftAddress);
+        let eventFilterDeletion = marketplace.filters.OfferCanceled(null, nftAddress);
+        let eventsCreation = await marketplace.queryFilter(eventFilterCreation);
+        let eventsDeletion = await marketplace.queryFilter(eventFilterDeletion);
         const marketplaceInterface =  new ethers.utils.Interface(marketplaceABI);
 
-        const filteredEvents = events.map(event => {
+        const filteredEventsCreation = eventsCreation.map(event => {
             const data = event.data;
             const topics = event.topics;
 
@@ -132,25 +145,32 @@ function ItemPage(pageProps: PageProps) {
             return offer;
         });
 
-        const allOffers = filteredEvents.map(event => {
+        const filteredEventsDeletion = eventsDeletion.map(event => {
+            const data = event.data;
+            const topics = event.topics;
+
+            const deletedOffer = marketplaceInterface.parseLog({ data, topics });
+
+            return deletedOffer;
+        });
+
+        const allCreatedOffers = filteredEventsCreation.map(event => {
             const {
                 creator,
                 nft,
-                tokenId,
+                tokenId: _tokenId,
                 quantity,
                 payToken,
                 pricePerItem,
                 deadline
             } = event.args;
-            if(tokenId.toString() === id) {
-
+            if(_tokenId.toString() === tokenId) {
                 const dateDeadline = new Intl.DateTimeFormat("en-US").format(deadline * 1000);
-                console.log(dateDeadline);
-                
+
                 return {
                     creator: creator,
                     nftAddress: nft,
-                    tokenId: tokenId.toString(),
+                    tokenId: _tokenId.toString(),
                     quantity: quantity.toString(),
                     payToken: payToken,
                     price: pricePerItem.toString(),
@@ -159,7 +179,29 @@ function ItemPage(pageProps: PageProps) {
                 };
             }
         });
-        setOffers(allOffers);
+
+        filteredEventsDeletion.forEach(deletedEvent => {
+            const {
+                creator,
+                nft,
+                tokenId
+            } = deletedEvent.args;
+
+            const correspondingOffer = allCreatedOffers.find((object) => {
+                if(
+                    typeof(object?.creator) === "undefined" ||
+                    typeof(object?.nftAddress) === "undefined" ||
+                    typeof(object?.tokenId) === "undefined"
+                ) return;
+                return (object.creator.toString() === creator.toString() && object.nftAddress.toString() === nft.toString() && object.tokenId.toString() === tokenId.toString());
+            });
+            const correspondingOfferIndex = allCreatedOffers.indexOf(correspondingOffer);
+
+            allCreatedOffers.splice(correspondingOfferIndex, 1);
+
+        });
+        
+        setOffers(allCreatedOffers);
     }
 
     function closeOfferModal() {
@@ -178,13 +220,13 @@ function ItemPage(pageProps: PageProps) {
                     <Grid container sx={{ marginTop: "5%", backgroundColor: "black", borderRadius: "0.5em" }}>
                         <Grid item sm={12} md={4}>
                             <div style={{ backgroundColor: "white", borderTopLeftRadius: "0.5em", borderBottomLeftRadius: "0.5em" }}>
-                                {nft.image && <Image src={nft.image} alt={`yero-${id}`} width="400" height="400" />}
+                                {nft.image && <Image src={nft.image} alt={`yero-${tokenId}`} width="400" height="400" />}
                                 {isLoading && <CircularIndeterminate />}
                             </div>
                         </Grid>
                         <Grid item sm={12} md={8} sx={{ padding: "3% 0% 1% 3%", display: "flex", flexDirection: "column" }}>
                             <Typography component="p" variant="h4" color="primary" sx={{ fontWeight: "bold" }}>
-                                {nft.isGenesis ? <span style={{ color: goldColor }}>{`Genesis Yero #${id}`}</span> : `Yero #${id}`}
+                                {nft.isGenesis ? <span style={{ color: goldColor }}>{`Genesis Yero #${tokenId}`}</span> : `Yero #${tokenId}`}
                             </Typography>
                             <Typography component="p" variant="h6" color="primary">
                                 {`Owned by ${shortenAddress(nft.owner)}`}
@@ -213,7 +255,7 @@ function ItemPage(pageProps: PageProps) {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: "5%", backgroundColor: "black", borderTopLeftRadius: "0.5em", borderTopRightRadius: "0.5em" }}>
-                        <CustomizedAccordions main={<span>Offers</span>} details={[<Grid key="grid-1" item xs={12}>{typeof(offers[0]) !== "undefined" && (<BasicTable titles={["Price", "Expiration", "From"]} rows={offers}/>)}</Grid>]} />
+                        <CustomizedAccordions main={<span>Offers</span>} details={[<Grid key="grid-1" item xs={12}>{typeof(offers[0]) !== "undefined" && (<BasicTable titles={["Price", "Expiration", "From"]} rows={offers} />)}</Grid>]} />
                     </Grid>
                 </Grid>
             </Container>

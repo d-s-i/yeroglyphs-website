@@ -14,9 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import ModalContainer from "../UI/Modals/ModalContainer";
 import ApproveContent from "./ApproveContent/ApproveContent";
 import MakeOfferContent from "./MakeOfferContent/MakeOfferContent";
+import { goldColor } from "../../helpers/constant";
 
 import styles from "./MakeOfferModal.module.css";
-
 
 interface Props {
     message: string;
@@ -62,19 +62,18 @@ function MakeOfferModal(props: Props) {
                     justifyContent: "center",
                     position: "fixed",
                     backgroundColor: "black",
-                    color: "black",
                     borderRadius: "14px",
                     zIndex: "30",
                     top:"30%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    boxShadow: "24"
+                    boxShadow: `0px 0px 5px ${goldColor}`,
                 }}>
                     <Grid container sx={{ padding: "1% 0% 1% 3%", height: "100%" }}>
                         <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                        <IconButton aria-label="close" size="small" onClick={props.onCloseModal}>
-                            <CloseIcon fontSize="inherit" color="primary" />
-                        </IconButton>
+                            <IconButton aria-label="close" size="small" onClick={props.onCloseModal}>
+                                <CloseIcon fontSize="inherit" color="primary" />
+                            </IconButton>
                         </Grid>
                         <Grid item xs={12}>
                             {needAllowance && <ApproveContent onApproving={changeNeedAllowance} />}

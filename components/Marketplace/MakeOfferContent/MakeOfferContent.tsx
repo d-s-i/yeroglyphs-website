@@ -18,7 +18,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
-import GoldButton from "../../UI/Buttons/GoldButton";
+import GoldButton from "../../UI/Buttons/GoldButtonContained";
 import { goldColor } from "../../../helpers/constant";
 
 import TextField from "@mui/material/TextField";
@@ -54,6 +54,29 @@ const Item = styled(Paper)(({ theme }) => ({
     margin: "5% 0% 1% 0%"
 }));
 
+const MySelect = styled(Select)(({ theme }) => ({
+    ".MuiSelect-select": {
+        "& $notchedOutline": {
+            borderColor: "red"
+          },
+          "&:hover $notchedOutline": {
+            borderColor: "blue"
+          },
+          "&$focused $notchedOutline": {
+            borderColor: "green"
+          },
+        borderColor: "red",
+        "&:hover": {
+            borderColor: "red"
+        }
+    },
+    focused: {},
+    notchedOutline: {},
+    ".MuiSelect-icon": {
+        color: "#806c00"
+    }
+  }));
+
 interface ErrorType {
     isError: boolean;
     message: string;
@@ -64,29 +87,33 @@ const INITIAL_ERROR = {
     message: ""
 };
 
+const INITIAL_DEADLINE_ITEM = 3
+const INITIAL_DEADLINE = Math.round(((new Date()).getTime() / 1000) + (INITIAL_DEADLINE_ITEM * 86400));
+
 function MakeOfferContent() {
 
+
     const [offerPrice, setOfferPrice] = React.useState<string>("");
-    const [deadline, setDeadline] = React.useState<string>("0");
-    const [deadlineItem, setDeadlineItem] = React.useState<string>("3");
+    const [deadline, setDeadline] = React.useState<string | number>(INITIAL_DEADLINE);
+    const [deadlineItem, setDeadlineItem] = React.useState<string | number>(3);
     const [error, setError] = React.useState<ErrorType>(INITIAL_ERROR);
 
     const router = useRouter();
 
-    const { id, nftAddress } = router.query;
+    const { tokenId, nftAddress } = router.query;
 
     function setOfferPriceHandler(event: React.ChangeEvent<HTMLInputElement>) {
         setOfferPrice(event.currentTarget.value);
     }
 
-    function setDeadlineHandler(event: SelectChangeEvent) {
+    function setDeadlineHandler(event: SelectChangeEvent<unknown>, _: React.ReactNode) {
 
         const now = new Date();
         const timestamp = now.getTime();
-        setDeadlineItem(event.target.value);
+        setDeadlineItem(typeof(event.target.value) === "number" ? event.target.value.toString() : "");
 
-        const deadline = Math.round((timestamp / 1000) + (parseFloat(event.target.value) * 86400));
-        
+        const deadline = Math.round((timestamp / 1000) + ((typeof(event.target.value) === "number" ? event.target.value : 0) * 86400));
+
         setDeadline(deadline.toString());
 
     }
@@ -96,7 +123,7 @@ function MakeOfferContent() {
             const marketplace = await getMarketplace();
             const weth = await getWeth();
             const pricePerItem = ethers.utils.parseEther(offerPrice);
-            await marketplace.createOffer(nftAddress, id, weth.address, 1, pricePerItem, deadline);
+            await marketplace.createOffer(nftAddress, tokenId, weth.address, 1, pricePerItem, deadline);
         } catch(error: any) {
             console.log(error.message);
             if(error.message.includes("offer already created")) {
@@ -127,7 +154,7 @@ function MakeOfferContent() {
     return (
         <Grid container>
             <Grid item xs={12}>
-                <Typography component="p" variant="h6" sx={{ color: "#806c00" }}>Enter your offer</Typography>
+                <Typography component="p" variant="h6" sx={{ color: "#806c00" }}>Enter your Price</Typography>
             </Grid>
             <Grid item xs={11}>
                 <FormControl sx={{ m: 1 }} variant="outlined" fullWidth color="primary">
@@ -145,34 +172,21 @@ function MakeOfferContent() {
                             border: "1px #806c00 solid", 
                             color: goldColor,
                             "&:hover": { borderColor: goldColor }, 
-                            "&:focus": { borderColor: "red" } 
+                            "&&:focus": { borderColor: "red" } 
                         }}
                     />
-                    <FormHelperText id="outlined-price-helper-text" sx={{ color: "#806c00", fontSize: "1em" }}>Price</FormHelperText>
                 </FormControl>
-                {/* <CssTextField
-                    fullWidth
-                    id="demo-helper-text-aligned"
-                    label="Price"
-                    FormHelperTextProps={{ style: { color: "#806c00", fontSize: "0.9em" } }}
-                    endAdornment={<InputAdornment position="end">wETH</InputAdornment>}
-                    InputProps={{ style: { color: goldColor } }}
-                    value={offerPrice}
-                    onChange={setOfferPriceHandler}
-                /> */}
             </Grid>
             <Grid item xs={11}>
-                <Typography component="p" variant="h6" sx={{ paddingBottom: "2%" }} color="primary">Deadline</Typography>
+                <Typography component="p" variant="h6" sx={{ color: "#806c00", paddingBottom: "2%" }} color="primary">Select the Deadline</Typography>
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Timeline</InputLabel>
-                    <Select
+                    <InputLabel id="demo-simple-select-label" sx={{ color: "#806c00" }}>Timeline</InputLabel>
+                    <MySelect
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={deadlineItem}
                         label="Deadline"
-                        MenuProps={{ color: "#f3f4f6" }}
-                        inputProps={{ color: "#f3f4f6" }}
-                        sx={{ color: "#f3f4f6", borderColor: "#f3f4f6" }}
+                        sx={{ color: goldColor, borderColor: "red" }}
                         onChange={setDeadlineHandler}
                     >
                     <MenuItem value={3}>3 days</MenuItem>
@@ -180,12 +194,12 @@ function MakeOfferContent() {
                     <MenuItem value={30}>1 month</MenuItem>
                     <MenuItem value={90}>3 month</MenuItem>
                     <MenuItem value={180}>6 month</MenuItem>
-                    </Select>
+                    </MySelect>
                 </FormControl>
                 {error.isError && (
                     <Item>
-                    <WarningAmberIcon />
-                    <Typography component="p" variant="h6">{error.message}</Typography>
+                        <WarningAmberIcon />
+                        <Typography component="p" variant="h6">{error.message}</Typography>
                     </Item>
                 )}
             </Grid>

@@ -7,7 +7,7 @@ interface ButtonProps {
     onClick?: () => void;
 }
 
-function GoldButton(buttonProps: ButtonProps) {
+function GoldButtonContained(buttonProps: ButtonProps) {
 
     return(
             <Button 
@@ -28,4 +28,4 @@ function GoldButton(buttonProps: ButtonProps) {
     );
 }
 
-export default GoldButton;
+export default GoldButtonContained;
