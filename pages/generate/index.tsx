@@ -38,7 +38,6 @@ export default function Generate(props: Props) {
         const yeroglyphs = await getYeroglyphs();
         if(!signer) return;
         if(!authContext.isNetworkRight) return;
-        console.log(authContext.isNetworkRight);
 
         const signerAddress = await signer.getAddress();
 
