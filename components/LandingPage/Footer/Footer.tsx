@@ -71,7 +71,7 @@ function Footer() {
                 <Grid item >
                     <Typography component="p" variant="subtitle1" color="primary" align="center">Do Your Own Research.</Typography>
                     <Typography component="p" variant="subtitle1" color="primary" align="center">Not Financial Advice.</Typography>
-                    <Typography component="p" variant="subtitle1" color="primary" align="center">Contracts are not audited, mint at your own risks .</Typography>
+                    <Typography component="p" variant="subtitle1" color="primary" align="center">Contracts are not audited, use at your own risks .</Typography>
                 </Grid>
             </Grid>
         </BackgroundColor>

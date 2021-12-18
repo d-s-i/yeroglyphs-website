@@ -1,3 +1,7 @@
+import Image from "next/image";
+
+import { ethers } from "ethers";
+
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -8,9 +12,8 @@ import Container from "@mui/material/Container";
 
 import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 import bobaPic from "../../public/boba.png";
+import cyberDAOLogo from "../../public/cyberDAOLogo.svg";
 import hiddenGenesis from "../../public/Genesis.png";
-
-import Image from "next/image";
 
 interface Props {
     isMintReleased: boolean;
@@ -64,7 +67,7 @@ function HookBlock(props: Props) {
                             alignItems="center"
                         >
                             <Typography sx={{margin: "5% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
-                                Mint Price: TBD...
+                                {`Mint Price: ${ethers.utils.formatEther("101010100000000000")} Ξ...`}
                             </Typography>
                             <Typography sx={{margin: "2% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
                                 Total Supply: 512...
@@ -75,12 +78,24 @@ function HookBlock(props: Props) {
                 </Grid>
             </Grid>
             <Container maxWidth="lg">
-                <Typography align="center" component="p" variant="h2" color="primary" sx={{fontWeight: "bold", marginTop: "2%"}}>
-                    Coming <span className="goldColor">Soon</span> On ...
-                </Typography>
-                <div style={{display: "flex", justifyContent: "center", marginTop: "3%"}}>
-                    <Image src={bobaPic} alt="boba-network" width="200" height="120" />
-                </div>
+                <Grid container>
+                    <Grid item sm={12} md={6}>
+                    <Typography align="center" component="p" variant="h2" color="primary" sx={{fontWeight: "bold", marginTop: "2%"}}>
+                            <span className="goldColor">Integrated</span> with ...
+                        </Typography>
+                        <div style={{ display: "flex", justifyContent: "center", marginTop: "3%" }}>
+                            <Image src={cyberDAOLogo} alt="boba-network" width="200" height="120" />
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} md={6}>
+                        <Typography align="center" component="p" variant="h2" color="primary" sx={{fontWeight: "bold", marginTop: "2%"}}>
+                            Coming <span className="goldColor">Soon</span> On ...
+                        </Typography>
+                        <div style={{display: "flex", justifyContent: "center", marginTop: "3%" }}>
+                            <Image src={bobaPic} alt="boba-network" width="180" height="100" />
+                        </div>
+                    </Grid>
+                </Grid>
             </Container>
         </Box>
     );

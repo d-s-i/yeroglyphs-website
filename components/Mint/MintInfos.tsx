@@ -1,7 +1,8 @@
 import InformationParagraph from "./InformationParagraph";
 import MintTable from "./MintTable";
 
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import WarningIcon from '@mui/icons-material/Warning';
 import Container from "@mui/material/Container";
 
 import styles from "./MintInfos.module.css";
@@ -22,7 +23,8 @@ const seedSentences = [
 
 const passwordSentences = [
     <span key="sent-8">Passwords are not required to mint and can be left empty. They will give you a Genesis Yero if right</span>,
-    <span key="sent-9">The Yero collection has 50 nfts that are called Genesis and have a &ldquo;perfect&rdquo; design. To mint a Genesis Yero, you need a password. Passwords have been given pre-mint and are not available anymore. If you have one, enter it in the &ldquo;Password&rdquo; input as it was given to you. Without any space before or after. Passwords are for single use, so I hope you didn&apos;t share them with anyone</span>
+    <span key="sent-9">The Yero collection has 50 nfts that are called Genesis and have a &ldquo;perfect&rdquo; design. To mint a Genesis Yero, you need a password. Passwords have been given pre-mint and are not available anymore. If you have one, enter it in the &ldquo;Password&rdquo; input as it was given to you. Without any space before or after. Passwords are for single use, so I hope you didn&apos;t share them with anyone</span>,
+    <span key="sent-16" style={{ color: "red", display: "flex", alignItems: "center" }}><WarningIcon sx={{ marginRight: "1%" }} /> When entering a password, make sure you remove any quotes or space and simply enter the characters given to you</span>
 ];
 
 const cyberDaoSentences = [

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useAuthContext } from "../../store/authContext";
 
+import { BigNumber, ethers } from "ethers";
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 
 import MintButton from "../UI/Buttons/MintButton";
 import TxHandler from "../UI/Modals/TxHandler";
-import Hourglass from "../UI/Hourglass";
 import { goldColor } from "../../helpers/constant";
 
 import styles from "./Mint.module.css";
@@ -39,11 +39,15 @@ const CssTextField = styled(TextField)({
 interface NftState {
     totalSupply: string;
     nbMinted: string;
+    currentPrice: string;
+    nextPrice: string;
 }
 
 const INITIAL_NFT_STATE: NftState = {
     totalSupply: "512",
-    nbMinted: "0"
+    nbMinted: "0",
+    currentPrice: "60606000000000000",
+    nextPrice: "60606000000000000"
 }
 
 interface Props {
@@ -66,10 +70,10 @@ const INITIAL_LOADING_STATE = {
 
 function Mint(props: Props) {
     
-  const [seed, setSeed] = useState<SeedInput>("");
-  const [password, setPassword] = useState<string>("");
-  const [isValid, setisValid] = useState<boolean>(false);
-  const [nftState, setNftState] = useState<NftState>(INITIAL_NFT_STATE);
+  const [seed, setSeed] = React.useState<SeedInput>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [isValid, setisValid] = React.useState<boolean>(false);
+  const [nftState, setNftState] = React.useState<NftState>(INITIAL_NFT_STATE);
   const [isLoading, setIsLoading] = React.useState<LoadingState>(INITIAL_LOADING_STATE);
   const [isButtonLoading, setIsButtonLoading] = React.useState<boolean>(false);
 
@@ -124,19 +128,36 @@ function Mint(props: Props) {
     }, 1500);
   }
 
-    useEffect(() => {
-        async function getCollectionState() {
-            if(!props.isMintReleased || !authContext.isNetworkRight) return;
-            const yero = await getYeroglyphs(); 
+    React.useEffect(() => {
+      async function getCollectionState() {
+        if(!props.isMintReleased || !authContext.isNetworkRight) return;
+        const yero = await getYeroglyphs(); 
 
-            const currentTotalSupply = await yero.TOKEN_LIMIT();
-            const currentNbMinted = await yero.totalSupply();
-            setNftState((prevState) => { 
-                let nftStateObject = Object.assign({}, prevState);  
-                nftStateObject = { totalSupply: currentTotalSupply, nbMinted: currentNbMinted };                
-                return nftStateObject;  
-             });
-        }
+        const currentTotalSupply = await yero.TOKEN_LIMIT();
+        const currentNbMinted = await yero.totalSupply();
+        let currentPrice = await yero.FIFTH_PRICE();
+        let nextPrice = await yero.FIFTH_PRICE();
+        if(currentNbMinted.lt(15)) {
+            currentPrice = BigNumber.from(0);
+        } else if(currentNbMinted.lt(30)) {
+            currentPrice = await yero.FIRST_PRICE();
+            nextPrice = await yero.SECOND_PRICE();
+        } else if(currentNbMinted.lt(80)) {
+            currentPrice = await yero.SECOND_PRICE();
+            nextPrice = await yero.THIRD_PRICE();
+        } else if(currentNbMinted.lt(432)) {
+            currentPrice = await yero.THIRD_PRICE();
+            nextPrice = await yero.FOURTH_PRICE();
+        } else if(currentNbMinted.lt(482)) {
+            currentPrice = await yero.FOURTH_PRICE();
+        } 
+        setNftState((prevState) => { 
+          let nftStateObject = Object.assign({}, prevState);  
+          nftStateObject = { totalSupply: currentTotalSupply, nbMinted: currentNbMinted, currentPrice: currentPrice.toString(), nextPrice: nextPrice.toString() };                
+          return nftStateObject;  
+        });
+      }
+
 
         getCollectionState();
     }, [authContext]);
@@ -144,7 +165,7 @@ function Mint(props: Props) {
   return(
       <Container maxWidth="lg" sx={{ 
         backgroundColor: "#000000", 
-        padding: "5% 3% 8% 3%", 
+        padding: "5% 3% 3% 3%", 
         borderRadius: "1em"
       }}>
         <Grid container sx={{ padding: "0% 10% 0% 10%", display: "flex", justifyContent: "center", alignItems: "flex-start" }}>
@@ -155,7 +176,7 @@ function Mint(props: Props) {
               </Typography>
             </Grid>
           </Grid>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "5%" }} >
+          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "8%" }} >
             <LoadingButton 
               onClick={getRandomNumber} 
               loading={isButtonLoading} 
@@ -174,7 +195,7 @@ function Mint(props: Props) {
               Generate Random Seed
             </LoadingButton>
           </Grid>
-          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "5%" }} >
+          <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "8%" }} >
             <CssTextField
                   helperText="Please enter a number (max 2^255)"
                   id="demo-helper-text-aligned"
@@ -199,6 +220,16 @@ function Mint(props: Props) {
             <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
               <MintButton seed={seed} password={password} isValid={isValid} onSendingTx={setLoadingState} />
             </Grid>
+            <Grid item xs={12}>
+              <Typography component="p" variant="h6" color="primary" align="center" sx={{ color: "#806c00" }}>
+                {`Current price: ${ethers.utils.formatEther(nftState.currentPrice)} Ξ`}
+              </Typography>
+            </Grid>
+            {nftState.nextPrice !== "131313130000000000" && <Grid item xs={12}>
+              <Typography component="p" variant="h6" color="primary" align="center" sx={{ color: "#806c00" }}>
+                {`Next price: ${ethers.utils.formatEther(nftState.nextPrice)} Ξ`}
+              </Typography>
+            </Grid>}
             {isLoading.isLoading && <TxHandler message={isLoading.message} statut={isLoading.statut} onClose={stopTxNotif} />}
         </Grid>
       </Container>

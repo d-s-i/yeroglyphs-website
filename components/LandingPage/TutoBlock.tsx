@@ -32,8 +32,8 @@ const steps = [
     }, {
         title: "Observe The Art Your Generated",
         bullets: [
-            <span key="bullet-11" >Nft plateform are not ready yet on Boba, so we created ours !</span>,
-            <span key="bullet-12" >Go to NOT_AVAILABLE_YET</span>,
+            <span key="bullet-11" >Nft platform are not ready yet on Boba, so we created ours !</span>,
+            <span key="bullet-12" >Go to yero.website/mint</span>,
             <span key="bullet-13" >Connect your Metamask</span>,
             <span key="bullet-14" >Admire the art you created!</span>
         ]
@@ -41,7 +41,7 @@ const steps = [
         title: "Generate New Art On Your NFT",
         bullets: [
             <span key="bullet-15" >Side note : You always keep previously generated art stored in your NFT contract !</span>,
-            <span key="bullet-16" >Go on NOT_AVAILABLE_YET</span>,
+            <span key="bullet-16" >Go on yero.website/generate</span>,
             <span key="bullet-17" >Vizualize the current state of your NFT (it changes on every block)</span>,
             <span key="bullet-18" >If you want to save this state, click the button !</span>,
             <span key="bullet-19" >As simple as this!</span>
@@ -50,7 +50,7 @@ const steps = [
         title: "Save This Art As Default",
         bullets: [
             <span key="bullet-20" >If you want to put your newly generated art as default on your favorite plateform, you can!</span>,
-            <span key="bullet-21" >Go on NOT_AVAILABLE_YET</span>,
+            <span key="bullet-21" >Go on yero.website/save</span>,
             <span key="bullet-22" >Check all the artwork your created</span>,
             <span key="bullet-23" >{`Click 'Save' on the artwork you like`}</span>,
             <span key="bullet-24" >Congrats! You just changed the image of your NFT</span>
