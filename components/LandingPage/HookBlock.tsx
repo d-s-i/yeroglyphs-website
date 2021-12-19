@@ -46,7 +46,7 @@ function HookBlock(props: Props) {
                         Contract Address: 
                     </Typography>
                     <Typography align="left" component="p" variant= "h4" color="primary" sx={{ fontWeight: "bold" }}>
-                        Wille be revealed soon...
+                        Will be revealed soon...
                     </Typography>
                     {/* <Typography align="left" component="p" variant= "h4" color="primary" sx={{fontWeight: "bold"}}>
                         0xaed3Be553f26972C63c47282E68ac39572aAa361
