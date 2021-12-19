@@ -42,12 +42,15 @@ function HookBlock(props: Props) {
                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Give Value To Your NFT By Creating New Randomized Art on Every Block "/>
                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Change Back and Forth Between Your Favorite Artwork And Create New Artwork"/>
                     <ListItemFeature bullet="Ᵹ" bulletColor="#FFD700" textColor="#f3f4f6" text="Resolve the enigma and get one of the 50 Genesis NFT"/>
-                    <Typography align="left" component="p" variant= "h4" color="primary" sx={{marginTop: "5%"}}>
+                    <Typography align="left" component="p" variant= "h4" color="primary" sx={{ marginTop: "5%" }}>
                         Contract Address: 
                     </Typography>
-                    <Typography align="left" component="p" variant= "h4" color="primary" sx={{fontWeight: "bold"}}>
-                        0xaed3Be553f26972C63c47282E68ac39572aAa361
+                    <Typography align="left" component="p" variant= "h4" color="primary" sx={{ fontWeight: "bold" }}>
+                        Wille be revealed soon...
                     </Typography>
+                    {/* <Typography align="left" component="p" variant= "h4" color="primary" sx={{fontWeight: "bold"}}>
+                        0xaed3Be553f26972C63c47282E68ac39572aAa361
+                    </Typography> */}
                     </Item>
                 </Grid>
                 <Grid item xs={12} xl={5} lg={5} sm={12} md={5} >
