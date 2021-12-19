@@ -18,7 +18,6 @@ export default function Minting(props: Props) {
         <MyAppBar isLP={false} isMintReleased={props.isMintReleased} />
         <div style={{ height: "90vh" }}>
           <AppContainer>
-            {/* <CustomizedTypography>Mint</CustomizedTypography> */}
             <CustomizedTypography>Mint</CustomizedTypography>
             <Mint isMintReleased={props.isMintReleased} />
           </AppContainer>
