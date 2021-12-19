@@ -156,11 +156,11 @@ function Mint(props: Props) {
           currentPrice = await yero.SECOND_PRICE();
           nextPrice = await yero.THIRD_PRICE();
         } else if(currentNbMinted.lt(381)) {
-            currentPrice = await yero.THIRD_PRICE();
-            nextPrice = await yero.FOURTH_PRICE();
+          currentPrice = await yero.THIRD_PRICE();
+          nextPrice = await yero.FOURTH_PRICE();
         } else if(currentNbMinted.lt(431)) {
-            currentPrice = await yero.FOURTH_PRICE();
-            nextPrice = await yero.FIFTH_PRICE();
+          currentPrice = await yero.FOURTH_PRICE();
+          nextPrice = await yero.FIFTH_PRICE();
         } 
 
         setNftState((prevState) => { 

@@ -1,6 +1,8 @@
+import React from "react";
 import Image from "next/image";
 
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
+import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -27,6 +29,28 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 function HookBlock(props: Props) {
+
+    const [nftPrice, setNftPrice] = React.useState<string>("101010100000000000");
+
+    React.useEffect(() => {
+        async function getNftPrice() {
+            const yero = await getYeroglyphs();
+            const currentNbMinted = await yero.totalSupply();
+
+            let currentPrice = await yero.FIFTH_PRICE();
+            if(currentNbMinted.lt(29)) {
+                currentPrice = await yero.SECOND_PRICE();
+            } else if(currentNbMinted.lt(381)) {
+                currentPrice = await yero.THIRD_PRICE();
+            } else if(currentNbMinted.lt(431)) {
+                currentPrice = await yero.FOURTH_PRICE();
+            }
+
+            setNftPrice(currentPrice);
+        }
+        getNftPrice();
+    }, []);
+    
     return(
         <Box sx={{ flexGrow: 1 }}>
             <Grid container sx={{ paddingTop: "3%", marginBottom: "3%" }}>
@@ -70,7 +94,7 @@ function HookBlock(props: Props) {
                             alignItems="center"
                         >
                             <Typography sx={{margin: "5% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
-                                {`Mint Price: ${ethers.utils.formatEther("101010100000000000")} Ξ...`}
+                                {`Mint Price: ${ethers.utils.formatEther(nftPrice)} Ξ...`}
                             </Typography>
                             <Typography sx={{margin: "2% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
                                 Total Supply: 512...
