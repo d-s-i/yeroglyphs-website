@@ -5,12 +5,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import GradeIcon from '@mui/icons-material/Grade';
 import Typography from "@mui/material/Typography";
 import styles from "./DisplayManyGlyphs.module.css";
+import { goldColor } from "../../helpers/constant";
 
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 
 interface Props {
   src: string;
   id: string;
+  isGenesis: boolean;
   onSaveNft?: (id: any) => Promise<void>;
   index?: string;
 }
@@ -38,7 +40,9 @@ function DisplayManyGlyphs(props: Props) {
         <div className={styles["glyph-image"]} >
           <Image src={props.src} alt={`yero-${props.id}`} width="320" height="320" />
         </div>
-        <Typography sx={{marginTop: "5%", marginBottom: "5%", color: "#e6e6e6"}} variant="h6" component="p">{`Yeroglyphs #${props.id}`}</Typography>
+        <Typography sx={{marginTop: "5%", marginBottom: "5%", color: "#e6e6e6"}} variant="h6" component="p">
+        {props.isGenesis ? <span style={{ color: goldColor }}>{`Genesis Yero #${props.id}`}</span> :  `Yero #${props.id}`}
+        </Typography>
         {props.index && (
             <LoadingButton
                 sx={{color: "#FFD700", borderColor: "#FFD700", "&:hover": {borderColor: "#FFD700", backgroundColor: "rgb(201, 19, 195, 0.04)"}}}

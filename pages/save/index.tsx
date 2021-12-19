@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 
 interface ImageState {
     tokenId: string;
+    isGenesis: boolean;
     defaultIndex: string;
     svgs: string[];
 }
@@ -61,9 +62,10 @@ export default function Save(props: Props) {
                     const defaultIndex = nftsState[i].defaultIndex;
     
                     let intermediateTokenURIs: string[] = [];
+                    let isGenesis: boolean;
                     for(let j = 0; j < length; j++) {
-                        const tokenURI = await yeroglyphs.viewSpecificTokenURI(tokenId, j);
-                        intermediateTokenURIs.push(tokenURI);
+                        const imageURI = await yeroglyphs.viewSpecificTokenURI(tokenId, j);
+                        intermediateTokenURIs.push(imageURI);
                     }
     
                     let intermediateSVG: string[] = [];
@@ -71,7 +73,12 @@ export default function Save(props: Props) {
                         const encodedSVG = getImages(k);
                         intermediateSVG.push(encodedSVG);
                     }
-                    currImages.push({ svgs: intermediateSVG, tokenId: tokenId, defaultIndex: defaultIndex });
+
+                    const tokenURI = await yeroglyphs.tokenURI(tokenId);
+                    const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
+                    isGenesis = rawTokenURI.includes("true");
+                    
+                    currImages.push({ svgs: intermediateSVG, tokenId: tokenId, isGenesis: isGenesis, defaultIndex: defaultIndex });
                     setImages([...currImages]);
                     intermediateTokenURIs = [];
                     intermediateSVG = [];
@@ -99,11 +106,13 @@ export default function Save(props: Props) {
                 return(
                     <GlyphContainer key={image.tokenId} containMany={true} >
                         {image.svgs.map(svg => {
+                            console.log(image)
                             return(
                                 <DisplayManyGlyphs 
                                     key={svg} 
                                     id={image.tokenId} 
                                     src={svg} 
+                                    isGenesis={image.isGenesis}
                                     index={image.svgs.indexOf(svg) === +image.defaultIndex ? undefined : image.svgs.indexOf(svg).toString()} 
                                 />
                             );
