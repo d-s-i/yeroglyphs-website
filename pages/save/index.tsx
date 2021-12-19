@@ -32,7 +32,6 @@ export default function Save(props: Props) {
 
     useEffect(() => {
         async function getNFTs() {
-            console.log("running")
             setIsLoading(true);
             const yeroglyphs = await getYeroglyphs();
             const signer = yeroglyphs.signer;

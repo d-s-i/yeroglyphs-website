@@ -115,29 +115,6 @@
     "constant": false,
     "inputs": [
       {
-        "name": "seed",
-        "type": "uint256"
-      },
-      {
-        "name": "_password",
-        "type": "string"
-      }
-    ],
-    "name": "createGlyphForCyber",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "_from",
         "type": "address"
       },
@@ -154,6 +131,20 @@
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "isMintingAllowed",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -224,6 +215,20 @@
       {
         "name": "",
         "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "oldYero",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
       }
     ],
     "payable": false,
@@ -442,6 +447,28 @@
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "name": "seed",
+        "type": "uint256"
+      },
+      {
+        "name": "_password",
+        "type": "string"
+      }
+    ],
+    "name": "claimYero",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "owner",
@@ -524,20 +551,6 @@
     "constant": false,
     "inputs": [
       {
-        "name": "_tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "saveTokenURI",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "_from",
         "type": "address"
       },
@@ -591,6 +604,20 @@
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_isMintingAllowed",
+        "type": "bool"
+      }
+    ],
+    "name": "setIsMintingAllowed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -654,6 +681,24 @@
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "name": "_blockNumber",
+        "type": "uint256"
+      }
+    ],
+    "name": "saveTokenURI",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [
       {
@@ -712,20 +757,6 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "CYBERDAO",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "FIRST_PRICE",
     "outputs": [
       {
@@ -738,7 +769,12 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "_oldYero",
+        "type": "address"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"

@@ -3,8 +3,9 @@ import { useAuthContext } from "../../store/authContext";
 
 import { BigNumber, ethers } from "ethers";
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
+import { getOldYeroglyphs } from "../../ethereum/oldYeroglyphs";
 
-import MintButton from "../UI/Buttons/MintButton";
+import ClaimButton from "../UI/Buttons/ClaimButton";
 import TxHandler from "../UI/Modals/TxHandler";
 import { goldColor } from "../../helpers/constant";
 
@@ -68,14 +69,16 @@ const INITIAL_LOADING_STATE = {
   statut: "",
 }
 
-function Mint(props: Props) {
+function Claim(props: Props) {
     
   const [seed, setSeed] = React.useState<SeedInput>("");
+  const [tokenId, setTokenId] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [isValid, setisValid] = React.useState<boolean>(false);
   const [nftState, setNftState] = React.useState<NftState>(INITIAL_NFT_STATE);
   const [isLoading, setIsLoading] = React.useState<LoadingState>(INITIAL_LOADING_STATE);
   const [isButtonLoading, setIsButtonLoading] = React.useState<boolean>(false);
+  const [idsToClaim, setIdsToClaim] = React.useState<number[]>([]);
 
   const authContext = useAuthContext();
 
@@ -92,6 +95,20 @@ function Mint(props: Props) {
       setSeed(enteredNumber);
       setisValid(true);
   }
+
+  async function setTokenIdHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    let enteredNumber = event.currentTarget.value;
+    if(isNaN(+enteredNumber)) return;
+    if(+enteredNumber === 0 || enteredNumber === "") {
+      setTokenId("");
+      setisValid(false);
+      return;
+    };
+
+    setTokenId(enteredNumber);
+    setisValid(true);
+}
 
   async function setPasswordHandler(event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
@@ -137,28 +154,15 @@ function Mint(props: Props) {
         const currentNbMinted = await yero.totalSupply();
         let currentPrice = await yero.FIFTH_PRICE();
         let nextPrice = await yero.FIFTH_PRICE();
-        // if(currentNbMinted.lt(15)) {
-        //     currentPrice = BigNumber.from(0);
-        // } else if(currentNbMinted.lt(30)) {
-        //     currentPrice = await yero.FIRST_PRICE();
-        //     nextPrice = await yero.SECOND_PRICE();
-        // } else if(currentNbMinted.lt(80)) {
-        //     currentPrice = await yero.SECOND_PRICE();
-        //     nextPrice = await yero.THIRD_PRICE();
-        // } else if(currentNbMinted.lt(432)) {
-        //     currentPrice = await yero.THIRD_PRICE();
-        //     nextPrice = await yero.FOURTH_PRICE();
-        // } else if(currentNbMinted.lt(482)) {
-        //     currentPrice = await yero.FOURTH_PRICE();
-        // } 
+
 
         if(currentNbMinted.lt(29)) {
           currentPrice = await yero.SECOND_PRICE();
           nextPrice = await yero.THIRD_PRICE();
-        } else if(currentNbMinted.lt(381)) {
+        } else if(currentNbMinted.lt(432)) {
             currentPrice = await yero.THIRD_PRICE();
             nextPrice = await yero.FOURTH_PRICE();
-        } else if(currentNbMinted.lt(431)) {
+        } else if(currentNbMinted.lt(482)) {
             currentPrice = await yero.FOURTH_PRICE();
             nextPrice = await yero.FIFTH_PRICE();
         } 
@@ -170,8 +174,27 @@ function Mint(props: Props) {
         });
       }
 
+      async function getAllOwnerIds() {
+        const oldYero = await getOldYeroglyphs();
+        const signer = oldYero.signer;
 
-        getCollectionState();
+        if(!signer) return;
+        const signerAddress = await signer.getAddress()
+
+        const balance = await oldYero.balanceOf(signerAddress);
+
+        let ids: number[] = [];
+
+        for(let i = 0; i < balance; i++) {
+          const id = await oldYero.tokenOfOwnerByIndex(signerAddress, i);
+          ids.push(+id);
+        }
+
+        setIdsToClaim(ids);
+
+      }
+      getAllOwnerIds();
+      getCollectionState();
     }, [authContext]);
 
   return(
@@ -184,7 +207,7 @@ function Mint(props: Props) {
           <Grid container>
             <Grid item xs={12}>
               <Typography component="p" variant="h3" color="primary" align="center" sx={{ margin: "0% 0% 5% 0%" }}>
-                {`Remaining Yero NFTs: ${parseFloat(nftState.totalSupply) - parseFloat(nftState.nbMinted)}/${nftState.totalSupply}`}
+                Enter your tokenId, your seed (can be different) and  your password if you had any 
               </Typography>
             </Grid>
           </Grid>
@@ -209,6 +232,17 @@ function Mint(props: Props) {
           </Grid>
           <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "8%" }} >
             <CssTextField
+                  helperText="The id of your old Yero"
+                  id="demo-helper-text-aligned"
+                  label="tokenId"
+                  FormHelperTextProps={{ style: { color: "#806c00", fontSize: "0.9em" } }}
+                  InputProps={{ style: { color: goldColor } }}
+                  value={tokenId} 
+                  onChange={setTokenIdHandler}
+              />  
+            </Grid>
+            <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "8%" }} >
+            <CssTextField
                   helperText="Please enter a number (max 2^255)"
                   id="demo-helper-text-aligned"
                   label="Seed"
@@ -230,22 +264,15 @@ function Mint(props: Props) {
               />
             </Grid>
             <Grid item lg={4} md={4} sm={12} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-              <MintButton seed={seed} password={password} isValid={isValid} onSendingTx={setLoadingState} />
+              <ClaimButton seed={seed} password={password} tokenId={tokenId} isValid={isValid} onSendingTx={setLoadingState} />
             </Grid>
-            <Grid item xs={12}>
-              <Typography component="p" variant="h6" color="primary" align="center" sx={{ color: "#806c00" }}>
-                {`Current price: ${ethers.utils.formatEther(nftState.currentPrice)} Ξ`}
-              </Typography>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <Typography component="p" variant="subtitle1" color="primary">{`you can claim those ids: ${idsToClaim}`}</Typography>
             </Grid>
-            {nftState.nextPrice !== "131313130000000000" && <Grid item xs={12}>
-              <Typography component="p" variant="h6" color="primary" align="center" sx={{ color: "#806c00" }}>
-                {`Next price: ${ethers.utils.formatEther(nftState.nextPrice)} Ξ`}
-              </Typography>
-            </Grid>}
             {isLoading.isLoading && <TxHandler message={isLoading.message} statut={isLoading.statut} onClose={stopTxNotif} />}
         </Grid>
       </Container>
   );
 }
 
-export default Mint;
+export default Claim;

@@ -8,12 +8,13 @@ import Container from '@mui/material/Container';
 
 interface Props {
     seed: number | string;
+    tokenId: string;
     password: string;
     isValid: boolean;
     onSendingTx: (loadingState: boolean, message: string, txStatut: string) => void;
 }
 
-function MintButton(props: Props) {   
+function ClaimButton(props: Props) {   
 
     
     async function mintNFT() {
@@ -25,41 +26,8 @@ function MintButton(props: Props) {
     
             props.onSendingTx(true, "Waiting for your transaction to confirm ...", "pending");
 
-            let numTokenMinted = await yeroglyphs.totalSupply();
 
-            let price = await yeroglyphs.FIFTH_PRICE();
-            // if(numTokenMinted.lt(15)) {
-            //     price = BigNumber.from(0);
-            // } else if(numTokenMinted.lt(30)) {
-            //     price = await yeroglyphs.FIRST_PRICE();
-            // } else if(numTokenMinted.lt(80)) {
-            //     price = await yeroglyphs.SECOND_PRICE();
-            // } else if(numTokenMinted.lt(432)) {
-            //     price = await yeroglyphs.THIRD_PRICE();
-            // } else if(numTokenMinted.lt(482)) {
-            //     price = await yeroglyphs.FOURTH_PRICE();
-            // } 
-
-            // if(numTokenMinted.lt(30)) {
-            //     price = await yeroglyphs.FIRST_PRICE();
-            // } else if(numTokenMinted.lt(80)) {
-            //     price = await yeroglyphs.SECOND_PRICE();
-            // } else if(numTokenMinted.lt(432)) {
-            //     price = await yeroglyphs.THIRD_PRICE();
-            // } else if(numTokenMinted.lt(482)) {
-            //     price = await yeroglyphs.FOURTH_PRICE();
-            // } 
-
-
-            if(numTokenMinted.lt(29)) {
-                price = await yeroglyphs.SECOND_PRICE();
-            } else if(numTokenMinted.lt(381)) {
-                price = await yeroglyphs.THIRD_PRICE();
-            } else if(numTokenMinted.lt(431)) {
-                price = await yeroglyphs.FOURTH_PRICE();
-            } 
-
-            const mint_tx = await yeroglyphs.createGlyph(props.seed, props.password, { value: price });
+            const mint_tx = await yeroglyphs.claimYero(props.tokenId, props.seed, props.password);
     
             const provider = yeroglyphs.signer.provider;
     
@@ -93,10 +61,10 @@ function MintButton(props: Props) {
                 }}
             >
                 <span style={{ marginRight: "30%" }}>{`𓁋`}</span>
-                Mint
+                Claim
             </Button>
         </Container>
     );
 }
 
-export default MintButton;
+export default ClaimButton;
