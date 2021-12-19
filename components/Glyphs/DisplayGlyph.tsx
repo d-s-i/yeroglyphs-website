@@ -42,7 +42,7 @@ function DisplayGlyph(props: Props) {
         </Typography>
         {props.isDynamic && (
             <LoadingButton
-                sx={{color: "#FFD700", borderColor: "#FFD700", "&:hover": {borderColor: "#FFD700", backgroundColor: "rgb(201, 19, 195, 0.04)"}}}
+                sx={{color: "#FFD700", borderColor: "#FFD700", "&:hover": { borderColor: "#FFD700", backgroundColor: "rgb(201, 19, 195, 0.04)" }}}
                 color="secondary"
                 onClick={() => onClicking(props.id)}
                 loading={isLoading}

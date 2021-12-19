@@ -13,12 +13,8 @@ import CustomizedTypography from "../../components/UI/CustomizedTypography"
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { getSignerHandler } from "../../ethereum/web3";
 import { getImages } from "../../helpers/drawGlyph";
+import { ImageStateProps } from "../../helpers/types";
 import { useAuthContext } from "../../store/authContext";
-
-interface ImageState {
-    id: string;
-    svg: string;
-}
 
 interface Props {
     isMintReleased: boolean;
@@ -26,7 +22,7 @@ interface Props {
 
 export default function Generate(props: Props) {
 
-    const [images, setImages] = useState<ImageState[]>([]);
+    const [images, setImages] = useState<ImageStateProps[]>([]);
     const [block, setBlock] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -47,13 +43,17 @@ export default function Generate(props: Props) {
         let nbOfNftsOwned;
         try {
             nbOfNftsOwned = await yeroglyphs.balanceOf(signerAddress);
-            let currImages: ImageState[] = [];
+            let currImages: ImageStateProps[] = [];
             for(let i = 0; i < nbOfNftsOwned; i++) {
                 const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
                 const imageURI = await yeroglyphs.viewCurrentTokenURI(id);
+
+                const tokenURI = await yeroglyphs.tokenURI(id);
+                const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
+                const isGenesis = rawTokenURI.includes("true");
     
                 const encodedSVG = getImages(imageURI);
-                currImages.push({svg: encodedSVG, id: id});
+                currImages.push({ svg: encodedSVG, id: id, isGenesis: isGenesis });
                 setImages([...currImages]);
             }
         } catch (error) {
@@ -87,6 +87,7 @@ export default function Generate(props: Props) {
                     src={image.svg} 
                     id={image.id} 
                     isDynamic={true} 
+                    isGenesis={image.isGenesis}
                     onSaveNft={saveNFTHandler} 
                 />)}
                 {!isLoading && images.length === 0 && <Typography component="p" variant="h5" color="primary">{`You don't own any NFT`}</Typography>}
