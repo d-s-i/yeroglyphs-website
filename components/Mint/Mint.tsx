@@ -184,7 +184,7 @@ function Mint(props: Props) {
           <Grid container>
             <Grid item xs={12}>
               <Typography component="p" variant="h3" color="primary" align="center" sx={{ margin: "0% 0% 5% 0%" }}>
-                {`Remaining Yero NFTs: ${(parseFloat(nftState.totalSupply) - 51) - parseFloat(nftState.nbMinted)}/${nftState.totalSupply}`}
+                {`Remaining Yero NFTs: ${(parseFloat(nftState.totalSupply)) - parseFloat(nftState.nbMinted)}/${nftState.totalSupply}`}
               </Typography>
             </Grid>
           </Grid>
