@@ -1,6 +1,7 @@
 export default {
     name: "Boba",
-    chainId: 288
+    chainId: 288,
+    provider: "https://mainnet.boba.network/"
 };
 
 // export default {

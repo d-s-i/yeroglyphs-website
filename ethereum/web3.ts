@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { JsonRpcSigner, JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
+import network from "./network";
  
 declare let window: any;
 
@@ -14,7 +15,7 @@ export async function getSignerHandler() {
 
         return walletObject;
     } else {
-        const provider = new ethers.providers.JsonRpcProvider("https://rinkeby.boba.network/");
+        const provider = new ethers.providers.JsonRpcProvider(network.provider);
         const walletObject: [undefined, JsonRpcProvider] = [undefined, provider];
         
         return walletObject;

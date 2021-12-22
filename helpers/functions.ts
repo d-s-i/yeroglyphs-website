@@ -5,10 +5,9 @@ import ERC1155ABI from "../ethereum/abis/ERC1155ABI.json";
 
 import { 
     ImageStateProps, 
-    authContextType, 
+    AuthContextType, 
     FullImageState, 
     NftState, 
-    SeedInput 
 } from "./types";
 
 import { getImages } from "./drawGlyph";
@@ -34,20 +33,15 @@ export const getIsNftApproved = async function(nftAddress: string, isERC721: boo
     return isApproved;
 }
 
-const getNFTsState = async function(signerAddress: string, isCurrent: boolean) {
+const getStaticNFTsState = async function(signerAddress: string) {
     const yeroglyphs = await getYeroglyphs();
 
     const nbOfNftsOwned = await yeroglyphs.balanceOf(signerAddress);
     let currImages: ImageStateProps[] = [];
     for(let i = 0; i < nbOfNftsOwned; i++) {
         const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
-        let imageURI: string;
-        if(isCurrent) {
-            imageURI = await yeroglyphs.viewCurrentTokenURI(id);
-        } else {
-            const defaultIndex = await yeroglyphs.tokenIdDefaultIndex(id);
-            imageURI = await yeroglyphs.viewSpecificTokenURI(id, defaultIndex);
-        }
+        const defaultIndex = await yeroglyphs.tokenIdDefaultIndex(id);
+        const imageURI = await yeroglyphs.viewSpecificTokenURI(id, defaultIndex);
 
         const tokenURI = await yeroglyphs.tokenURI(id);
         const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
@@ -56,31 +50,90 @@ const getNFTsState = async function(signerAddress: string, isCurrent: boolean) {
         const encodedSVG = getImages(imageURI);
         currImages.push({ svg: encodedSVG, id: id, isGenesis: isGenesis });
     }
+
+    if(typeof(currImages) === "undefined") {
+        throw new Error("Couldn't fetch NFTs");
+    }
+
     return [...currImages];
 }
 
-export const setNftsState = async function(
-    setLoadingFn: React.Dispatch<React.SetStateAction<boolean>>, 
-    setNftStateFn: React.Dispatch<React.SetStateAction<ImageStateProps[]>>,
-    authContext: authContextType,
-    _isCurrent: boolean 
+const getCurrentNFTsState = async function(signerAddress: string) {
+    const yeroglyphs = await getYeroglyphs();
+
+    const nbOfNftsOwned = await yeroglyphs.balanceOf(signerAddress);
+    let currImages: ImageStateProps[] = [];
+    for(let i = 0; i < nbOfNftsOwned; i++) {
+        const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
+        const imageURI = await yeroglyphs.viewCurrentTokenURI(id);
+
+        const tokenURI = await yeroglyphs.tokenURI(id);
+        const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
+        const isGenesis = rawTokenURI.includes("true");
+
+        const encodedSVG = getImages(imageURI);
+        currImages.push({ svg: encodedSVG, id: id, isGenesis: isGenesis });
+    }
+
+    if(typeof(currImages) === "undefined") {
+        throw new Error("Couldn't fetch NFTs");
+    }
+
+    return [...currImages];
+}
+
+export const setCurrentNftsState = async function(
+    stateFn: { setLoadingFn: React.Dispatch<React.SetStateAction<boolean>>, setNftStateFn: React.Dispatch<React.SetStateAction<ImageStateProps[]>> },
+    authContext: AuthContextType,
 ) {
-    setLoadingFn(true);
+    stateFn.setLoadingFn(true);
     const signerAddress = authContext.signerAddress;
 
     if(!signerAddress) return;
     if(!authContext.isNetworkRight) return;
+
+    await setCurrentNftStateAndHandleErrors(stateFn.setNftStateFn, signerAddress);
+
+    stateFn.setLoadingFn(false);
+}
+
+const setCurrentNftStateAndHandleErrors = async function(
+    setNftStateFn: React.Dispatch<React.SetStateAction<ImageStateProps[]>>,
+    signerAddress: string
+) {
     try {
-        const nftState = await getNFTsState(signerAddress, _isCurrent);
-        if(typeof(nftState) === "undefined") {
-            throw new Error("Couldn't fetch NFTs");
-        }
+        const nftState = await getCurrentNFTsState(signerAddress);
         setNftStateFn(nftState);
     } catch(error) {
         console.log(error);
     }
+}
 
-    setLoadingFn(false);
+export const setStaticNftsState = async function(
+    stateFn: { setLoadingFn: React.Dispatch<React.SetStateAction<boolean>>, setNftStateFn: React.Dispatch<React.SetStateAction<ImageStateProps[]>> },
+    authContext: AuthContextType,
+) {
+    stateFn.setLoadingFn(true);
+    const signerAddress = authContext.signerAddress;
+
+    if(!signerAddress) return;
+    if(!authContext.isNetworkRight) return;
+
+    await setStaticNftStateAndHandleErrors(stateFn.setNftStateFn, signerAddress);
+
+    stateFn.setLoadingFn(false);
+}
+
+const setStaticNftStateAndHandleErrors = async function(
+    setNftStateFn: React.Dispatch<React.SetStateAction<ImageStateProps[]>>,
+    signerAddress: string
+) {
+    try {
+        const nftState = await getStaticNFTsState(signerAddress);
+        setNftStateFn(nftState);
+    } catch(error) {
+        console.log(error);
+    }
 }
 
 const getERC721Balance = async function(
@@ -117,7 +170,7 @@ const getDefaultsIndexPerId = async function(address: string, nftBalance: number
 
 export const getFullNftState = async function(
     _setLoadingFn: React.Dispatch<React.SetStateAction<boolean>>, 
-    _authContext: authContextType,
+    _authContext: AuthContextType,
     _setFullNftStateFn: React.Dispatch<React.SetStateAction<FullImageState[]>>
 ) {
     _setLoadingFn(true);
@@ -166,10 +219,13 @@ export const getFullNftState = async function(
 }
 
 export const getCollectionState = async function(
-    _authContext: authContextType,
+    _authContext: AuthContextType,
     _setNftState: React.Dispatch<React.SetStateAction<NftState>>
 ) {
     if(!_authContext.isNetworkRight) return;
+    // const signerOrProvider = _authContext.isNetworkRight ? _authContext.signer : _authContext.provider;
+
+    // if(signerOrProvider === undefined) return;
     const yero = await getYeroglyphs(); 
 
     const [currentTotalSupply, currentNbMinted] = await getYeroState(yero);
@@ -229,3 +285,12 @@ export const setNewObjectState = function(
         return loadingObject;  
       });
 }
+
+// export const canSignTx = function(
+//     _authContext: AuthContextType
+// ) {
+//     if(!_authContext.isNetworkRight || !(_authContext.signer instanceof JsonRpcSigner)) {
+//         return false;
+//     }
+//     return true;
+// }

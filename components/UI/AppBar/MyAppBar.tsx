@@ -42,7 +42,8 @@ function MyAppBar(props: Props) {
     const authContext = useAuthContext();
 
     function getButtonText(_signerAddress: string) {
-        const shortenedAddress = shortenAddress(_signerAddress);;
+        if(_signerAddress == "") return;
+        const shortenedAddress = shortenAddress(_signerAddress);
         setButtonText(shortenedAddress);
     }
 

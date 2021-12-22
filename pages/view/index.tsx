@@ -9,7 +9,7 @@ import TitleTypography from "../../components/UI/Text/TitleTypography";
 
 import { useAuthContext } from "../../store/authContext";
 import { ImageStateProps } from "../../helpers/types";
-import { setNftsState } from "../../helpers/functions";
+import { setStaticNftsState } from "../../helpers/functions";
 import Typography from "@mui/material/Typography";
 
 export default function View() {
@@ -21,11 +21,9 @@ export default function View() {
 
     useEffect(() => {
 
-        setNftsState(
-            setIsLoading,
-            setNftState,
-            authContext,
-            false
+        setStaticNftsState(
+            { setLoadingFn: setIsLoading, setNftStateFn: setNftState },
+            authContext
         );
 
     }, [authContext]);

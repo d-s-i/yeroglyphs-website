@@ -12,7 +12,7 @@ import TitleTypography from "../../components/UI/Text/TitleTypography"
 
 import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { ImageStateProps } from "../../helpers/types";
-import { setNftsState } from "../../helpers/functions";
+import { setCurrentNftsState } from "../../helpers/functions";
 import { useAuthContext } from "../../store/authContext";
 
 export default function Generate() {
@@ -39,12 +39,12 @@ export default function Generate() {
     }
     
     React.useEffect(() => {
-        setNftsState(
-            setIsLoading,
-            setNftState,
-            authContext,
-            true
+
+        setCurrentNftsState(
+            { setLoadingFn: setIsLoading, setNftStateFn: setNftState },
+            authContext
         );
+
     }, [authContext, block]);
 
     React.useEffect(() => {

@@ -1,53 +1,60 @@
-import React, { useState, useEffect, useContext, ReactNode, createContext } from "react";
+import React from "react";
 import { getSignerHandler } from "../ethereum/web3";
+import { ethers } from "ethers";
 import { JsonRpcSigner } from "@ethersproject/providers";
-import { authContextType, Signer, Provider } from "../helpers/types";
+import { AuthContextType, CustomSigner, CustomProvider } from "../helpers/types";
 import network from "../ethereum/network";
 
 declare let window: any;
 
-const authContextDefaultValues: authContextType = {
+const authContextDefaultValues: AuthContextType = {
     signer: undefined,
     signerAddress: "",
     provider: undefined,
     isNetworkRight: true
 };
 
-const AuthContext = createContext<authContextType>(authContextDefaultValues);
+const AuthContext = React.createContext<AuthContextType>(authContextDefaultValues);
 
 export function useAuthContext() {
-    return useContext<authContextType>(AuthContext);
+    return React.useContext<AuthContextType>(AuthContext);
 }
 
 type Props = {
-    children: ReactNode;
+    children: React.ReactNode;
 };
 
 export function AuthContextProvider({ children }: Props) {
-    const [signer, setSigner] = useState<Signer>();
-    const [signerAddress, setSignerAddress] = useState<string>("");
-    const [provider, setProvider] = useState<Provider>();
-    const [isNetworkRight, setIsNetworkRight] = useState<boolean>(false);
+    const [signer, setSigner] = React.useState<CustomSigner>();
+    const [signerAddress, setSignerAddress] = React.useState<string>("");
+    const [provider, setProvider] = React.useState<CustomProvider>();
+    const [isNetworkRight, setIsNetworkRight] = React.useState<boolean>(false);
 
     async function loginHandler() {
         const walletObject = await getSignerHandler();
 
+        let chainId: number = 0;
         if(walletObject[0] instanceof JsonRpcSigner) {
-            const chainId = await walletObject[0].getChainId();
+            chainId = await walletObject[0].getChainId();
             const srAddress = await walletObject[0].getAddress();
             onNetworkChange(chainId);
             setSignerAddress(srAddress);
         }
         if(walletObject[0] === undefined) {
-            const chainId = (await walletObject[1].getNetwork()).chainId;
+            chainId = (await walletObject[1].getNetwork()).chainId;
             onNetworkChange(chainId);
         }
 
+        if(chainId !== network.chainId) {
+            setProvider(new ethers.providers.JsonRpcProvider(network.provider));
+        } else {
+            setProvider(walletObject[1]);
+        }
+
         setSigner(walletObject[0]);
-        setProvider(walletObject[1]);
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (typeof(window) !== "undefined" && typeof(window.ethereum) !== "undefined") {
             loginHandler();
             window.ethereum.on('accountsChanged', function () {

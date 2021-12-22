@@ -180,7 +180,7 @@ function Mint() {
             </Grid>
             {nftState.nextPrice !== "131313130000000000" && (
               <Grid item xs={12}>
-                <Typography component="p" variant="h6" color="primary" align="center" sx={{ color: "#806c00" }}>
+                <Typography component="p" variant="subtitle1" color="primary" align="center" sx={{ color: "#806c00" }}>
                   {`Next price: ${ethers.utils.formatEther(nftState.nextPrice)} Ξ`}
                 </Typography>
               </Grid>

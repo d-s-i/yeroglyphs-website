@@ -1,9 +1,11 @@
 import { JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import { JsonRpcSigner } from "@ethersproject/providers";
 
-export type Provider = JsonRpcProvider | Web3Provider | undefined;
+export type CustomProvider = JsonRpcProvider | Web3Provider | undefined;
 
-export type Signer = JsonRpcSigner | undefined;
+export type CustomSigner = JsonRpcSigner | undefined;
+
+export type CustomSignerOrProvider = CustomSigner | CustomProvider;
 
 export interface ImageStateProps {
     id: string;
@@ -11,10 +13,10 @@ export interface ImageStateProps {
     isGenesis: boolean;
 }
 
-export interface authContextType {
-    signer: Signer;
+export interface AuthContextType {
+    signer: CustomSigner;
     signerAddress: string;
-    provider: Provider;
+    provider: CustomProvider;
     isNetworkRight: boolean;
 }
 
