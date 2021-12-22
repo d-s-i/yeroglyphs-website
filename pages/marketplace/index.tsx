@@ -6,7 +6,7 @@ import MarketplaceGlyph from "../../components/Glyphs/MarketplaceGlyph";
 import GlyphContainer from "../../components/Glyphs/GlyphContainer";
 
 import { useAuthContext } from "../../store/authContext";
-import { setNftsState } from "../../helpers/functions";
+import { setStaticNftsState } from "../../helpers/functions";
 import { ImageStateProps } from "../../helpers/types";
 
 function Marketplace() {
@@ -18,11 +18,9 @@ function Marketplace() {
 
     React.useEffect(() => {
         
-        setNftsState(
-            setIsLoading,
-            setNftState,
+        setStaticNftsState(
+            { setLoadingFn: setIsLoading, setNftStateFn: setNftState },
             authContext,
-            false
         );
 
     }, [authContext]);
