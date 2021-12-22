@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta name="description" content="On Chain Generative Art" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-       <Component {...pageProps} isMintReleased={isMintReleased}/>
+       <Component {...pageProps} />
       </ThemeProvider>
     </AuthContextProvider>
   );

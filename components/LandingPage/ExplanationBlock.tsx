@@ -13,10 +13,6 @@ import crook from "../../public/crook.png";
 import ankh from "../../public/ankh.png";
 import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 
-interface Props {
-    isMintReleased: boolean;
-}
-
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -25,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "transparent"
   }));
 
-function ExplanationBlock(props: Props) {
+function ExplanationBlock() {
     return(
         <Grid
         container
@@ -106,7 +102,7 @@ function ExplanationBlock(props: Props) {
                 </Grid>
             </Container>
             <Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "0% 0% 3% 0%"}}>
-                <MintRedirectionButton isMintReleased={props.isMintReleased} />
+                <MintRedirectionButton />
             </Container>
         </Grid>
     );

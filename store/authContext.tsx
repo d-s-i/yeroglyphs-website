@@ -1,20 +1,10 @@
 import React, { useState, useEffect, useContext, ReactNode, createContext } from "react";
 import { getSignerHandler } from "../ethereum/web3";
-import { JsonRpcSigner, JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
+import { JsonRpcSigner } from "@ethersproject/providers";
+import { authContextType, Signer, Provider } from "../helpers/types";
 import network from "../ethereum/network";
 
 declare let window: any;
-
-export type Signer = JsonRpcSigner | undefined;
-
-type Provider = JsonRpcProvider | Web3Provider | undefined;
-
-interface authContextType {
-    signer: Signer;
-    signerAddress: string;
-    provider: Provider;
-    isNetworkRight: boolean;
-};
 
 const authContextDefaultValues: authContextType = {
     signer: undefined,
@@ -39,15 +29,14 @@ export function AuthContextProvider({ children }: Props) {
     const [provider, setProvider] = useState<Provider>();
     const [isNetworkRight, setIsNetworkRight] = useState<boolean>(false);
 
-
     async function loginHandler() {
         const walletObject = await getSignerHandler();
 
         if(walletObject[0] instanceof JsonRpcSigner) {
             const chainId = await walletObject[0].getChainId();
-            const snAddress = await walletObject[0].getAddress();
+            const srAddress = await walletObject[0].getAddress();
             onNetworkChange(chainId);
-            setSignerAddress(snAddress);
+            setSignerAddress(srAddress);
         }
         if(walletObject[0] === undefined) {
             const chainId = (await walletObject[1].getNetwork()).chainId;

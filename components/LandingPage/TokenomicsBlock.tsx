@@ -14,16 +14,11 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     color: theme.palette.text.secondary,
     backgroundColor: "transparent"
-  }));
-
-
-interface Props {
-    isMintReleased: boolean;
-}
+}));
 
 const checkColor = "#248f24";
 
-function TokenomicsBlock(props: Props) {
+function TokenomicsBlock() {
     return(
         <Container maxWidth="xl" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "5% 0% 3% 0%"}}>
             <Container maxWidth="lg" sx={{display: "flex", flexDirection: "column", justifyContent: "center"}} >
@@ -85,7 +80,7 @@ function TokenomicsBlock(props: Props) {
                 </Container>
             </Container>
             <Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "3% 0% 1% 0%"}}>
-                <MintRedirectionButton isMintReleased={props.isMintReleased} />
+                <MintRedirectionButton />
             </Container>
         </Container>
     );

@@ -12,7 +12,7 @@ function GoldButtonOutlined(buttonProps: ButtonProps) {
 
     return(
             <Button 
-            onClick={buttonProps.onClick}
+                onClick={buttonProps.onClick}
                 variant="outlined" 
                 size="small"
                 sx={{

@@ -11,7 +11,7 @@ function GoldButtonContained(buttonProps: ButtonProps) {
 
     return(
             <Button 
-            onClick={buttonProps.onClick}
+                onClick={buttonProps.onClick}
                 variant="contained" 
                 sx={{
                     borderColor: "#FFD700", 
@@ -20,7 +20,7 @@ function GoldButtonContained(buttonProps: ButtonProps) {
                     fontSize: "1.5em",
                     textTransform: "none",
                     "&:hover": { cursor: "pointer", backgroundColor: "#ccad00" },
-                    margin: "5% 0% 0% 0%"
+                    margin: "5% 0% 0% 3%"
                 }}
             >
                 {buttonProps.children}

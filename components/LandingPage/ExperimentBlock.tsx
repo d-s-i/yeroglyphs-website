@@ -8,10 +8,6 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-interface Props {
-    isMintReleased: boolean;
-}
-
 const experiments = [
     {
         title: "Generative Art",
@@ -35,7 +31,7 @@ const experiments = [
 
 ];
 
-function ExperimentBlock(props: Props) {
+function ExperimentBlock() {
     return(
         <Grid
             container
@@ -53,8 +49,6 @@ function ExperimentBlock(props: Props) {
                 <Container maxWidth="md">
                     {experiments.map(experiment => {
                         const index = experiments.indexOf(experiment);
-                        // const isColorReversed = index === (experiments.length - 1);
-                        const isColorReversed = false;
                         return(
                             <HotExperimentCard 
                                 title={experiment.title} 
@@ -62,13 +56,12 @@ function ExperimentBlock(props: Props) {
                                 index={index + 1} 
                                 image={experiment.imageSrc} 
                                 paragraphs={experiment.paragraphs} 
-                                colorReversed={isColorReversed}
                             />
                         );
                     })}
                 </Container>
             </Grid>
-            <MintRedirectionButton isMintReleased={props.isMintReleased} />
+            <MintRedirectionButton />
         </Grid>
     );
 }

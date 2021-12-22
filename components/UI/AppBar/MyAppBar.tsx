@@ -24,7 +24,6 @@ const CustomizedAppBar = styled(AppBar)`
 `;
 
 interface Props {
-    isMintReleased: boolean;
     isLP: boolean;
 }
 
@@ -50,7 +49,7 @@ function MyAppBar(props: Props) {
     async function connect() {
         getButtonText(authContext.signerAddress);
 
-        if(!authContext.isNetworkRight && props.isMintReleased && !props.isLP) {
+        if(!authContext.isNetworkRight && !props.isLP) {
             setError((prevState) => { 
                 let errorObject = Object.assign({}, prevState);  
                 errorObject = { isError: true, message: `Please connect to the ${network.name} network`};                
@@ -67,7 +66,7 @@ function MyAppBar(props: Props) {
     
     useEffect(() => {
         connect();
-    }, [authContext, props.isMintReleased]);
+    }, [authContext]);
 
     return(
         <React.Fragment>
@@ -82,7 +81,7 @@ function MyAppBar(props: Props) {
                                     </Link>   
                                 </span>
                             </Typography>
-                            {!props.isLP && <ButtonLinks isReadyForProd={props.isMintReleased} />}
+                            {!props.isLP && <ButtonLinks />}
                             <MySVGButton onClick={() => connect()} >{buttonText}</MySVGButton>
                         </Grid>
                     </Toolbar>

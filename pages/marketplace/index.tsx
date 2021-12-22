@@ -1,72 +1,43 @@
 import React, { useEffect, useState } from "react";
 import MyAppBar from "../../components/UI/AppBar/MyAppBar";
-import AppContainer from "../../components/UI/AppContainer";
-import CustomizedTypography from "../../components/UI/CustomizedTypography";
+import AppContainer from "../../components/UI/Cards/AppContainer";
 import LoadingDiv from "../../components/UI/LoadingState/LoadingDiv";
 import MarketplaceGlyph from "../../components/Glyphs/MarketplaceGlyph";
 import GlyphContainer from "../../components/Glyphs/GlyphContainer";
 
-import { getMarketplace } from "../../ethereum/marketplace";
-import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { useAuthContext } from "../../store/authContext";
-import { ImageStateProps, PageProps } from "../../helpers/types";
-import { getImages } from "../../helpers/drawGlyph";
+import { setNftsState } from "../../helpers/functions";
+import { ImageStateProps } from "../../helpers/types";
 
-function Marketplace(pageProps: PageProps) {
+function Marketplace() {
 
     const authContext = useAuthContext();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [images, setImages] = useState<ImageStateProps[]>([]);
+    const [nftState, setNftState] = useState<ImageStateProps[]>([]);
 
-    useEffect(() => {
-        async function getNFTs() {
-            setIsLoading(true);
-            const yeroglyphs = await getYeroglyphs();
-            const signer = yeroglyphs.signer;
-
-            if(!signer) return;
-            if(!authContext.isNetworkRight) return;
-            const signerAddress = authContext.signerAddress;
-            
-            let nbOfNftsOwned;
-            try {
-                nbOfNftsOwned = await yeroglyphs.balanceOf(signerAddress);
-                let currImages: ImageStateProps[] = [];
-                for(let i = 0; i < nbOfNftsOwned; i++) {
-                    const id = await yeroglyphs.tokenOfOwnerByIndex(signerAddress, i);
-                    const defaultIndex = await yeroglyphs.tokenIdDefaultIndex(id);
-                    const imageURI = await yeroglyphs.viewSpecificTokenURI(id, defaultIndex);
-                    const tokenURI = await yeroglyphs.tokenURI(id);
-                    const rawTokenURI = Buffer.from(tokenURI.substring(29), "base64").toString();
-                    const isGenesis = rawTokenURI.includes("true") ? true: false;
-                    const encodedSVG = getImages(imageURI);
-                    currImages.push({ svg: encodedSVG, id: id, isGenesis: isGenesis });
-                    setImages([...currImages]);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-
-            setIsLoading(false);
-        }
-
-        getNFTs();
+    React.useEffect(() => {
+        
+        setNftsState(
+            setIsLoading,
+            setNftState,
+            authContext
+        );
 
     }, [authContext]);
     
     return(
         <React.Fragment>
-            <MyAppBar isLP={false} isMintReleased={pageProps.isMintReleased} />
+            <MyAppBar isLP={false} />
             <AppContainer>
                 {isLoading && <LoadingDiv />}
                 <GlyphContainer>
-                    {images.length >= 1 && images.map(image => {
+                    {nftState.length >= 1 && nftState.map(nft => {
                         return (<MarketplaceGlyph 
-                            key={image.id} 
-                            src={image.svg} 
-                            id={image.id} 
-                            isGenesis={image.isGenesis} 
+                            key={nft.id} 
+                            src={nft.svg} 
+                            id={nft.id} 
+                            isGenesis={nft.isGenesis} 
                             isDynamic={false} 
                         />);
                     })}

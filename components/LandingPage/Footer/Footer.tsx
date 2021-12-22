@@ -4,7 +4,7 @@ import Image from "next/image";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from "@mui/material/Typography";
-import BackgroundColor from "../../UI/BackgroundColor";
+import BackgroundColor from "../../UI/Cards/BackgroundColor";
 import { styled } from '@mui/material/styles';
 
 import telegramPic from "../../../public/telegram.png"

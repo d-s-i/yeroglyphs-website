@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { ethers, BigNumber } from "ethers";
-import { PageProps } from "../../../helpers/types";
 import { getYeroglyphs } from "../../../ethereum/yeroglyphs";
 import { getMarketplace } from "../../../ethereum/marketplace";
 import { getWeth } from "../../../ethereum/weth";
@@ -11,21 +10,25 @@ import { getImages } from "../../../helpers/drawGlyph";
 import { goldColor } from "../../../helpers/constant";
 import { shortenAddress } from "../../../helpers/functions";
 import marketplaceABI from "../../../ethereum/abis/marketplaceABI.json";
+import ERC721ABI from "../../../ethereum/abis/ERC721ABI.json";
+
 
 import MyAppBar from "../../../components/UI/AppBar/MyAppBar";
-import AppContainer from "../../../components/UI/AppContainer";
+import AppContainer from "../../../components/UI/Cards/AppContainer";
 import GoldButton from "../../../components/UI/Buttons/GoldButtonContained";
 import CircularIndeterminate from "../../../components/UI/LoadingState/LoadingSpinner";
-import BasicTable from "../../../components/UI/OfferTable";
+import OfferTable from "../../../components/Marketplace/OfferTable";
 import CustomizedAccordions from "../../../components/UI/CollapseGroupItem";
 
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import { Typography } from "@mui/material";
+import SellNftModal from "../../../components/Marketplace/SellNftModal";
 import MakeOfferModal from "../../../components/Marketplace/MakeOfferModal";
+
+import { useAuthContext } from "../../../store/authContext";
 
 interface NFTType {
     owner: string;
@@ -36,6 +39,7 @@ interface NFTType {
     price: BigNumber;
     startingTime: BigNumber;
     onSale: boolean;
+    salePrice: BigNumber;
 }
 
 interface Offer {
@@ -56,7 +60,8 @@ const INITIAL_NFT_STATE = {
     payToken: "0x0000000000000000000000000000000000000000",
     price: BigNumber.from(0),
     startingTime: BigNumber.from(0),
-    onSale: false
+    onSale: false,
+    salePrice: BigNumber.from(0)
 };
 
 const INITIAL_OFFER_STATE = [{
@@ -77,21 +82,38 @@ const Item = styled(Paper)(({ theme }) => ({
     borderRadius: "1em",
 }));
 
-function ItemPage(pageProps: PageProps) {
+function ItemPage() {
 
     const [nft, setNft] = React.useState<NFTType>(INITIAL_NFT_STATE);
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [offers, setOffers] = React.useState<(Offer | undefined)[]>(INITIAL_OFFER_STATE);
     const [isMakingOffer, setIsMakingOffer] = React.useState<boolean>(false);
+    const [isNftOwner, setIsNftOwner] = React.useState<boolean>(false);
+    const [isSellingNft, setIsSellingNft] = React.useState<boolean>(false);
 
     const router = useRouter();
     const { tokenId, nftAddress } = router.query;
+
+    const authContext = useAuthContext();
 
     React.useEffect(() => {
         if(!router.isReady) return;
         getNFT();
         getOffers();
-    }, [router.isReady]);
+    }, [router.isReady, authContext.signerAddress]);
+
+    const getNftOwner = function(nftOwner: string) {
+        const signerAddress = authContext.signerAddress;
+
+        console.log(signerAddress, signerAddress === nftOwner);
+        
+        if(signerAddress === nftOwner) {
+            setIsNftOwner(true);
+            return;
+        } 
+
+        setIsNftOwner(false);
+    }
     
     async function getNFT() {
 
@@ -119,16 +141,17 @@ function ItemPage(pageProps: PageProps) {
             payToken: listing.payToken,
             price: listing.pricePerItem,
             startingTime: listing.startingTime,
-            onSale: !listing.pricePerItem.isZero()
+            onSale: !listing.pricePerItem.isZero(),
+            salePrice: listing.pricePerItem
         };
 
         setNft(listingObject);
+        getNftOwner(owner);
         setIsLoading(false);
     }
 
     async function getOffers() {
         const marketplace = await getMarketplace();
-        const signer = marketplace.signer;
 
         let eventFilterCreation = marketplace.filters.OfferCreated(null, nftAddress);
         let eventFilterDeletion = marketplace.filters.OfferCanceled(null, nftAddress);
@@ -204,17 +227,51 @@ function ItemPage(pageProps: PageProps) {
         setOffers(allCreatedOffers);
     }
 
-    function closeOfferModal() {
+    const buyNft = async function() {
+        const marketplace = await getMarketplace();
+        const weth = await getWeth();
+        if(typeof(nftAddress) !== "string") return;
+        const nftContract = await new ethers.Contract(nftAddress, ERC721ABI, marketplace.signer);
+
+        const owner = await nftContract.ownerOf(tokenId);
+
+        await marketplace.buyItem(nftAddress, tokenId, weth.address, owner);
+    } 
+
+    const cancelListing = async function() {
+        const marketplace = await getMarketplace();
+
+        if(
+            typeof(nftAddress) !== "string" ||
+            typeof(tokenId) !== "string" 
+        ) return;
+        
+        try {
+            await marketplace.cancelListing(nftAddress, tokenId);
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    const closeOfferModal = function() {
         setIsMakingOffer(false);
     }
     
-    function openOfferModal() {
+    const openOfferModal = function() {
         setIsMakingOffer(true);
+    }
+
+    const openSellModal = function() {
+        setIsSellingNft(true);
+    }
+
+    const closeSellModal = function() {
+        setIsSellingNft(false);
     }
     
     return(
         <React.Fragment>
-            <MyAppBar isLP={false} isMintReleased={pageProps.isMintReleased} />
+            <MyAppBar isLP={false} />
             <Container maxWidth="lg">
                 <Grid container>
                     <Grid container sx={{ marginTop: "5%", backgroundColor: "black", borderRadius: "0.5em" }}>
@@ -235,7 +292,7 @@ function ItemPage(pageProps: PageProps) {
                                 <Item>
                                     <Grid container>
                                         <Grid item xs={12}>
-                                            <Typography component="p" variant="h6" color="primary">{`Statut: ${nft.onSale ? "On Sale" : "Not on Sale"}`}</Typography>
+                                            <Typography component="p" variant="h6" color="primary">{`Statut: ${nft.onSale ? `On Sale - ${ethers.utils.formatEther(nft.salePrice)} Ξ` : "Not on Sale"}`}</Typography>
                                         </Grid>
                                         <Grid item xs={12}>
                                             <Typography component="p" variant="h6" color="primary">{`Rarity: ${nft.isGenesis ? "Genesis" : "Common"}`}</Typography>
@@ -250,15 +307,19 @@ function ItemPage(pageProps: PageProps) {
                                     alignItems: "center", 
                                 }}
                             >
-                                <GoldButton onClick={openOfferModal}>Make Offer</GoldButton>
+                                {(!isNftOwner && nft.onSale) && <GoldButton onClick={buyNft}>Buy</GoldButton>}
+                                {(isNftOwner && !nft.onSale) && <GoldButton onClick={openSellModal}>Sell</GoldButton>}
+                                {!isNftOwner && <GoldButton onClick={openOfferModal}>Make Offer</GoldButton>}
+                                {(isNftOwner && nft.onSale) && <GoldButton onClick={cancelListing}>Cancel Listing</GoldButton>}
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: "5%", backgroundColor: "black", borderTopLeftRadius: "0.5em", borderTopRightRadius: "0.5em" }}>
-                        <CustomizedAccordions main={<span>Offers</span>} details={[<Grid key="grid-1" item xs={12}>{typeof(offers[0]) !== "undefined" && (<BasicTable titles={["Price", "Expiration", "From"]} rows={offers} />)}</Grid>]} />
+                        <CustomizedAccordions main={<span>Offers</span>} details={[<Grid key="grid-1" item xs={12}>{typeof(offers[0]) !== "undefined" && (<OfferTable titles={["Price", "Expiration", "From"]} rows={offers} />)}</Grid>]} />
                     </Grid>
                 </Grid>
             </Container>
+            {isSellingNft && <SellNftModal onCloseModal={closeSellModal} nftAddress={nftAddress} />}
             {isMakingOffer && <MakeOfferModal onCloseModal={closeOfferModal} message="You want to buy right?" />}
         </React.Fragment>
     );

@@ -7,7 +7,6 @@ import { goldColor } from "../../helpers/constant";
 import WarningIcon from '@mui/icons-material/Warning';
 import CustomizedAccordions from "../../components/UI/CollapseGroupItem";
 
-
 export default function Leviathan() {
     
   return (

@@ -8,25 +8,10 @@ interface Props {
     title: string;
     image: StaticImageData;
     paragraphs: string[];
-    colorReversed: boolean;
 }
 
 function HotExperimentCard(props: Props) {
 
-    const normalColors = {
-        backgroundColor: "#000000",
-        titleAddedColor: "#FFD700",
-        mainColor: "#f3f4f6",
-    };
-
-    const reversedColors = {
-        backgroundColor: "#FFD700",
-        titleAddedColor: "#996633",
-        mainColor: "#1a1a1a"
-    }
-
-    const colors = props.colorReversed ? reversedColors: normalColors;
-    
     return(
         <Grid
             container
@@ -34,7 +19,7 @@ function HotExperimentCard(props: Props) {
             justifyContent="center"
             alignItems="center"
             sx={{
-                backgroundColor: colors.backgroundColor,
+                backgroundColor: "#000000",
                 borderRadius: "1em",
                 padding: "1% 2% 3% 3%",
                 margin: "0% 5% 5% 5%",
@@ -42,8 +27,8 @@ function HotExperimentCard(props: Props) {
             }}
         >
             <Grid item width={1} sx={{ margin: "2% 0% 3% 0%" }}>
-                <Typography component="p" variant="h4" align="left" sx={{ fontWeight: "bold", color: colors.mainColor}} >
-                    <span style={{ textDecoration: "underline", color: colors.titleAddedColor }} >{`Hot NFT Experiment #${props.index}`}</span>
+                <Typography component="p" variant="h4" align="left" sx={{ fontWeight: "bold", color: "#f3f4f6" }} >
+                    <span style={{ textDecoration: "underline", color: "#FFD700" }} >{`Hot NFT Experiment #${props.index}`}</span>
                     {` - ${props.title}`}
                 </Typography>
             </Grid>
@@ -58,7 +43,19 @@ function HotExperimentCard(props: Props) {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} md={7} sx={{ width: "100%" }}>
-                    {props.paragraphs?.map((paragraph, key) => <Typography key={key} component="p" variant="subtitle1" align="left" sx={{ width: "100%", fontSize: "1.2em", color: colors.mainColor, marginTop: "5%" }}>{paragraph}</Typography>)}
+                    {props.paragraphs?.map((paragraph, key) => {
+                        return(
+                            <Typography 
+                                key={key} 
+                                component="p" 
+                                variant="subtitle1"
+                                align="left" 
+                                sx={{ width: "100%", fontSize: "1.2em", color: "#f3f4f6", marginTop: "5%" }}
+                            >
+                                {paragraph}
+                            </Typography>
+                        );
+                    })}
                 </Grid>
                 </Grid>
         </Grid>

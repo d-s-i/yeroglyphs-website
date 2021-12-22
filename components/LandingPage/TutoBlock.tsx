@@ -6,10 +6,6 @@ import StepCard from "../UI/Cards/StepCard";
 import MintRedirectionButton from "../UI/Buttons/MintRedirectionButton";
 import egyptGifGif from "../../public/egyptGif.gif";
 
-interface Props {
-    isMintReleased: boolean;
-}
-
 const steps = [
     {
         title: "Join the Community",
@@ -63,7 +59,7 @@ const steps = [
     }
 ]
 
-function TutoBlock(props: Props) {
+function TutoBlock() {
     return(
         <Container maxWidth="lg" sx={{ padding: "5% 0% 5% 0%" }} >
             <Typography variant="h2" component="p" color="primary" align="center" sx={{ fontWeight: "bold" }}>
@@ -81,7 +77,7 @@ function TutoBlock(props: Props) {
                 }
             })}
             <Container maxWidth="xs" sx={{display: "flex", flexDirection: "column", justifyContent: "center", padding: "3% 0% 1% 0%"}}>
-                <MintRedirectionButton isMintReleased={props.isMintReleased} />
+                <MintRedirectionButton />
             </Container>
         </Container>
     );

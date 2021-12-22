@@ -13,8 +13,8 @@ interface Props {
     children: React.ReactNode;
 }
 
-function CustomizedTypography(props: Props) {
+function TitleTypography(props: Props) {
     return(<MyTypography variant="h3">{props.children}</MyTypography>);
 }
 
-export default CustomizedTypography;
+export default TitleTypography;

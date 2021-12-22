@@ -1,8 +1,10 @@
 import React from "react";
 
-import { BigNumber } from "ethers";
+import { ethers, BigNumber } from "ethers";
+import ERC721ABI from "../../ethereum/abis/ERC721ABI.json"
 import { getWeth } from "../../ethereum/weth";
-import { getMarketplace } from "../../ethereum/marketplace";
+import { getMarketplace, marketplaceAddress } from "../../ethereum/marketplace";
+import { getIsNftApproved } from "../../helpers/functions";
 import { useAuthContext } from "../../store/authContext";
 
 import { Typography } from "@mui/material";
@@ -13,17 +15,18 @@ import IconButton from '@mui/material/IconButton';
 
 import ModalContainer from "../UI/Modals/ModalContainer";
 import ApproveContent from "./ApproveContent/ApproveContent";
-import MakeOfferContent from "./MakeOfferContent/MakeOfferContent";
+import SellNftContent from "./SellNftContent/SellNftContent";
 import { goldColor } from "../../helpers/constant";
 
-import styles from "./MakeOfferModal.module.css";
+import styles from "./SellNftModal.module.css";
+import { RedoOutlined } from "@mui/icons-material";
 
 interface Props {
-    message: string;
+    nftAddress: string | string[] | undefined;
     onCloseModal: (event: React.MouseEvent) => void;   
 }
 
-function MakeOfferModal(props: Props) {
+function SellNftModal(props: Props) {
 
     const [needAllowance, setNeedAllowance] = React.useState<boolean>(false);
     
@@ -31,20 +34,17 @@ function MakeOfferModal(props: Props) {
 
     React.useEffect(() => {
         async function getApproval() {
-            const weth = await getWeth();
-            const marketplace = await getMarketplace();
-            const signer = marketplace.signer;
-
+            const signer = authContext.signer;
             if(!signer) return;
-            const signerAddress = authContext.signerAddress;
+            if(typeof(props.nftAddress) !== "string") return;
+            const isApprovedForAll = await getIsNftApproved(props.nftAddress, true, marketplaceAddress, signer);
 
-            const allowance = await weth.allowance(signerAddress, marketplace.address);
-
-            if(allowance.lt(BigNumber.from(BigInt(2**20)))) {
+            if(!isApprovedForAll) {
                 setNeedAllowance(true);
-            } else {
-                setNeedAllowance(false);
+                return;
             }
+
+            setNeedAllowance(false);
         }
 
         getApproval();
@@ -76,8 +76,8 @@ function MakeOfferModal(props: Props) {
                             </IconButton>
                         </Grid>
                         <Grid item xs={12}>
-                            {needAllowance && <ApproveContent approveWhat="weth" onApproving={changeNeedAllowance} />}
-                            {!needAllowance && <MakeOfferContent />}
+                            {needAllowance && <ApproveContent approveWhat="nft" nftAddress={props.nftAddress} onApproving={changeNeedAllowance} />}
+                            {!needAllowance && <SellNftContent />}
                         </Grid>
                     </Grid>
                 </Container>
@@ -86,4 +86,4 @@ function MakeOfferModal(props: Props) {
     );
 }
 
-export default MakeOfferModal;
+export default SellNftModal;

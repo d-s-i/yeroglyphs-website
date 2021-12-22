@@ -1,6 +1,9 @@
 import React from "react";
+import { useAuthContext } from "../../../store/authContext";
 
+import { ethers } from "ethers";
 import { getWeth } from "../../../ethereum/weth";
+import ERC721ABI from "../../../ethereum/abis/ERC721ABI.json";
 import { marketplaceAddress } from "../../../ethereum/marketplace";
 
 import Typography from "@mui/material/Typography";
@@ -10,6 +13,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { goldColor } from "../../../helpers/constant";
 
 interface ApproveProps {
+    nftAddress?: string | string[] | undefined;
+    approveWhat: string;
     onApproving: (_needApproval: boolean) => void;
 }
 
@@ -17,7 +22,9 @@ function ApproveContent(approveProps: ApproveProps) {
 
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-    async function approveWeth() {
+    const authContext = useAuthContext();
+
+    const approveWeth = async function() {
         const weth = await getWeth();
 
         const provider = weth.signer.provider;
@@ -34,7 +41,13 @@ function ApproveContent(approveProps: ApproveProps) {
         } catch(error) {
             console.log(error);
         }
-        
+    }
+
+    const approveNft = async function() {
+        if(typeof(approveProps.nftAddress) !== "string") return;
+        const nft = await new ethers.Contract(approveProps.nftAddress, ERC721ABI, authContext.signer);
+
+        await nft.setApprovalForAll(marketplaceAddress, true);
     }
     
     return(
@@ -47,7 +60,7 @@ function ApproveContent(approveProps: ApproveProps) {
                     size="large" 
                     loading={isLoading} 
                     variant="contained" 
-                    onClick={approveWeth}
+                    onClick={approveProps.approveWhat === "weth" ? approveWeth : approveNft}
                     sx={{ backgroundColor: goldColor, fontWeight: "bold" }}
                 >
                     Approve

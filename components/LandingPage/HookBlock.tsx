@@ -17,10 +17,6 @@ import bobaPic from "../../public/boba.png";
 import cyberDAOLogo from "../../public/cyberDAOLogo.svg";
 import hiddenGenesis from "../../public/Genesis.png";
 
-interface Props {
-    isMintReleased: boolean;
-}
-
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -28,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-function HookBlock(props: Props) {
+function HookBlock() {
 
     const [nftPrice, setNftPrice] = React.useState<string>("101010100000000000");
 
@@ -83,7 +79,7 @@ function HookBlock(props: Props) {
                             container 
                             spacing={2} 
                             className="box bounce-2" 
-                            sx={{marginTop: "3%", display: "flex", justifyContent: "center"}}
+                            sx={{ marginTop: "3%", display: "flex", justifyContent: "center" }}
                         >
                             <Image src={hiddenGenesis} alt="generative-art" width="400" height="400" />
                         </Grid>
@@ -93,13 +89,13 @@ function HookBlock(props: Props) {
                             justifyContent="center"
                             alignItems="center"
                         >
-                            <Typography sx={{margin: "5% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
+                            <Typography sx={{ margin: "5% 0% 2% 0%", fontWeight: "bold" }} component="p" variant="h5" color="primary">
                                 {`Mint Price: ${ethers.utils.formatEther(nftPrice)} Ξ...`}
                             </Typography>
-                            <Typography sx={{margin: "2% 0% 2% 0%", fontWeight: "bold"}} component="p" variant="h5" color="primary">
+                            <Typography sx={{ margin: "2% 0% 2% 0%", fontWeight: "bold" }} component="p" variant="h5" color="primary">
                                 Total Supply: 512...
                             </Typography>
-                            <MintRedirectionButton isMintReleased={props.isMintReleased} />
+                            <MintRedirectionButton />
                         </Grid>
                     </Item>
                 </Grid>
@@ -107,7 +103,7 @@ function HookBlock(props: Props) {
             <Container maxWidth="lg">
                 <Grid container>
                     <Grid item sm={12} md={6}>
-                    <Typography align="center" component="p" variant="h2" color="primary" sx={{fontWeight: "bold", marginTop: "2%"}}>
+                    <Typography align="center" component="p" variant="h2" color="primary" sx={{ fontWeight: "bold", marginTop: "2%" }}>
                             <span className="goldColor">Integrated</span> with ...
                         </Typography>
                         <div style={{ display: "flex", justifyContent: "center", marginTop: "3%" }}>
@@ -115,10 +111,10 @@ function HookBlock(props: Props) {
                         </div>
                     </Grid>
                     <Grid item sm={12} md={6}>
-                        <Typography align="center" component="p" variant="h2" color="primary" sx={{fontWeight: "bold", marginTop: "2%"}}>
+                        <Typography align="center" component="p" variant="h2" color="primary" sx={{ fontWeight: "bold", marginTop: "2%" }}>
                             Coming <span className="goldColor">Soon</span> On ...
                         </Typography>
-                        <div style={{display: "flex", justifyContent: "center", marginTop: "3%" }}>
+                        <div style={{ display: "flex", justifyContent: "center", marginTop: "3%" }}>
                             <Image src={bobaPic} alt="boba-network" width="180" height="100" />
                         </div>
                     </Grid>

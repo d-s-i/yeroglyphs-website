@@ -1,15 +1,13 @@
 import React from "react";
 import { useAuthContext } from "../../store/authContext";
 
-import { BigNumber, ethers } from "ethers";
-import { getYeroglyphs } from "../../ethereum/yeroglyphs";
 import { getOldYeroglyphs } from "../../ethereum/oldYeroglyphs";
+import { SeedInput } from "../../helpers/types";
 
 import ClaimButton from "../UI/Buttons/ClaimButton";
 import TxHandler from "../UI/Modals/TxHandler";
 import { goldColor } from "../../helpers/constant";
 
-import styles from "./Mint.module.css";
 import Typography from "@mui/material/Typography";
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from "@mui/material/Container";
@@ -37,26 +35,6 @@ const CssTextField = styled(TextField)({
     }
   });
 
-interface NftState {
-    totalSupply: string;
-    nbMinted: string;
-    currentPrice: string;
-    nextPrice: string;
-}
-
-const INITIAL_NFT_STATE: NftState = {
-    totalSupply: "512",
-    nbMinted: "0",
-    currentPrice: "60606000000000000",
-    nextPrice: "60606000000000000"
-}
-
-interface Props {
-    isMintReleased: boolean;
-}
-
-type SeedInput = number | string;
-
 interface LoadingState {
   isLoading: boolean;
   message: string;
@@ -69,13 +47,12 @@ const INITIAL_LOADING_STATE = {
   statut: "",
 }
 
-function Claim(props: Props) {
+function Claim() {
     
   const [seed, setSeed] = React.useState<SeedInput>("");
   const [tokenId, setTokenId] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [isValid, setisValid] = React.useState<boolean>(false);
-  const [nftState, setNftState] = React.useState<NftState>(INITIAL_NFT_STATE);
   const [isLoading, setIsLoading] = React.useState<LoadingState>(INITIAL_LOADING_STATE);
   const [isButtonLoading, setIsButtonLoading] = React.useState<boolean>(false);
   const [idsToClaim, setIdsToClaim] = React.useState<number[]>([]);
@@ -146,33 +123,6 @@ function Claim(props: Props) {
   }
 
     React.useEffect(() => {
-      async function getCollectionState() {
-        if(!props.isMintReleased || !authContext.isNetworkRight) return;
-        const yero = await getYeroglyphs(); 
-
-        const currentTotalSupply = await yero.TOKEN_LIMIT();
-        const currentNbMinted = await yero.totalSupply();
-        let currentPrice = await yero.FIFTH_PRICE();
-        let nextPrice = await yero.FIFTH_PRICE();
-
-
-        if(currentNbMinted.lt(29)) {
-          currentPrice = await yero.SECOND_PRICE();
-          nextPrice = await yero.THIRD_PRICE();
-        } else if(currentNbMinted.lt(432)) {
-            currentPrice = await yero.THIRD_PRICE();
-            nextPrice = await yero.FOURTH_PRICE();
-        } else if(currentNbMinted.lt(482)) {
-            currentPrice = await yero.FOURTH_PRICE();
-            nextPrice = await yero.FIFTH_PRICE();
-        } 
-
-        setNftState((prevState) => { 
-          let nftStateObject = Object.assign({}, prevState);  
-          nftStateObject = { totalSupply: currentTotalSupply, nbMinted: currentNbMinted, currentPrice: currentPrice.toString(), nextPrice: nextPrice.toString() };                
-          return nftStateObject;  
-        });
-      }
 
       async function getAllOwnerIds() {
         const oldYero = await getOldYeroglyphs();
@@ -191,10 +141,9 @@ function Claim(props: Props) {
         }
 
         setIdsToClaim(ids);
-
       }
+      
       getAllOwnerIds();
-      getCollectionState();
     }, [authContext]);
 
   return(

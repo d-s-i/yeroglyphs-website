@@ -15,16 +15,16 @@ function createData(
   }
   
 const rows = [
-    createData('1 - 30', "0.060606 ether"),
-    createData('31 - 50', "0.090909 ether"),
-    createData('51 - 432', "0.1010101 ether"),
-    createData('433 - 483', "0.1212121 ether"),
-    createData('483 - 512', "0.1313131 ether"),
+    createData("1 - 30", "0.060606 ether"),
+    createData("31 - 50", "0.090909 ether"),
+    createData("51 - 432", "0.1010101 ether"),
+    createData("433 - 483", "0.1212121 ether"),
+    createData("483 - 512", "0.1313131 ether"),
 ];
 
 export default function MintTable() {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer id="table-container" component={Paper}>
       <Table aria-label="simple table" size="small">
         <TableHead sx={{ backgroundColor: "#ffd700" }}>
           <TableRow>

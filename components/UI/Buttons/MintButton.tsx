@@ -28,28 +28,6 @@ function MintButton(props: Props) {
             let numTokenMinted = await yeroglyphs.totalSupply();
 
             let price = await yeroglyphs.FIFTH_PRICE();
-            // if(numTokenMinted.lt(15)) {
-            //     price = BigNumber.from(0);
-            // } else if(numTokenMinted.lt(30)) {
-            //     price = await yeroglyphs.FIRST_PRICE();
-            // } else if(numTokenMinted.lt(80)) {
-            //     price = await yeroglyphs.SECOND_PRICE();
-            // } else if(numTokenMinted.lt(432)) {
-            //     price = await yeroglyphs.THIRD_PRICE();
-            // } else if(numTokenMinted.lt(482)) {
-            //     price = await yeroglyphs.FOURTH_PRICE();
-            // } 
-
-            // if(numTokenMinted.lt(30)) {
-            //     price = await yeroglyphs.FIRST_PRICE();
-            // } else if(numTokenMinted.lt(80)) {
-            //     price = await yeroglyphs.SECOND_PRICE();
-            // } else if(numTokenMinted.lt(432)) {
-            //     price = await yeroglyphs.THIRD_PRICE();
-            // } else if(numTokenMinted.lt(482)) {
-            //     price = await yeroglyphs.FOURTH_PRICE();
-            // } 
-
 
             if(numTokenMinted.lt(29)) {
                 price = await yeroglyphs.SECOND_PRICE();

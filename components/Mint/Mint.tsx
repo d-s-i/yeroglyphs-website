@@ -1,8 +1,9 @@
 import React from "react";
 import { useAuthContext } from "../../store/authContext";
 
-import { BigNumber, ethers } from "ethers";
-import { getYeroglyphs } from "../../ethereum/yeroglyphs";
+import { ethers } from "ethers";
+import { getCollectionState, setNewObjectState } from "../../helpers/functions";
+import { NftState } from "../../helpers/types";
 
 import MintButton from "../UI/Buttons/MintButton";
 import TxHandler from "../UI/Modals/TxHandler";
@@ -34,24 +35,13 @@ const CssTextField = styled(TextField)({
         borderColor: '#FFD700',
       }
     }
-  });
-
-interface NftState {
-    totalSupply: string;
-    nbMinted: string;
-    currentPrice: string;
-    nextPrice: string;
-}
+});
 
 const INITIAL_NFT_STATE: NftState = {
     totalSupply: "512",
     nbMinted: "0",
     currentPrice: "60606000000000000",
     nextPrice: "60606000000000000"
-}
-
-interface Props {
-    isMintReleased: boolean;
 }
 
 type SeedInput = number | string;
@@ -68,7 +58,7 @@ const INITIAL_LOADING_STATE = {
   statut: "",
 }
 
-function Mint(props: Props) {
+function Mint() {
     
   const [seed, setSeed] = React.useState<SeedInput>("");
   const [password, setPassword] = React.useState<string>("");
@@ -78,42 +68,7 @@ function Mint(props: Props) {
   const [isButtonLoading, setIsButtonLoading] = React.useState<boolean>(false);
 
   const authContext = useAuthContext();
-
-  async function setSeedHandler(event: React.ChangeEvent<HTMLInputElement>) {
-      event.preventDefault();
-      let enteredNumber = event.currentTarget.value;
-      if(isNaN(+enteredNumber)) return;
-      if(+enteredNumber === 0 || enteredNumber === "") {
-        setSeed("");
-        setisValid(false);
-        return;
-      };
-
-      setSeed(enteredNumber);
-      setisValid(true);
-  }
-
-  async function setPasswordHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    event.preventDefault();
-    setPassword(event.currentTarget.value);
-  }
-
-  function setLoadingState(loadingState: boolean, message: string, txStatut: string) {
-    setIsLoading((prevState) => { 
-      let loadingObject = Object.assign({}, prevState);  
-      loadingObject = { isLoading: loadingState, message: message, statut: txStatut };
-      return loadingObject;  
-    });
-  }
-
-  async function stopTxNotif() {
-    setIsLoading((prevState) => {   
-      let loadingObject = Object.assign({}, prevState);  
-      loadingObject = { ...INITIAL_LOADING_STATE };                
-      return loadingObject;  
-    });
-  }
-
+  
   function getRandomArbitrary(min: number, max: number) {
     return Math.random() * (max - min) + min;
   }
@@ -128,51 +83,37 @@ function Mint(props: Props) {
     }, 1500);
   }
 
-    React.useEffect(() => {
-      async function getCollectionState() {
-        if(!props.isMintReleased || !authContext.isNetworkRight) return;
-        const yero = await getYeroglyphs(); 
 
-        const currentTotalSupply = await yero.TOKEN_LIMIT();
-        const currentNbMinted = await yero.totalSupply();
-        let currentPrice = await yero.FIFTH_PRICE();
-        let nextPrice = await yero.FIFTH_PRICE();
-        // if(currentNbMinted.lt(15)) {
-        //     currentPrice = BigNumber.from(0);
-        // } else if(currentNbMinted.lt(30)) {
-        //     currentPrice = await yero.FIRST_PRICE();
-        //     nextPrice = await yero.SECOND_PRICE();
-        // } else if(currentNbMinted.lt(80)) {
-        //     currentPrice = await yero.SECOND_PRICE();
-        //     nextPrice = await yero.THIRD_PRICE();
-        // } else if(currentNbMinted.lt(432)) {
-        //     currentPrice = await yero.THIRD_PRICE();
-        //     nextPrice = await yero.FOURTH_PRICE();
-        // } else if(currentNbMinted.lt(482)) {
-        //     currentPrice = await yero.FOURTH_PRICE();
-        // } 
+  function setSeedHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    let enteredNumber = event.currentTarget.value;
+    if(isNaN(+enteredNumber)) return;
+    if(+enteredNumber === 0 || enteredNumber === "") {
+      setSeed("");
+      setisValid(false);
+      return;
+    };
 
-        if(currentNbMinted.lt(29)) {
-          currentPrice = await yero.SECOND_PRICE();
-          nextPrice = await yero.THIRD_PRICE();
-        } else if(currentNbMinted.lt(381)) {
-          currentPrice = await yero.THIRD_PRICE();
-          nextPrice = await yero.FOURTH_PRICE();
-        } else if(currentNbMinted.lt(431)) {
-          currentPrice = await yero.FOURTH_PRICE();
-          nextPrice = await yero.FIFTH_PRICE();
-        } 
+    setSeed(enteredNumber);
+    setisValid(true);
+  }
 
-        setNftState((prevState) => { 
-          let nftStateObject = Object.assign({}, prevState);  
-          nftStateObject = { totalSupply: currentTotalSupply, nbMinted: currentNbMinted, currentPrice: currentPrice.toString(), nextPrice: nextPrice.toString() };                
-          return nftStateObject;  
-        });
-      }
+  function setPasswordHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    setPassword(event.currentTarget.value);
+  }
 
+  function setLoadingState(loadingState: boolean, message: string, txStatut: string) {
+    setNewObjectState(setIsLoading, { isLoading: loadingState, message: message, statut: txStatut })
+  }
 
-        getCollectionState();
-    }, [authContext]);
+  function stopTxNotif() {
+    setNewObjectState(setIsLoading, { ...INITIAL_LOADING_STATE });
+  }
+
+  React.useEffect(() => {
+    getCollectionState(authContext, setNftState);
+  }, [authContext]);
 
   return(
       <Container maxWidth="lg" sx={{ 
@@ -237,11 +178,13 @@ function Mint(props: Props) {
                 {`Current price: ${ethers.utils.formatEther(nftState.currentPrice)} Ξ`}
               </Typography>
             </Grid>
-            {nftState.nextPrice !== "131313130000000000" && <Grid item xs={12}>
-              <Typography component="p" variant="h6" color="primary" align="center" sx={{ color: "#806c00" }}>
-                {`Next price: ${ethers.utils.formatEther(nftState.nextPrice)} Ξ`}
-              </Typography>
-            </Grid>}
+            {nftState.nextPrice !== "131313130000000000" && (
+              <Grid item xs={12}>
+                <Typography component="p" variant="h6" color="primary" align="center" sx={{ color: "#806c00" }}>
+                  {`Next price: ${ethers.utils.formatEther(nftState.nextPrice)} Ξ`}
+                </Typography>
+              </Grid>
+            )}
             {isLoading.isLoading && <TxHandler message={isLoading.message} statut={isLoading.statut} onClose={stopTxNotif} />}
         </Grid>
       </Container>

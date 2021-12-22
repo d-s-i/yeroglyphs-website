@@ -75,17 +75,22 @@ function MarketplaceGlyph(props: Props) {
             </Grid>
             <Grid item xs={12} sx={{ marginBottom: "3%" }}>
                 <Typography sx={{ marginTop: "5%", marginBottom: "5%", color: "#e6e6e6" }} variant="h6" component="p" align="center">
-                    {props.isGenesis ? <span style={{ color: goldColor }}>{`Genesis Yero #${props.id}`}</span> :  `Yero #${props.id}`}
+                    {props.isGenesis ? <span style={{ color: goldColor }}>{`Genesis Yero #${props.id}`}</span> : `Yero #${props.id}`}
                 </Typography>
             </Grid>
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                 <LoadingButton
-                    sx={{color: "#FFD700", borderColor: "#FFD700", marginBottom: "3%", "&:hover": {borderColor: "#FFD700", backgroundColor: "rgb(201, 19, 195, 0.04)"}}}
+                    sx={{ 
+                        color: "#FFD700", 
+                        borderColor: "#FFD700", 
+                        marginBottom: "3%", 
+                        "&:hover": { borderColor: "#FFD700", backgroundColor: "rgb(201, 19, 195, 0.04)" } 
+                    }}
                     onClick={() => router.push(`/marketplace/${yeroglyphsAddress}/${props.id}`)}
                     loading={isLoading}
                     variant="outlined"
                 >
-                    List
+                    View
                 </LoadingButton>
             </Grid>
         </Box>

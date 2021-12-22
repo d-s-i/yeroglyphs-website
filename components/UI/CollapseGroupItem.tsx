@@ -49,7 +49,7 @@ interface ElementProps {
     details: JSX.Element[];
 }
 
-export default function CustomizedAccordions(accordionProps: ElementProps) {
+export default function CollapseGroupItem(accordionProps: ElementProps) {
   const [expanded, setExpanded] = React.useState<string | false>("");
 
   const handleChange =
@@ -64,7 +64,18 @@ export default function CustomizedAccordions(accordionProps: ElementProps) {
                 <Typography component="p" variant="h6" color="primary">{accordionProps.main}</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ backgroundColor: "#0d0d0d" }}>
-                {accordionProps.details.map(sentence => <Typography key={accordionProps.details.indexOf(sentence)} component="p" variant="subtitle1" color="primary" sx={{ marginTop: "2%" }}>{sentence}</Typography>)}
+                {accordionProps.details.map(sentence => {
+                  return(
+                    <Typography 
+                      key={accordionProps.details.indexOf(sentence)} 
+                      component="span" 
+                      variant="subtitle1" 
+                      color="primary" 
+                    >
+                      {sentence}
+                    </Typography>
+                  );
+                })}
             </AccordionDetails>
         </Accordion>
     </div>
