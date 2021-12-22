@@ -21,7 +21,8 @@ function Marketplace() {
         setNftsState(
             setIsLoading,
             setNftState,
-            authContext
+            authContext,
+            false
         );
 
     }, [authContext]);
