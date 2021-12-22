@@ -13,7 +13,7 @@ function GlyphContainer(props: Props) {
     return(
 
         <div className={`${styles["glyph-container"]} ${props.containMany ? `${styles.border}` : ""}`}>
-            <Grid container sx={{ display: "flex", justifyContent: "space-around" }} >
+            <Grid container sx={{ display: "flex", justifyContent: "space-around", paddingTop: "2%" }} >
                 {props.children}
             </Grid>
         </div>
